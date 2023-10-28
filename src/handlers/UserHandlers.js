@@ -15,8 +15,8 @@ const getAllUserHandler = async (req, res) => {
 
 const postUserHandler = async (req, res) => {
     try {
-        const {name, lastname, nickname, password, Email} = req.body
-        if(!name || !lastname || !nickname || !password || !Email) return res.status(400).json({error: "missing data to be filled in"})
+        const {name, lastname, nickname, password, Email, image} = req.body
+        if(!name || !lastname || !nickname || !password || !Email ) return res.status(400).json({error: "missing data to be filled in"})
 
         const userNick = await User.findOne({
             where: { nickname: nickname}
@@ -28,7 +28,7 @@ const postUserHandler = async (req, res) => {
         })
         if(userEmail) return res.status(400).json({error: "Email already exists, choose another one."})
 
-        await User.create({name, lastname, nickname, password, Email})
+        await User.create({name, lastname, nickname, password, Email, image})
         res.status(200).json({
             succses: 'The user was successfully uploaded to the database'
         })

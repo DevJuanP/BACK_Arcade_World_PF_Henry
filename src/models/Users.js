@@ -33,6 +33,11 @@ module.exports = (sequelize) => {
                 isEmail:true
             }
         },
+        image: {
+            type:DataTypes.STRING,
+            allowNull:false,
+            defaultValue: 'https://imebehavioralhealth.com/wp-content/uploads/2021/10/user-icon-placeholder-1.png'
+        }
 
     },  {timestamps: false})
 }
