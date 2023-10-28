@@ -87,9 +87,7 @@ const VG_userHandler = async (req, res) => {
             }
         }
         
-        res.status(200).json({
-            succses: 'add favorites'
-        })
+        res.status(200).json({ succses: 'add favorites' })
     } catch (error) {
         res.status(400).json({error: error.message})
     }
