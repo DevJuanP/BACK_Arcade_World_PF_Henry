@@ -26,7 +26,7 @@ const VG_User = sequelize.define('VG_user', {
         type: DataTypes.BOOLEAN,
         defaultValue: false,
     },
-    comprado: {
+    purchased: {
         type: DataTypes.BOOLEAN,
         defaultValue: false
     },
