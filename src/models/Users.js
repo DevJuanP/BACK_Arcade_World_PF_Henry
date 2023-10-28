@@ -36,7 +36,7 @@ module.exports = (sequelize) => {
         image: {
             type:DataTypes.STRING,
             allowNull:false,
-            defaultValue: 'https://imebehavioralhealth.com/wp-content/uploads/2021/10/user-icon-placeholder-1.png'
+            defaultValue: 'https://i.ibb.co/GsBDvzC/Imagen-de-un-usuario-no-logueado-con-luces-gamin-1.jpg'
         }
 
     },  {timestamps: false})

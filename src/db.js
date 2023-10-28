@@ -26,7 +26,7 @@ const VG_User = sequelize.define('VG_user', {
         type: DataTypes.BOOLEAN,
         defaultValue: false,
     },
-    comprado: {
+    purchased: {
         type: DataTypes.BOOLEAN,
         defaultValue: false
     },
@@ -42,7 +42,7 @@ const VG_User = sequelize.define('VG_user', {
               msg: 'El valor debe ser 0, 1, 2, 3, 4 o 5',
             },
         },
-        defaultValue:0
+        defaultValue:null
     },
     gameplay: {
         type: DataTypes.INTEGER,
@@ -52,7 +52,7 @@ const VG_User = sequelize.define('VG_user', {
               msg: 'El valor debe ser 0, 1, 2, 3, 4 o 5',
             },
         },
-        defaultValue:0
+        defaultValue:null
     },
     quality_price: {
         type: DataTypes.INTEGER,
@@ -62,7 +62,7 @@ const VG_User = sequelize.define('VG_user', {
               msg: 'El valor debe ser 0, 1, 2, 3, 4 o 5',
             },
         },
-        defaultValue:0
+        defaultValue:null
     },
 }, {timestamps: false})
 //hola :c
