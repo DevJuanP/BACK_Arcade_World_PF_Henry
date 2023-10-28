@@ -140,7 +140,7 @@ const loginUserHandler = async (req, res) => {
 */
 
 const VG_userHandler = async (req, res) => {
-    const {UserId, favorites, reviews} = req.body
+    const {UserId, favorites, reviews, purchased, graphics, gameplay, quality_price} = req.body
     try {
         ////→→ carga los favoritos ←←////
         // → busca favoritos previos:
@@ -181,14 +181,16 @@ const VG_userHandler = async (req, res) => {
             }
         }
 
+
+
         ////→→ carga los Reviews ←←////
         // → busca reviews previos:
         const userRevRelation_prev = await VG_user.findAll({
             where: {
               UserId: UserId,
               review: {
-                [Op.not]: ''
-              }
+                [Op.ne]: ''
+                }
             }
           });
         // → elimina los reviews previos:
@@ -225,13 +227,186 @@ const VG_userHandler = async (req, res) => {
         }
 
         
-        //// → Destrulle relaciones innecesareas:
+        ////→→ carga los comprados ←←////
+        // → busca comprados previos:
+        const userPurRelation_prev = await VG_user.findAll({ where: {
+            UserId: UserId,
+            favorites: true
+        }})
+        // → elimina los comprados previos:
+        for(const relation of userPurRelation_prev){
+            await VG_user.update({ purchased: false}, {
+                where: {
+                    UserId: UserId,
+                    VideogameId: relation.dataValues.VideogameId
+                }
+            })
+        }
+        // → coloca los nuevos comprados:
+        for(const GameId of purchased){
 
-        /*const unusedRelations = await VG_user.findAll({where: {
+            const userFavRelation = await VG_user.findOne({ where: { 
+                UserId: UserId,
+                VideogameId: GameId
+            } })
+
+            if(userFavRelation){
+                await VG_user.update({ purchased: true }, {
+                    where: {
+                        UserId: UserId,
+                        VideogameId: GameId
+                    }
+                  });
+            } else{
+                await VG_user.create({
+                    UserId: UserId,
+                    VideogameId: GameId,
+                    purchased: true,
+                  });
+            }
+        }
+
+                ////→→ carga los Graficos ←←////
+        // → busca Graficos previos:
+        const useGraphRelation_prev = await VG_user.findAll({
+            where: {
+              UserId: UserId,
+              graphics: {
+                [Op.ne]: null
+                }
+            }
+          });
+          // → elimina los Graficos previos:
+          for(const relation of useGraphRelation_prev){
+              await VG_user.update({ graphics: null}, {
+                  where: {
+                      UserId: UserId,
+                      VideogameId: relation.dataValues.VideogameId
+                    }
+                })
+            }
+            // → coloca los nuevos Graficos:
+            for(const GraphFromUser of graphics){
+                const userGraphRelation = await VG_user.findOne({ where: { 
+                    UserId: UserId,
+                    VideogameId: GraphFromUser.GameId
+                } })
+                
+                if(userGraphRelation){
+                    await VG_user.update({ graphics: GraphFromUser.stars }, {
+                        where: {
+                            UserId: UserId,
+                            VideogameId: GraphFromUser.GameId
+                        }
+                    });
+                } else{
+                    await VG_user.create({
+                    UserId: UserId,
+                    VideogameId: GraphFromUser.GameId,
+                    graphics: GraphFromUser.stars,
+                  });
+            }
+        }
+
+                ////→→ carga los Gameplay ←←////
+        // → busca Gameplay previos:
+        const useGPrelation_prev = await VG_user.findAll({
+            where: {
+              UserId: UserId,
+              gameplay: {
+                [Op.ne]: null
+                }
+            }
+          });
+        // → elimina los Gameplay previos:
+        for(const relation of useGPrelation_prev){
+            await VG_user.update({ gameplay: null}, {
+                where: {
+                    UserId: UserId,
+                    VideogameId: relation.dataValues.VideogameId
+                }
+            })
+        }
+        // → coloca los nuevos Gameplay:
+        for(const GPfromUser of gameplay){
+            const userGPRelation = await VG_user.findOne({ where: { 
+                UserId: UserId,
+                VideogameId: GPfromUser.GameId
+            } })
+            
+            if(userGPRelation){
+                await VG_user.update({ gameplay: GPfromUser.stars }, {
+                    where: {
+                        UserId: UserId,
+                        VideogameId: GPfromUser.GameId
+                    }
+                });
+            } else{
+                await VG_user.create({
+                UserId: UserId,
+                VideogameId: GPfromUser.GameId,
+                graphics: GPfromUser.stars,
+                });
+            }
+        }
+
+                ////→→ carga los quality_price ratio ←←////
+        // → busca quality_price ratio previos:
+        const userQaRelation_prev = await VG_user.findAll({
+            where: {
+              UserId: UserId,
+              quality_price: {
+                [Op.ne]: null
+                }
+            }
+          });
+        // → elimina los quality_price ratio previos:
+        for(const relation of userQaRelation_prev){
+            await VG_user.update({ quality_price: null}, {
+                where: {
+                    UserId: UserId,
+                    VideogameId: relation.dataValues.VideogameId
+                }
+            })
+        }
+        // → coloca los nuevos quality_price ratio:
+        for(const QPfromUser of quality_price){
+            const userQPRelation = await VG_user.findOne({ where: { 
+                UserId: UserId,
+                VideogameId: QPfromUser.GameId
+            } })
+            
+            if(userQPRelation){
+                await VG_user.update({ quality_price: QPfromUser.stars }, {
+                    where: {
+                        UserId: UserId,
+                        VideogameId: QPfromUser.GameId
+                    }
+                });
+            } else{
+                await VG_user.create({
+                UserId: UserId,
+                VideogameId: QPfromUser.GameId,
+                quality_price: QPfromUser.stars,
+                });
+            }
+        }
+
+
+        //// → Destrulle relaciones innecesareas:
+        // → Encuenta las relaciones vacias:
+        const unusedRelations = await VG_user.findAll({where: {
             favorites: false,
             purchased: false,
             review: '',
-        }})*/
+            graphics: null,
+            gameplay: null,
+            quality_price: null
+        }})
+        // → elimina todas las relaciones vacias:
+        for(const unused of unusedRelations){
+            await unused.destroy()
+        }
 
         res.status(200).json({ succses: 'add favorites && reviews' })
     } catch (error) {

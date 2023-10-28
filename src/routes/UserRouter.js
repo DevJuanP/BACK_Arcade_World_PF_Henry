@@ -6,6 +6,6 @@ const UserRouter = Router()
 UserRouter.get('/', getAllUserHandler)
 UserRouter.post('/register', postUserHandler)
 UserRouter.post('/login', loginUserHandler)
-UserRouter.post('/logout', VG_userHandler)
+UserRouter.put('/logout', VG_userHandler)
 
 module.exports =  UserRouter
