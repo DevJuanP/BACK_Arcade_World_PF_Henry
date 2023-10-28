@@ -140,7 +140,7 @@ const loginUserHandler = async (req, res) => {
 */
 
 const VG_userHandler = async (req, res) => {
-    const {UserId, favorites, reviews} = req.body
+    const {UserId, favorites, reviews, purchased} = req.body
     try {
         ////→→ carga los favoritos ←←////
         // → busca favoritos previos:
@@ -181,17 +181,20 @@ const VG_userHandler = async (req, res) => {
             }
         }
 
+
+
         ////→→ carga los Reviews ←←////
         // → busca reviews previos:
         const userRevRelation_prev = await VG_user.findAll({
             where: {
               UserId: UserId,
               review: {
-                [Op.not]: ''
-              }
+                [Op.ne]: ''
+                }
             }
           });
         // → elimina los reviews previos:
+
         for(const relation of userRevRelation_prev){
             await VG_user.update({ review: ''}, {
                 where: {
@@ -225,13 +228,60 @@ const VG_userHandler = async (req, res) => {
         }
 
         
-        //// → Destrulle relaciones innecesareas:
+        ////→→ carga los comprados ←←////
+        // → busca comprados previos:
+        const userPurRelation_prev = await VG_user.findAll({ where: {
+            UserId: UserId,
+            favorites: true
+        }})
+        // → elimina los comprados previos:
+        for(const relation of userPurRelation_prev){
+            await VG_user.update({ purchased: false}, {
+                where: {
+                    UserId: UserId,
+                    VideogameId: relation.dataValues.VideogameId
+                }
+            })
+        }
+        // → coloca los nuevos comprados:
+        for(const GameId of purchased){
 
-        /*const unusedRelations = await VG_user.findAll({where: {
+            const userFavRelation = await VG_user.findOne({ where: { 
+                UserId: UserId,
+                VideogameId: GameId
+            } })
+
+            if(userFavRelation){
+                await VG_user.update({ purchased: true }, {
+                    where: {
+                        UserId: UserId,
+                        VideogameId: GameId
+                    }
+                  });
+            } else{
+                await VG_user.create({
+                    UserId: UserId,
+                    VideogameId: GameId,
+                    purchased: true,
+                  });
+            }
+        }
+
+
+        //// → Destrulle relaciones innecesareas:
+        // → Encuenta las relaciones vacias:
+        const unusedRelations = await VG_user.findAll({where: {
             favorites: false,
             purchased: false,
             review: '',
-        }})*/
+            graphics: null,
+            gameplay: null,
+            quality_price: null
+        }})
+        // → elimina todas las relaciones vacias:
+        for(const unused of unusedRelations){
+            await unused.destroy()
+        }
 
         res.status(200).json({ succses: 'add favorites && reviews' })
     } catch (error) {
