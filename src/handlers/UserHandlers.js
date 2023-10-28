@@ -15,6 +15,15 @@ const getAllUserHandler = async (req, res) => {
     }
 }
 
+/*
+body:{
+    "name": "pepe",
+    "lastname": "gonzales",
+    "nickname": "pepis",
+    "password": "1654ddws",
+    "Email": "kjhgb@jh.iyg"
+}
+*/
 const postUserHandler = async (req, res) => {
     try {
         const {name, lastname, nickname, password, Email, image} = req.body
@@ -32,7 +41,7 @@ const postUserHandler = async (req, res) => {
 
         await User.create({name, lastname, nickname, password, Email, image})
         res.status(200).json({
-            succses: 'The user was successfully uploaded to the database'
+            succses: 'The user was successfully uploaded to database'
         })
     } catch (error) {
         res.status(400).json({error: error.message})
@@ -46,18 +55,28 @@ const loginUserHandler = async (req, res) => {
         if(!password) return res.status(400).json({error: "password is missing"})
         if(!nick_email) return res.status(400).json({error: "nickname or Email is missing"})
 
-        let user = await User.findAll({
+        let user = await User.findOne({
             where: {
                 password: password,
+                [Op.or]: [
+                    { Email: nick_email },
+                    { nickname: nick_email }
+                ]
             }
         })
-
-        user = user.filter( user => { return(user.nickname === nick_email || user.Email === nick_email)})[0] 
-
-        res.status(200).json(user)
+        
+        console.log(user);
+        if(!user) return res.status(400).json({
+            login: false,
+            error: {message: 'User not found. Password, Nickname or Email incorrect.'}
+        })
+        
+        res.status(200).json({
+            login: true,
+            user: user
+        })
 
         
-
     } catch (error) {
         res.status(400).json({error: error.message})
     }
@@ -67,53 +86,53 @@ const loginUserHandler = async (req, res) => {
     "UserId": "562d5708-b44b-4db6-9834-96fa7e7c3074",
     "reviews": [
         {
-            "GameId": "ec7319b8-023a-464a-bf6e-b4eb90099e44",
+            "GameId": "2340cc61-9499-4739-bf7c-da2feda1318a",
             "review": "pepe's review 1"
         },
         {
-            "GameId": "8cb1f625-c4c0-4c49-b456-6d256960f1e4",
+            "GameId": "c8de1771-1383-473d-a3c1-bfb7b0d3145f",
             "review": "pepe's review 2"
         },
         {
-            "GameId": "692de331-0a79-4f66-8bf6-817feec076d5",
+            "GameId": "1d74c245-6d23-404b-b803-85b08f55bf4c",
             "review": "pepe's review 3"
         }
     ],
     "favorites": [
-        "87a2eeba-2ccb-4274-84aa-a35758c70075",
-        "c3bafd8c-26e9-4740-aba4-d3f52be48927"
+        "f6e1a380-8bec-487e-b797-dda63a821e24",
+        "97e485cc-e98f-479d-8f6a-03782dbb681f"
     ],
     "purchased": [
-        "44cb4703-1c8a-4c4b-b9a0-ba6dedc36763",
-        "1a149c71-0220-4f20-a16d-65885c56875e"
+        "f4053fc8-5436-4e32-b0f4-3b71324d5e12",
+        "21feb45d-ea65-4bed-9785-6abf879c16db"
     ],
     "graphics": [
         {
-            "GameId": "e19e60be-1711-43e3-8499-296b7e6b8d38",
+            "GameId": "21feb45d-ea65-4bed-9785-6abf879c16db",
             "stars": 3
         },
         {
-            "GameId": "d2fc6a39-b171-4426-8c73-98eb842239c0",
+            "GameId": "f552e940-cf89-45d0-9047-ce1d3ada0d3f",
             "stars": 4
         }
     ],
     "gameplay": [
         {
-            "GameId": "e19e60be-1711-43e3-8499-296b7e6b8d38",
+            "GameId": "f552e940-cf89-45d0-9047-ce1d3ada0d3f",
             "stars": 2
         },
         {
-            "GameId": "6e3753a8-4a7c-4733-90d8-31fe91585e63",
+            "GameId": "dd2d915f-bbb7-4c90-adac-d9b49283769f",
             "stars": 5
         }
     ],
     "quality_price": [
         {
-            "GameId": "d4f94f57-8d56-4538-a5c5-74b3f3e9b992",
+            "GameId": "dd2d915f-bbb7-4c90-adac-d9b49283769f",
             "stars": 3
         },
         {
-            "GameId": "bfb2c1a4-00fe-42be-82d6-7b741823e0da",
+            "GameId": "632a3070-2ca3-4136-87b9-d1221958191b",
             "stars": 2
         }
     ]
@@ -210,7 +229,8 @@ const VG_userHandler = async (req, res) => {
 
         /*const unusedRelations = await VG_user.findAll({where: {
             favorites: false,
-            com
+            purchased: false,
+            review: '',
         }})*/
 
         res.status(200).json({ succses: 'add favorites && reviews' })
