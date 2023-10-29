@@ -52,8 +52,8 @@ const postUserHandler = async (req, res) => {
 const loginUserHandler = async (req, res) => {
     try {
         const {nick_email, password} = req.body //{, Email}
-        if(!password) return res.status(400).json({error: "password is missing"})
-        if(!nick_email) return res.status(400).json({error: "nickname or Email is missing"})
+        if(!password) return res.status(200).json({error: "password is missing"})
+        if(!nick_email) return res.status(200).json({error: "nickname or Email is missing"})
 
         let user = await User.findOne({
             where: {
@@ -66,7 +66,7 @@ const loginUserHandler = async (req, res) => {
         })
         
         console.log(user);
-        if(!user) return res.status(400).json({
+        if(!user) return res.status(200).json({
             login: false,
             error: {message: 'User not found. Password, Nickname or Email incorrect.'}
         })
