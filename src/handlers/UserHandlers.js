@@ -108,7 +108,7 @@ const postUserHandler = async (req, res) => {
             where: { Email: Email}
         })
         if(userEmail) return res.status(400).json({error: "Email already exists, choose another one."})
-
+        
         await User.create({name, lastname, nickname, password, Email, image})
         res.status(200).json({
             succses: 'The user was successfully uploaded to database'
@@ -116,7 +116,7 @@ const postUserHandler = async (req, res) => {
     } catch (error) {
         res.status(400).json({error: error.message})
     }
-   
+    
 }
 
 const loginUserHandler = async (req, res) => {
@@ -130,7 +130,7 @@ const loginUserHandler = async (req, res) => {
             login: false,
             error: {message: 'nickname or Email is missing.'}
         })
-
+        
         let user = await User.findOne({
             where: {
                 password: password,
@@ -153,12 +153,12 @@ const loginUserHandler = async (req, res) => {
                 ],
             }
         }, )
-
+        
         if(!user) return res.status(200).json({
             login: false,
-            error: {message: 'Password, Email or nickName incorrect.'}
+            error: {message: 'User not found. Password, Nickname or Email incorrect.'}
         })
-
+        
         const purchased = user.Videogames.filter( vg => vg.VG_user.purchased).map( vg => { return {
             id: vg.id,
             name: vg.name,
@@ -196,7 +196,6 @@ const loginUserHandler = async (req, res) => {
             stars: vg.VG_user.quality_price
         }})
 
-        
         const userParse = {
             id: user.id,
             name: user.name,
@@ -211,16 +210,11 @@ const loginUserHandler = async (req, res) => {
             quality_price
         }
 
-        if(!user) return res.status(200).json({
-            login: false,
-            error: {message: 'User not found. Password, Nickname or Email incorrect.'}
-        })
         
         res.status(200).json({
             login: true,
             user: userParse
         })
-
         
     } catch (error) {
         res.status(400).json({error: error.message})
