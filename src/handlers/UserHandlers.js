@@ -1,15 +1,85 @@
 const { Op } = require('sequelize')
-const { User, Videogame, VG_user } = require('../db') 
+const { User, Videogame, VG_user, genre, platform } = require('../db') 
 
+const isNumeric = (value) => {
+    return typeof value === "number" && !isNaN(value);
+  };
 
 const getAllUserHandler = async (req, res) => {
     try {
         const allUsers = await User.findAll({
             include: {
                 model: Videogame,
+                include: [
+                    {
+                        model: genre,
+                        attributes: ['name']
+                    },
+                    {
+                        model: platform,
+                        attributes: ['name']
+                    },
+                ],
             }
         })
-        res.status(200).json(allUsers)
+
+        const allUsersParce = allUsers.map(user => {
+
+            const purchased = user.Videogames.filter( vg => vg.VG_user.purchased).map( vg => { return {
+                id: vg.id,
+                name: vg.name,
+                image: vg.image,
+                genres: vg.genres.map( g => g.name),
+                platforms: vg.platforms.map( p => p.name)
+            }})
+
+            const favorites = user.Videogames.filter( vg => vg.VG_user.favorites).map( vg => { return {
+                id: vg.id,
+                name: vg.name,
+                image: vg.image,
+                price: vg.price,
+                genres: vg.genres.map( g => g.name),
+                platforms: vg.platforms.map( p => p.name)
+            }})
+
+            const reviews = user.Videogames.filter( vg => vg.VG_user.review !== '').map( vg => { return {
+                id: vg.id,
+                review: vg.VG_user.review
+            }})
+
+            const graphics = user.Videogames.filter( vg => isNumeric(vg.VG_user.graphics)).map( vg => { return{
+                id: vg.id,
+                stars: vg.VG_user.graphics
+            }})
+
+            const gameplay = user.Videogames.filter( vg => isNumeric(vg.VG_user.gameplay)).map( vg => { return{
+                id: vg.id,
+                stars: vg.VG_user.gameplay
+            }})
+
+            const quality_price = user.Videogames.filter( vg => isNumeric(vg.VG_user.quality_price)).map( vg => { return{
+                id: vg.id,
+                stars: vg.VG_user.quality_price
+            }})
+
+            return {
+                id: user.id,
+                name: user.name,
+                lastname: user.lastname,
+                nickname: user.nickname,
+                Email: user.Email,
+                purchased,
+                favorites,
+                reviews,
+                graphics,
+                gameplay,
+                quality_price
+            }
+        })
+
+
+
+        res.status(200).json(allUsersParce)
     } catch (error) {
         res.status(400).json({error: error.message})
     }
@@ -51,9 +121,15 @@ const postUserHandler = async (req, res) => {
 
 const loginUserHandler = async (req, res) => {
     try {
-        const {nick_email, password} = req.body //{, Email}
-        if(!password) return res.status(200).json({error: "password is missing"})
-        if(!nick_email) return res.status(200).json({error: "nickname or Email is missing"})
+        const {nick_email, password} = req.body 
+        if(!password) return res.status(200).json({
+            login: false,
+            error: {message: 'password is missing.'}
+        })
+        if(!nick_email) return res.status(200).json({
+            login: false,
+            error: {message: 'nickname or Email is missing.'}
+        })
 
         let user = await User.findOne({
             where: {
@@ -62,10 +138,79 @@ const loginUserHandler = async (req, res) => {
                     { Email: nick_email },
                     { nickname: nick_email }
                 ]
+            },
+            include: {
+                model: Videogame,
+                include: [
+                    {
+                        model: genre,
+                        attributes: ['name']
+                    },
+                    {
+                        model: platform,
+                        attributes: ['name']
+                    },
+                ],
             }
+        }, )
+
+        if(!user) return res.status(200).json({
+            login: false,
+            error: {message: 'Password, Email or nickName incorrect.'}
         })
+
+        const purchased = user.Videogames.filter( vg => vg.VG_user.purchased).map( vg => { return {
+            id: vg.id,
+            name: vg.name,
+            image: vg.image,
+            genres: vg.genres.map( g => g.name),
+            platforms: vg.platforms.map( p => p.name)
+        }})
+
+        const favorites = user.Videogames.filter( vg => vg.VG_user.favorites).map( vg => { return {
+            id: vg.id,
+            name: vg.name,
+            image: vg.image,
+            price: vg.price,
+            genres: vg.genres.map( g => g.name),
+            platforms: vg.platforms.map( p => p.name)
+        }})
+
+        const reviews = user.Videogames.filter( vg => vg.VG_user.review !== '').map( vg => { return {
+            id: vg.id,
+            review: vg.VG_user.review
+        }})
+
+        const graphics = user.Videogames.filter( vg => isNumeric(vg.VG_user.graphics)).map( vg => { return{
+            id: vg.id,
+            stars: vg.VG_user.graphics
+        }})
+
+        const gameplay = user.Videogames.filter( vg => isNumeric(vg.VG_user.gameplay)).map( vg => { return{
+            id: vg.id,
+            stars: vg.VG_user.gameplay
+        }})
+
+        const quality_price = user.Videogames.filter( vg => isNumeric(vg.VG_user.quality_price)).map( vg => { return{
+            id: vg.id,
+            stars: vg.VG_user.quality_price
+        }})
+
         
-        console.log(user);
+        const userParse = {
+            id: user.id,
+            name: user.name,
+            lastname: user.lastname,
+            nickname: user.nickname,
+            Email: user.Email,
+            purchased,
+            favorites,
+            reviews,
+            graphics,
+            gameplay,
+            quality_price
+        }
+
         if(!user) return res.status(200).json({
             login: false,
             error: {message: 'User not found. Password, Nickname or Email incorrect.'}
@@ -73,7 +218,7 @@ const loginUserHandler = async (req, res) => {
         
         res.status(200).json({
             login: true,
-            user: user
+            user: userParse
         })
 
         
