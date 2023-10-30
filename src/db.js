@@ -64,7 +64,7 @@ const VG_User = sequelize.define('VG_user', {
         },
         defaultValue:null
     },
-}, {timestamps: false})
+}, {timestamps: true})
 //hola :c
 Videogame.belongsToMany(User, {through: VG_User})
 User.belongsToMany(Videogame, {through: VG_User})
