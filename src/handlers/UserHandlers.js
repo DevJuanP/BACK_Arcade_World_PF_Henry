@@ -97,7 +97,7 @@ body:
 */
 const postUserHandler = async (req, res) => {
     try {
-        const {name, lastname, nickname, password, Email, image} = req.body
+        let {name, lastname, nickname, password, Email, image} = req.body
         if(!name || !lastname || !nickname || !password || !Email ) return res.status(400).json({error: "missing data to be filled in"})
 
         const userNick = await User.findOne({
@@ -110,6 +110,8 @@ const postUserHandler = async (req, res) => {
         })
         if(userEmail) return res.status(400).json({error: "Email already exists, choose another one."})
         
+        if(image === '') image = 'https://i.ibb.co/GsBDvzC/Imagen-de-un-usuario-no-logueado-con-luces-gamin-1.jpg'
+
         await User.create({name, lastname, nickname, password, Email, image})
         res.status(200).json({
             succses: 'The user was successfully uploaded to database'
