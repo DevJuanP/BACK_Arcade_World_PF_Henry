@@ -86,7 +86,8 @@ const getAllUserHandler = async (req, res) => {
 }
 
 /*
-body:{
+body:
+{
     "name": "pepe",
     "lastname": "gonzales",
     "nickname": "pepis",
@@ -202,6 +203,7 @@ const loginUserHandler = async (req, res) => {
             lastname: user.lastname,
             nickname: user.nickname,
             Email: user.Email,
+            image: user.image,
             purchased,
             favorites,
             reviews,
