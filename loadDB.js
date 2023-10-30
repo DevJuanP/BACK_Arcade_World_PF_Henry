@@ -1645,7 +1645,7 @@ const LoadGenre = async () => {
         };
       })
     );
-    console.log('tabala "genre" cargada');
+    console.log('tabla "genre" cargada');
   } catch (error) {
     console.log(error.message);
   }
@@ -1660,7 +1660,7 @@ const LoadPlatform = async () => {
         };
       })
     );
-    console.log('tabala "platform" cargada');
+    console.log('tabla "platform" cargada');
   } catch (error) {
     console.log(error.message);
   }
