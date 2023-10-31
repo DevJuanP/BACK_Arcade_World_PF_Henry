@@ -110,7 +110,7 @@ const getVGbyNameHandler = async (req, res) => {
     if(!name) return getAllVGHandler(req, res)
     try {
         const tofind = name.split(' ') //"war gragon" → ["war", "dragon"], ["portal"]
-        let gameDB = await Videogame.findAll({
+        let gameByName = await Videogame.findAll({
             where: {
                 [Op.or]: tofind.map(str => {
                     return{
@@ -119,9 +119,32 @@ const getVGbyNameHandler = async (req, res) => {
                         }
                     }
                 })
+            },
+            include:[
+                {
+                    model: genre,
+                    attributes: ['name']
+                },
+                {
+                    model: platform,
+                    attributes: ['name']
+                },
+            ]
+        })
+
+        const gameByNameparsed = gameByName.map(vg => {
+            return {
+                id: vg.id,
+                name: vg.name,
+                description: vg.description,
+                image: vg.image,
+                price: vg.price,
+                released: vg.released,
+                genres: vg.genres.map( g => g.name),
+                platforms: vg.platforms.map( p => p.name)
             }
         })
-        res.status(200).json(gameDB)
+        res.status(200).json(gameByNameparsed)
     } catch (error) {
         res.status(400).json({error: error.message})
     }
