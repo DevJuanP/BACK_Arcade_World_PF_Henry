@@ -1,5 +1,5 @@
 const { Router } = require("express") ;
-const { Videogame, User, VG_user } = require('../db')
+const { Videogame, User, VG_user } = require('../../db')
 //const { getAllVGHandler, postVGHandler } = require("../handlers/VGHandler.js") ;
 
 const FBrouter = Router()

@@ -1,5 +1,5 @@
 const { Router } = require("express") ;
-const { getAllVGHandler, postVGHandler, getVGbyIdHandler, getVGbyNameHandler } = require("../handlers/VGHandler.js") ;
+const { getAllVGHandler, postVGHandler, getVGbyIdHandler, getVGbyNameHandler } = require("../../handlers/VGHandler") ;
 
 const VGrouter = Router()
 
