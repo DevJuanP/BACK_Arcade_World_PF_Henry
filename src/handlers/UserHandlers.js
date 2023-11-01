@@ -1,130 +1,58 @@
-const { Op } = require('sequelize')
-const { User, Videogame, VG_user, genre, platform } = require('../db') 
+const getAllUsers = require('../Controlers/UserControllers/getAllUsers')
+const getUsersByName = require('../Controlers/UserControllers/getUsersByName')
+const { User } = require('../db')
+const findUser = require('../Controlers/UserControllers/findUser')
+const loginformaterUser = require('../Controlers/UserControllers/loginformaterUser')
+const loadFavorites = require('../Controlers/UserControllers/loadFavorites')
+const loadReviews = require('../Controlers/UserControllers/loadReviews')
+const loadPurchased = require('../Controlers/UserControllers/loadPurchased')
+const loadStars = require('../Controlers/UserControllers/loadStars')
+const wipeUnsedRelations = require('../Controlers/UserControllers/wipeUnsedRelations')
 
-const isNumeric = (value) => {
-    return typeof value === "number" && !isNaN(value);
-  };
-
-const getAllUserHandler = async (req, res) => {
-    try {
-        const allUsers = await User.findAll({
-            include: {
-                model: Videogame,
-                include: [
-                    {
-                        model: genre,
-                        attributes: ['name']
-                    },
-                    {
-                        model: platform,
-                        attributes: ['name']
-                    },
-                ],
-            }
-        })
-
-        const allUsersParce = allUsers.map(user => {
-
-            const purchased = user.Videogames.filter( vg => vg.VG_user.purchased).map( vg => { return {
-                id: vg.id,
-                name: vg.name,
-                image: vg.image,
-                genres: vg.genres.map( g => g.name),
-                platforms: vg.platforms.map( p => p.name)
-            }})
-
-            const favorites = user.Videogames.filter( vg => vg.VG_user.favorites).map( vg => { return {
-                id: vg.id,
-                name: vg.name,
-                image: vg.image,
-                price: vg.price,
-                genres: vg.genres.map( g => g.name),
-                platforms: vg.platforms.map( p => p.name)
-            }})
-
-            const reviews = user.Videogames.filter( vg => vg.VG_user.review !== '').map( vg => { return {
-                id: vg.id,
-                review: vg.VG_user.review
-            }})
-
-            const graphics = user.Videogames.filter( vg => isNumeric(vg.VG_user.graphics)).map( vg => { return{
-                id: vg.id,
-                stars: vg.VG_user.graphics
-            }})
-
-            const gameplay = user.Videogames.filter( vg => isNumeric(vg.VG_user.gameplay)).map( vg => { return{
-                id: vg.id,
-                stars: vg.VG_user.gameplay
-            }})
-
-            const quality_price = user.Videogames.filter( vg => isNumeric(vg.VG_user.quality_price)).map( vg => { return{
-                id: vg.id,
-                stars: vg.VG_user.quality_price
-            }})
-
-            return {
-                id: user.id,
-                name: user.name,
-                lastname: user.lastname,
-                nickname: user.nickname,
-                Email: user.Email,
-                purchased,
-                favorites,
-                reviews,
-                graphics,
-                gameplay,
-                quality_price
-            }
-        })
-
-
-
-        res.status(200).json(allUsersParce)
-    } catch (error) {
-        res.status(400).json({error: error.message})
+const getUsersHandler = async (req, res) => {
+  const name = null
+  try {
+    if(name){
+      const users = await getUsersByName(name)
+      return res.status(200).json(users)
     }
-}
+    const allUsers = await getAllUsers()
+    res.status(200).json(allUsers)
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
 
-/*
-body:
-{
-    "name": "pepe",
-    "lastname": "gonzales",
-    "nickname": "pepis",
-    "password": "1654ddws",
-    "Email": "kjhgb@jh.iyg"
-}
-*/
-const postUserHandler = async (req, res) => {
-    try {
-        let {name, lastname, nickname, password, Email, image} = req.body
-        if(!name || !lastname || !nickname || !password || !Email ) return res.status(400).json({error: "missing data to be filled in"})
 
-        const userNick = await User.findOne({
-            where: { nickname: nickname}
-        })
-        if(userNick) return res.status(400).json({error: "nickname already exists, choose another one."})
+const userRegisterHandler = async (req, res) => {
+  try {
+    let {name, lastname, nickname, password, Email, image} = req.body
+    if(!name || !lastname || !nickname || !password || !Email ) return res.status(200).json({error: "missing data to be filled in"})
 
-        const userEmail = await User.findOne({
-            where: { Email: Email}
-        })
-        if(userEmail) return res.status(400).json({error: "Email already exists, choose another one."})
-        
-        if(image === '') image = 'https://i.ibb.co/GsBDvzC/Imagen-de-un-usuario-no-logueado-con-luces-gamin-1.jpg'
+    const userNick = await User.findOne({
+        where: { nickname: nickname}
+    })
+    if(userNick) return res.status(200).json({error: "nickname already exists, choose another one."})
 
-        await User.create({name, lastname, nickname, password, Email, image})
-        res.status(200).json({
-            succses: 'The user was successfully uploaded to database'
-        })
-    } catch (error) {
-        res.status(400).json({error: error.message})
-    }
+    const userEmail = await User.findOne({
+        where: { Email: Email}
+    })
+    if(userEmail) return res.status(200).json({error: "Email already exists, choose another one."})
     
+    if(image === '') image = 'https://i.ibb.co/GsBDvzC/Imagen-de-un-usuario-no-logueado-con-luces-gamin-1.jpg'
+
+    await User.create({name, lastname, nickname, password, Email, image})
+    res.status(200).json({
+        succses: 'The user was successfully uploaded to database'
+    })
+} catch (error) {
+    res.status(400).json({error: error.message})
 }
+};
 
 const loginUserHandler = async (req, res) => {
-    try {
-        const {nick_email, password} = req.body 
+  try {
+    const {nick_email, password} = req.body 
         if(!password) return res.status(200).json({
             login: false,
             error: {message: 'password is missing.'}
@@ -133,433 +61,46 @@ const loginUserHandler = async (req, res) => {
             login: false,
             error: {message: 'nickname or Email is missing.'}
         })
-        
-        let user = await User.findOne({
-            where: {
-                password: password,
-                [Op.or]: [
-                    { Email: nick_email },
-                    { nickname: nick_email }
-                ]
-            },
-            include: {
-                model: Videogame,
-                include: [
-                    {
-                        model: genre,
-                        attributes: ['name']
-                    },
-                    {
-                        model: platform,
-                        attributes: ['name']
-                    },
-                ],
-            }
-        }, )
-        
-        if(!user) return res.status(200).json({
-            login: false,
-            error: {message: 'User not found. Password, Nickname or Email incorrect.'}
-        })
-        
-        const purchased = user.Videogames.filter( vg => vg.VG_user.purchased).map( vg => { return {
-            id: vg.id,
-            name: vg.name,
-            image: vg.image,
-            genres: vg.genres.map( g => g.name),
-            platforms: vg.platforms.map( p => p.name)
-        }})
 
-        const favorites = user.Videogames.filter( vg => vg.VG_user.favorites).map( vg => { return {
-            id: vg.id,
-            name: vg.name,
-            image: vg.image,
-            price: vg.price,
-            genres: vg.genres.map( g => g.name),
-            platforms: vg.platforms.map( p => p.name)
-        }})
+    const user = await findUser(nick_email, password)
+    
+    if(!user) return res.status(200).json({
+        login: false,
+        error: {message: 'User not found. Password, Nickname or Email incorrect.'}
+      })
 
-        const reviews = user.Videogames.filter( vg => vg.VG_user.review !== '').map( vg => { return {
-            id: vg.id,
-            review: vg.VG_user.review
-        }})
+    const userParsed = loginformaterUser(user)
+    res.status(200).json({
+      login: true,
+      user: userParsed
+  })
 
-        const graphics = user.Videogames.filter( vg => isNumeric(vg.VG_user.graphics)).map( vg => { return{
-            id: vg.id,
-            stars: vg.VG_user.graphics
-        }})
+  } catch (error) {
+    res.status(400).json({error: error.message})
+  }
+};
 
-        const gameplay = user.Videogames.filter( vg => isNumeric(vg.VG_user.gameplay)).map( vg => { return{
-            id: vg.id,
-            stars: vg.VG_user.gameplay
-        }})
 
-        const quality_price = user.Videogames.filter( vg => isNumeric(vg.VG_user.quality_price)).map( vg => { return{
-            id: vg.id,
-            stars: vg.VG_user.quality_price
-        }})
-
-        const userParse = {
-            id: user.id,
-            name: user.name,
-            lastname: user.lastname,
-            nickname: user.nickname,
-            Email: user.Email,
-            image: user.image,
-            purchased,
-            favorites,
-            reviews,
-            graphics,
-            gameplay,
-            quality_price
-        }
-
-        
-        res.status(200).json({
-            login: true,
-            user: userParse
-        })
-        
-    } catch (error) {
-        res.status(400).json({error: error.message})
-    }
-}
-/* body:
-{
-    "UserId": "562d5708-b44b-4db6-9834-96fa7e7c3074",
-    "reviews": [
-        {
-            "GameId": "2340cc61-9499-4739-bf7c-da2feda1318a",
-            "review": "pepe's review 1"
-        },
-        {
-            "GameId": "c8de1771-1383-473d-a3c1-bfb7b0d3145f",
-            "review": "pepe's review 2"
-        },
-        {
-            "GameId": "1d74c245-6d23-404b-b803-85b08f55bf4c",
-            "review": "pepe's review 3"
-        }
-    ],
-    "favorites": [
-        "f6e1a380-8bec-487e-b797-dda63a821e24",
-        "97e485cc-e98f-479d-8f6a-03782dbb681f"
-    ],
-    "purchased": [
-        "f4053fc8-5436-4e32-b0f4-3b71324d5e12",
-        "21feb45d-ea65-4bed-9785-6abf879c16db"
-    ],
-    "graphics": [
-        {
-            "GameId": "21feb45d-ea65-4bed-9785-6abf879c16db",
-            "stars": 3
-        },
-        {
-            "GameId": "f552e940-cf89-45d0-9047-ce1d3ada0d3f",
-            "stars": 4
-        }
-    ],
-    "gameplay": [
-        {
-            "GameId": "f552e940-cf89-45d0-9047-ce1d3ada0d3f",
-            "stars": 2
-        },
-        {
-            "GameId": "dd2d915f-bbb7-4c90-adac-d9b49283769f",
-            "stars": 5
-        }
-    ],
-    "quality_price": [
-        {
-            "GameId": "dd2d915f-bbb7-4c90-adac-d9b49283769f",
-            "stars": 3
-        },
-        {
-            "GameId": "632a3070-2ca3-4136-87b9-d1221958191b",
-            "stars": 2
-        }
-    ]
-}
-*/
 
 const VG_userHandler = async (req, res) => {
-    const {UserId, favorites, reviews, purchased, graphics, gameplay, quality_price} = req.body
-    try {
-        ////→→ carga los favoritos ←←////
-        // → busca favoritos previos:
-        const userFavRelation_prev = await VG_user.findAll({ where: {
-            UserId: UserId,
-            favorites: true
-        }})
-        // → elimina los favoritos previos:
-        for(const relation of userFavRelation_prev){
-            await VG_user.update({ favorites: false}, {
-                where: {
-                    UserId: UserId,
-                    VideogameId: relation.dataValues.VideogameId
-                }
-            })
-        }
-        // → coloca los nuevos favoritos:
-        for(const GameId of favorites){
+  const {UserId, favorites, reviews, purchased, graphics, gameplay, quality_price} = req.body
+  try {
+    
+    await loadFavorites(UserId, favorites)
+    await loadReviews(UserId, reviews)
+    await loadPurchased(UserId, purchased)
+    await loadStars(UserId, graphics, gameplay, quality_price)
 
-            const userFavRelation = await VG_user.findOne({ where: { 
-                UserId: UserId,
-                VideogameId: GameId
-            } })
-
-            if(userFavRelation){
-                await VG_user.update({ favorites: true }, {
-                    where: {
-                        UserId: UserId,
-                        VideogameId: GameId
-                    }
-                  });
-            } else{
-                await VG_user.create({
-                    UserId: UserId,
-                    VideogameId: GameId,
-                    favorites: true,
-                  });
-            }
-        }
-
-
-
-        ////→→ carga los Reviews ←←////
-        // → busca reviews previos:
-        const userRevRelation_prev = await VG_user.findAll({
-            where: {
-              UserId: UserId,
-              review: {
-                [Op.ne]: ''
-                }
-            }
-          });
-        // → elimina los reviews previos:
-        for(const relation of userRevRelation_prev){
-            await VG_user.update({ review: ''}, {
-                where: {
-                    UserId: UserId,
-                    VideogameId: relation.dataValues.VideogameId
-                }
-            })
-        }
-        // → coloca los nuevos reviews:
-        for(const reviewFromUser of reviews){
-
-            const userRevRelation = await VG_user.findOne({ where: { 
-                UserId: UserId,
-                VideogameId: reviewFromUser.GameId
-            } })
-
-            if(userRevRelation){
-                await VG_user.update({ review: reviewFromUser.review }, {
-                    where: {
-                        UserId: UserId,
-                        VideogameId: reviewFromUser.GameId
-                    }
-                  });
-            } else{
-                await VG_user.create({
-                    UserId: UserId,
-                    VideogameId: reviewFromUser.GameId,
-                    review: reviewFromUser.review,
-                  });
-            }
-        }
-
-        
-        ////→→ carga los comprados ←←////
-        // → busca comprados previos:
-        const userPurRelation_prev = await VG_user.findAll({ where: {
-            UserId: UserId,
-            favorites: true
-        }})
-        // → elimina los comprados previos:
-        for(const relation of userPurRelation_prev){
-            await VG_user.update({ purchased: false}, {
-                where: {
-                    UserId: UserId,
-                    VideogameId: relation.dataValues.VideogameId
-                }
-            })
-        }
-        // → coloca los nuevos comprados:
-        for(const GameId of purchased){
-
-            const userFavRelation = await VG_user.findOne({ where: { 
-                UserId: UserId,
-                VideogameId: GameId
-            } })
-
-            if(userFavRelation){
-                await VG_user.update({ purchased: true }, {
-                    where: {
-                        UserId: UserId,
-                        VideogameId: GameId
-                    }
-                  });
-            } else{
-                await VG_user.create({
-                    UserId: UserId,
-                    VideogameId: GameId,
-                    purchased: true,
-                  });
-            }
-        }
-
-                ////→→ carga los Graficos ←←////
-        // → busca Graficos previos:
-        const useGraphRelation_prev = await VG_user.findAll({
-            where: {
-              UserId: UserId,
-              graphics: {
-                [Op.ne]: null
-                }
-            }
-          });
-          // → elimina los Graficos previos:
-          for(const relation of useGraphRelation_prev){
-              await VG_user.update({ graphics: null}, {
-                  where: {
-                      UserId: UserId,
-                      VideogameId: relation.dataValues.VideogameId
-                    }
-                })
-            }
-            // → coloca los nuevos Graficos:
-            for(const GraphFromUser of graphics){
-                const userGraphRelation = await VG_user.findOne({ where: { 
-                    UserId: UserId,
-                    VideogameId: GraphFromUser.GameId
-                } })
-                
-                if(userGraphRelation){
-                    await VG_user.update({ graphics: GraphFromUser.stars }, {
-                        where: {
-                            UserId: UserId,
-                            VideogameId: GraphFromUser.GameId
-                        }
-                    });
-                } else{
-                    await VG_user.create({
-                    UserId: UserId,
-                    VideogameId: GraphFromUser.GameId,
-                    graphics: GraphFromUser.stars,
-                  });
-            }
-        }
-
-                ////→→ carga los Gameplay ←←////
-        // → busca Gameplay previos:
-        const useGPrelation_prev = await VG_user.findAll({
-            where: {
-              UserId: UserId,
-              gameplay: {
-                [Op.ne]: null
-                }
-            }
-          });
-        // → elimina los Gameplay previos:
-        for(const relation of useGPrelation_prev){
-            await VG_user.update({ gameplay: null}, {
-                where: {
-                    UserId: UserId,
-                    VideogameId: relation.dataValues.VideogameId
-                }
-            })
-        }
-        // → coloca los nuevos Gameplay:
-        for(const GPfromUser of gameplay){
-            const userGPRelation = await VG_user.findOne({ where: { 
-                UserId: UserId,
-                VideogameId: GPfromUser.GameId
-            } })
-            
-            if(userGPRelation){
-                await VG_user.update({ gameplay: GPfromUser.stars }, {
-                    where: {
-                        UserId: UserId,
-                        VideogameId: GPfromUser.GameId
-                    }
-                });
-            } else{
-                await VG_user.create({
-                UserId: UserId,
-                VideogameId: GPfromUser.GameId,
-                graphics: GPfromUser.stars,
-                });
-            }
-        }
-
-                ////→→ carga los quality_price ratio ←←////
-        // → busca quality_price ratio previos:
-        const userQaRelation_prev = await VG_user.findAll({
-            where: {
-              UserId: UserId,
-              quality_price: {
-                [Op.ne]: null
-                }
-            }
-          });
-        // → elimina los quality_price ratio previos:
-        for(const relation of userQaRelation_prev){
-            await VG_user.update({ quality_price: null}, {
-                where: {
-                    UserId: UserId,
-                    VideogameId: relation.dataValues.VideogameId
-                }
-            })
-        }
-        // → coloca los nuevos quality_price ratio:
-        for(const QPfromUser of quality_price){
-            const userQPRelation = await VG_user.findOne({ where: { 
-                UserId: UserId,
-                VideogameId: QPfromUser.GameId
-            } })
-            
-            if(userQPRelation){
-                await VG_user.update({ quality_price: QPfromUser.stars }, {
-                    where: {
-                        UserId: UserId,
-                        VideogameId: QPfromUser.GameId
-                    }
-                });
-            } else{
-                await VG_user.create({
-                UserId: UserId,
-                VideogameId: QPfromUser.GameId,
-                quality_price: QPfromUser.stars,
-                });
-            }
-        }
-
-
-        //// → Destrulle relaciones innecesareas:
-        // → Encuenta las relaciones vacias:
-        const unusedRelations = await VG_user.findAll({where: {
-            favorites: false,
-            purchased: false,
-            review: '',
-            graphics: null,
-            gameplay: null,
-            quality_price: null
-        }})
-        // → elimina todas las relaciones vacias:
-        for(const unused of unusedRelations){
-            await unused.destroy()
-        }
-
-        res.status(200).json({ succses: 'add favorites && reviews' })
-    } catch (error) {
-        res.status(400).json({error: error.message})
-    }
-}
+    await wipeUnsedRelations()
+    res.status(200).json({ succses: 'Successful update of the relationship between users and video games' })
+  } catch (error) {
+    res.status(400).json({error: error.message})
+  }
+};
 
 module.exports = {
-    getAllUserHandler,
-    postUserHandler,
-    loginUserHandler,
-    VG_userHandler
-}
+  getUsersHandler,
+  userRegisterHandler,
+  loginUserHandler,
+  VG_userHandler,
+};

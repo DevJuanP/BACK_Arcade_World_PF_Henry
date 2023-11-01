@@ -1,7 +1,6 @@
 const { Router } = require('express') 
-const VGrouter = require('./VGrouter.js') 
-const UserRouter = require('./UserRouter.js')
-const Favorites = require('./Favorites.js')
+const VGrouter = require('./Grouter Videogames/VGrouter') 
+const UserRouter = require('./Routers users/UserRouter')
 const getplatformshandler = require('../handlers/getplatformshandler.js')
 const getGeresHandler = require('../handlers/getGeresHandler.js')
 
@@ -11,8 +10,6 @@ const router = Router()
 
 router.use('/videogame', VGrouter)
 router.use('/user', UserRouter)
-//router.use('/favorites', Favorites)
-
 
 
 router.use('/platform', getplatformshandler)
