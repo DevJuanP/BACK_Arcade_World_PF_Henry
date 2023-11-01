@@ -1,10 +1,15 @@
 const { Router } = require("express") ;
-const { getAllUserHandler, postUserHandler, loginUserHandler, VG_userHandler } = require("../../handlers/UserHandlers.js") ;
+const {
+    getUsersHandler,
+    userRegisterHandler,
+    loginUserHandler,
+    VG_userHandler,
+  } = require("../../handlers/UserHandlers") ;
 
 const UserRouter = Router()
 
-UserRouter.get('/', getAllUserHandler)
-UserRouter.post('/register', postUserHandler)
+UserRouter.get('/', getUsersHandler)
+UserRouter.post('/register', userRegisterHandler)
 UserRouter.post('/login', loginUserHandler)
 UserRouter.put('/logout', VG_userHandler)
 

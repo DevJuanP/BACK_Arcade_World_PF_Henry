@@ -1,4 +1,4 @@
-const { Videogame, genre, platform, User } = require('../db');
+const { Videogame, genre, platform, User } = require('../../db');
 const { Op } = require('sequelize');
 
 const isNumeric = (value) => {

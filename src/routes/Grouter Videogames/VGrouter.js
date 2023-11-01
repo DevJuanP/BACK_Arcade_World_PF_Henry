@@ -1,11 +1,15 @@
 const { Router } = require("express") ;
-const { getAllVGHandler, postVGHandler, getVGbyIdHandler, getVGbyNameHandler } = require("../../handlers/VGHandler") ;
+const {
+    getGamesHandler,
+    getGamebyIdHandler,
+    postGameHandler
+} = require("../../handlers/VGHandler") ;
 
 const VGrouter = Router()
 
-VGrouter.get('/', getVGbyNameHandler)
-VGrouter.post('/', postVGHandler)
-VGrouter.get('/:id', getVGbyIdHandler)
+VGrouter.get('/', getGamesHandler)
+VGrouter.post('/', postGameHandler)
+VGrouter.get('/:id', getGamebyIdHandler)
 //VGrouter.get('/name', getVGbyNameHandler)
 
 module.exports =  VGrouter

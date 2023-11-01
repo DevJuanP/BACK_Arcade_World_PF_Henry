@@ -2,10 +2,10 @@ const { Sequelize } = require('sequelize')
 require('dotenv').config()
 const { DataTypes } = require('sequelize')
 
-const Videogames = require('./models/Videogames/Videogames.js')  
-const Users = require('./models/Users/Users.js')
-const genres = require('./models/Generos/genres.js')
-const platforms = require('./models/Platforms/platforms.js')
+const Videogames = require('./models/Videogames.js')  
+const Users = require('./models/Users.js')
+const genres = require('./models/genres.js')
+const platforms = require('./models/platforms.js')
 
 const { DB_USER, DB_PASSWORD, DB_HOST } = process.env
 
