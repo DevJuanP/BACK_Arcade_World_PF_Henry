@@ -1636,6 +1636,8 @@ const {
   videogame_Plataform,
 } = require("./src/db.js");
 
+const { conn } = require('./src/db.js')
+
 const LoadGenre = async () => {
   try {
     const generos = await genre.bulkCreate(
@@ -1677,6 +1679,7 @@ const LoadGame = async () => {
 
 const LoadDB = async () => {
   try {
+    await conn.sync({ force: true })
     await LoadGenre();
     await LoadPlatform();
     await LoadGame();
@@ -1713,7 +1716,7 @@ const LoadDB = async () => {
       }
     }
     console.log("relaciones de Videogames con platforms completada");
-
+    await conn.sync({ alert: true })
     console.log("BASE DE DATOS LISTA PARA USAR");
   } catch (error) {
     console.log(error.message);
