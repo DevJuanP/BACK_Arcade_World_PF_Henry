@@ -8,13 +8,28 @@ module.exports = (sequelize) => {
         defaultValue: false,
     },
     purchased: {
-        type: DataTypes.BOOLEAN,
-        defaultValue: false
+        type: DataTypes.DATE,
+        defaultValue: null
     },
     review: {
-        type: DataTypes.STRING,
-        defaultValue: ''
-    },
+        type: DataTypes.JSONB,//{value: "review", editedAt: Date }
+        get() {
+          const reviewData = this.getDataValue('review');
+          return reviewData === null
+          ? null
+          : {
+            value: reviewData.value,
+            editedAt: new Date(reviewData.editedAt),
+          };
+        },
+        set(value) {
+          value === null
+          ? this.setDataValue('review', null)
+          : this.setDataValue('review', {
+              value,
+              editedAt: new Date(),
+            })}
+      },
     graphics: {
         type: DataTypes.INTEGER,
         validate: {
@@ -45,5 +60,5 @@ module.exports = (sequelize) => {
         },
         defaultValue:null
     },
-}, {timestamps: true})
+    }, {timestamps: false})
 };

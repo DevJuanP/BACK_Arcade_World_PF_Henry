@@ -21,8 +21,14 @@ module.exports = (sequelize) => {
         unique: true
       },
       password: {
-        type: DataTypes.STRING, 
-        allowNull: false 
+        type: DataTypes.STRING,
+        allowNull: true,
+        defaultValue: null 
+      },
+      uid: {
+        type: DataTypes.STRING,
+        allowNull: true,
+        defaultValue: null
       },
       Email: {
         type: DataTypes.STRING, 
@@ -35,10 +41,24 @@ module.exports = (sequelize) => {
       image: {
         type: DataTypes.STRING, 
         allowNull: false, 
-        defaultValue: 'https://i.ibb.co/GsBDvzC/Imagen-de-un-usuario-no-logueado-con-luces-gamin-1.jpg' 
+        defaultValue: 'https://i.ibb.co/ypHpjDN/Whats-App-Image-2023-11-03-at-7-56-13-PM.jpg' 
+      },
+      logincount: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 0
+      },
+      admin: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue:false
+      },
+      active: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: true
       }
     }, {
-      timestamps: false 
-    });
-  };
+      timestamps: true 
+  })};
   
