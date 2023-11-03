@@ -12,7 +12,7 @@ module.exports = (sequelize) => {
       allowNull: false 
     },
     name: {
-      type: DataTypes.STRING, // Tipo de dato STRING para el nombre del videojuego
+      type: DataTypes.STRING, 
       allowNull: false, 
       unique: true 
     },
@@ -22,17 +22,18 @@ module.exports = (sequelize) => {
     },
     image: {
       type: DataTypes.TEXT, 
-      allowNull: false 
+      allowNull: false,
+      defaultValue: 'https://i.pinimg.com/originals/5b/06/45/5b06456e236379422e569a9449c38d89.jpg'
     },
     price: {
-      type: DataTypes.FLOAT, // Tipo de dato FLOAT para el precio del videojuego
+      type: DataTypes.FLOAT, //
       allowNull: false 
     },
     released: {
-      type: DataTypes.DATEONLY, // Tipo de dato DATEONLY para la fecha de lanzamiento (yyyy-mm-dd)
+      type: DataTypes.DATEONLY, // (yyyy-mm-dd)
       allowNull: false 
     }
   }, {
-    timestamps: false 
+    timestamps: true 
   });
 };
