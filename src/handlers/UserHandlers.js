@@ -11,29 +11,28 @@ const wipeUnsedRelations = require('../Controlers/UserControllers/wipeUnsedRelat
 const { hash, compare } = require('../utils/hash')
 
 const getUsersHandler = async (req, res) => {
-  const name = null
+  const name = null;
   try {
-    if(name){
-      const users = await getUsersByName(name)
-      return res.status(200).json(users)
+    if (name) {
+      const users = await getUsersByName(name);
+      return res.status(200).json(users);
     }
-    const allUsers = await getAllUsers()
-    res.status(200).json(allUsers)
+    const allUsers = await getAllUsers();
+    res.status(200).json(allUsers);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
 };
 
-
 const userRegisterHandler = async (req, res) => {
   try {
-    let {name, lastname, nickname, password, Email, image} = req.body
-    if(!name || !lastname || !nickname || !password || !Email ) return res.status(200).json({error: "missing data to be filled in"})
+    let { name, lastname, nickname, password, Email, image } = req.body;
+    if (!name || !lastname || !nickname || !password || !Email) return res.status(200).json({ error: "missing data to be filled in" });
 
     const userNick = await User.findOne({
-        where: { nickname: nickname}
-    })
-    if(userNick) return res.status(200).json({error: "nickname already exists, choose another one."})
+      where: { nickname: nickname }
+    });
+    if (userNick) return res.status(200).json({ error: "nickname already exists, choose another one." });
 
     const userEmail = await User.findOne({
         where: { Email: Email}
@@ -45,14 +44,12 @@ const userRegisterHandler = async (req, res) => {
     password = await hash(password)
 
     await User.create({name, lastname, nickname, password, Email, image})
-   
-    //Sendmail.wellcome(Email, name, nickname)
     res.status(200).json({
-        succses: 'The user was successfully uploaded to database'
-    })
-} catch (error) {
-    res.status(400).json({error: error.message})
-}
+      success: 'The user was successfully uploaded to the database'
+    });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
 };
 
 const updateUserHandler = async (req, res) => {
@@ -75,53 +72,56 @@ const updateUserHandler = async (req, res) => {
 
 const loginUserHandler = async (req, res) => {
   try {
-    const {nick_email, password} = req.body 
-        if(!password) return res.status(200).json({
-            login: false,
-            error: {message: 'password is missing.'}
-        })
-        if(!nick_email) return res.status(200).json({
-            login: false,
-            error: {message: 'nickname or Email is missing.'}
-        })
+    const { nick_email, password } = req.body;
+    if (!password) return res.status(200).json({
+      login: false,
+      error: { message: 'password is missing.' }
+    });
+    if (!nick_email) return res.status(200).json({
+      login: false,
+      error: { message: 'nickname or Email is missing.' }
+    });
 
     const user = await findUser(nick_email)
     
     if(!user) return res.status(200).json({
-      login: false,
-      error: {message: 'User not found. Password, Nickname or Email incorrect.'}
-    })
-    
+        login: false,
+        error: {message: 'User not found. Password, Nickname or Email incorrect.'}
+      })
+
     const isAutenticated = await compare(password, user.password)
 
-    if(isAutenticated) {
+    if(isAutenticated){
       const userParsed = loginformaterUser(user)
       res.status(200).json({
         login: true,
         user: userParsed
       })
+    }else{
+      res.status(200).json({
+        login: false,
+        error: {message: 'Incorrect password.'}
+      })
     }
 
   } catch (error) {
-    res.status(400).json({error: error.message})
+    res.status(400).json({ error: error.message });
   }
 };
 
-
-
 const VG_userHandler = async (req, res) => {
-  const {UserId, favorites, reviews, purchased, graphics, gameplay, quality_price} = req.body
+  const { UserId, favorites, reviews, purchased, graphics, gameplay, quality_price } = req.body;
   try {
-    
-    await loadFavorites(UserId, favorites)
-    await loadReviews(UserId, reviews)
-    await loadPurchased(UserId, purchased)
-    await loadStars(UserId, graphics, gameplay, quality_price)
 
-    await wipeUnsedRelations()
-    res.status(200).json({ succses: 'Successful update of the relationship between users and video games' })
+    await loadFavorites(UserId, favorites);
+    await loadReviews(UserId, reviews);
+    await loadPurchased(UserId, purchased);
+    await loadStars(UserId, graphics, gameplay, quality_price);
+
+    await wipeUnsedRelations();
+    res.status(200).json({ success: 'Successful update of the relationship between users and video games' });
   } catch (error) {
-    res.status(400).json({error: error.message})
+    res.status(400).json({ error: error.message });
   }
 };
 
