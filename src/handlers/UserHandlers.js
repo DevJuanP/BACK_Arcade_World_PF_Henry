@@ -8,6 +8,7 @@ const loadReviews = require('../Controlers/UserControllers/loadReviews')
 const loadPurchased = require('../Controlers/UserControllers/loadPurchased')
 const loadStars = require('../Controlers/UserControllers/loadStars')
 const wipeUnsedRelations = require('../Controlers/UserControllers/wipeUnsedRelations')
+const { hash, compare } = require('../utils/hash')
 
 const getUsersHandler = async (req, res) => {
   const name = null
@@ -41,7 +42,11 @@ const userRegisterHandler = async (req, res) => {
     
     if(image === '') image = 'https://i.ibb.co/GsBDvzC/Imagen-de-un-usuario-no-logueado-con-luces-gamin-1.jpg'
 
+    password = await hash(password)
+
     await User.create({name, lastname, nickname, password, Email, image})
+   
+    //Sendmail.wellcome(Email, name, nickname)
     res.status(200).json({
         succses: 'The user was successfully uploaded to database'
     })
@@ -49,6 +54,24 @@ const userRegisterHandler = async (req, res) => {
     res.status(400).json({error: error.message})
 }
 };
+
+const updateUserHandler = async (req, res) => {
+  try {
+    
+
+
+/*
+
+    const user = await  User.findOne({
+      where: UserId
+    })
+    Sendmail.userUpdate(user.Email, )
+*/
+
+  } catch (error) {
+    
+  }
+}
 
 const loginUserHandler = async (req, res) => {
   try {
@@ -62,18 +85,22 @@ const loginUserHandler = async (req, res) => {
             error: {message: 'nickname or Email is missing.'}
         })
 
-    const user = await findUser(nick_email, password)
+    const user = await findUser(nick_email)
     
     if(!user) return res.status(200).json({
-        login: false,
-        error: {message: 'User not found. Password, Nickname or Email incorrect.'}
-      })
+      login: false,
+      error: {message: 'User not found. Password, Nickname or Email incorrect.'}
+    })
+    
+    const isAutenticated = await compare(password, user.password)
 
-    const userParsed = loginformaterUser(user)
-    res.status(200).json({
-      login: true,
-      user: userParsed
-  })
+    if(isAutenticated) {
+      const userParsed = loginformaterUser(user)
+      res.status(200).json({
+        login: true,
+        user: userParsed
+      })
+    }
 
   } catch (error) {
     res.status(400).json({error: error.message})
