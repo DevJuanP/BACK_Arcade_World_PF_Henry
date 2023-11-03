@@ -1,43 +1,41 @@
 const { DataTypes } = require("sequelize");
 module.exports = (sequelize) => {
-    // Definimos el modelo de usuario (User) y le inyectamos la conexión a Sequelize.
-  
     sequelize.define('User', {
       id: {
-        type: DataTypes.UUID, // Tipo de dato UUID
-        defaultValue: DataTypes.UUIDV4, // Valor predeterminado generado automáticamente
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4, 
         primaryKey: true,  
         allowNull: false 
       },
       name: {
-        type: DataTypes.STRING, // Tipo de dato STRING para el nombre
+        type: DataTypes.STRING, 
         allowNull: false 
       },
       lastname: {
-        type: DataTypes.STRING, // Tipo de dato STRING para el apellido
+        type: DataTypes.STRING, 
         allowNull: false 
       },
       nickname: {
-        type: DataTypes.STRING, // Tipo de dato STRING para el apodo/nickname
+        type: DataTypes.STRING, 
         allowNull: false, 
         unique: true
       },
       password: {
-        type: DataTypes.STRING, // Tipo de dato STRING para la contraseña
+        type: DataTypes.STRING, 
         allowNull: false 
       },
       Email: {
-        type: DataTypes.STRING, // Tipo de dato STRING para la dirección de correo electrónico
+        type: DataTypes.STRING, 
         allowNull: false, 
         unique: true, 
         validate: {
-          isEmail: true // Valida que sea una dirección de correo electrónico válida
+          isEmail: true 
         }
       },
       image: {
-        type: DataTypes.STRING, // Tipo de dato STRING para la URL de la imagen de perfil
+        type: DataTypes.STRING, 
         allowNull: false, 
-        defaultValue: 'https://i.ibb.co/GsBDvzC/Imagen-de-un-usuario-no-logueado-con-luces-gamin-1.jpg' // Valor predeterminado si no se proporciona
+        defaultValue: 'https://i.ibb.co/GsBDvzC/Imagen-de-un-usuario-no-logueado-con-luces-gamin-1.jpg' 
       }
     }, {
       timestamps: false 

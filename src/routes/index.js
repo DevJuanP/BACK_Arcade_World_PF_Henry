@@ -16,3 +16,17 @@ router.use('/platform', getplatformshandler)
 router.use('/genre',getGeresHandler)
 
 module.exports = router
+
+/*
+    ruta para compras_
+    post: '/purchase'
+    body: {
+        purchases:[
+            gameIds...
+        ]
+    }
+    //pasarela de pago:
+    redirección:
+    exito: http//localhost:5473/summary
+    fail: http//localhost:5473/failed
+*/

@@ -1,14 +1,14 @@
-const bcrypt = require('bcrypt');
-const getAllUsers = require('../Controlers/UserControllers/getAllUsers');
-const getUsersByName = require('../Controlers/UserControllers/getUsersByName');
-const { User } = require('../db');
-const findUser = require('../Controlers/UserControllers/findUser');
-const loginformaterUser = require('../Controlers/UserControllers/loginformaterUser');
-const loadFavorites = require('../Controlers/UserControllers/loadFavorites');
-const loadReviews = require('../Controlers/UserControllers/loadReviews');
-const loadPurchased = require('../Controlers/UserControllers/loadPurchased');
-const loadStars = require('../Controlers/UserControllers/loadStars');
-const wipeUnsedRelations = require('../Controlers/UserControllers/wipeUnsedRelations');
+const getAllUsers = require('../Controlers/UserControllers/getAllUsers')
+const getUsersByName = require('../Controlers/UserControllers/getUsersByName')
+const { User } = require('../db')
+const findUser = require('../Controlers/UserControllers/findUser')
+const loginformaterUser = require('../Controlers/UserControllers/loginformaterUser')
+const loadFavorites = require('../Controlers/UserControllers/loadFavorites')
+const loadReviews = require('../Controlers/UserControllers/loadReviews')
+const loadPurchased = require('../Controlers/UserControllers/loadPurchased')
+const loadStars = require('../Controlers/UserControllers/loadStars')
+const wipeUnsedRelations = require('../Controlers/UserControllers/wipeUnsedRelations')
+const { hash, compare } = require('../utils/hash')
 
 const getUsersHandler = async (req, res) => {
   const name = null;
@@ -35,17 +35,15 @@ const userRegisterHandler = async (req, res) => {
     if (userNick) return res.status(200).json({ error: "nickname already exists, choose another one." });
 
     const userEmail = await User.findOne({
-      where: { Email: Email }
-    });
-    if (userEmail) return res.status(200).json({ error: "Email already exists, choose another one." });
+        where: { Email: Email}
+    })
+    if(userEmail) return res.status(200).json({error: "Email already exists, choose another one."})
+    
+    if(image === '') image = 'https://i.ibb.co/GsBDvzC/Imagen-de-un-usuario-no-logueado-con-luces-gamin-1.jpg'
 
-    if (image === '') image = 'https://i.ibb.co/GsBDvzC/Imagen-de-un-usuario-no-logueado-con-luces-gamin-1.jpg';
+    password = await hash(password)
 
-    const saltRounds = 10;
-    const hashedPassword = await bcrypt.hash(password, saltRounds);
-
-    await User.create({ name, lastname, nickname, password: hashedPassword, Email, image });
-
+    await User.create({name, lastname, nickname, password, Email, image})
     res.status(200).json({
       success: 'The user was successfully uploaded to the database'
     });
@@ -53,6 +51,24 @@ const userRegisterHandler = async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 };
+
+const updateUserHandler = async (req, res) => {
+  try {
+    
+
+
+/*
+
+    const user = await  User.findOne({
+      where: UserId
+    })
+    Sendmail.userUpdate(user.Email, )
+*/
+
+  } catch (error) {
+    
+  }
+}
 
 const loginUserHandler = async (req, res) => {
   try {
@@ -66,18 +82,27 @@ const loginUserHandler = async (req, res) => {
       error: { message: 'nickname or Email is missing.' }
     });
 
-    const user = await findUser(nick_email, password);
+    const user = await findUser(nick_email)
+    
+    if(!user) return res.status(200).json({
+        login: false,
+        error: {message: 'User not found. Password, Nickname or Email incorrect.'}
+      })
 
-    if (!user) return res.status(200).json({
-      login: false,
-      error: { message: 'User not found. Password, Nickname, or Email is incorrect.' }
-    });
+    const isAutenticated = await compare(password, user.password)
 
-    const userParsed = loginformaterUser(user);
-    res.status(200).json({
-      login: true,
-      user: userParsed
-    });
+    if(isAutenticated){
+      const userParsed = loginformaterUser(user)
+      res.status(200).json({
+        login: true,
+        user: userParsed
+      })
+    }else{
+      res.status(200).json({
+        login: false,
+        error: {message: 'Incorrect password.'}
+      })
+    }
 
   } catch (error) {
     res.status(400).json({ error: error.message });
