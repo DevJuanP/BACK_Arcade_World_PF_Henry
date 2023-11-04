@@ -13,22 +13,25 @@ module.exports = (sequelize) => {
     },
     review: {
         type: DataTypes.JSONB,//{value: "review", editedAt: Date }
+        defaultValue: null,
         get() {
           const reviewData = this.getDataValue('review');
           return reviewData === null
           ? null
           : {
-            value: reviewData.value,
+            value: reviewData?.value,
             editedAt: new Date(reviewData.editedAt),
           };
         },
         set(value) {
-          value === null
-          ? this.setDataValue('review', null)
-          : this.setDataValue('review', {
+          if(value === null){
+            this.setDataValue('review', null)
+          }else{
+            this.setDataValue('review', {
               value,
               editedAt: new Date(),
             })}
+          }
       },
     graphics: {
         type: DataTypes.INTEGER,

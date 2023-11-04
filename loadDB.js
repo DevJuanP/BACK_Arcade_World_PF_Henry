@@ -1618,6 +1618,442 @@ const games = [
   },
 ];
 
+const users = [
+  {
+    name: 'Newell',
+    Email: 'Dayton_Marquardt97@hotmail.com',
+    lastname: 'Oberbrunner',
+    nickname: 'Zora.Yost28',
+    password: '123asd',
+    image: 'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/148.jpg'
+  },
+  {
+    name: 'Mac',
+    Email: 'Nathanael.Haag47@yahoo.com',
+    lastname: 'Bergstrom',
+    nickname: 'Tyrique65',
+    password: '123asd',
+    image: 'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/65.jpg'
+  },
+  {
+    name: 'Lavina',
+    Email: 'Orie_Keebler13@yahoo.com',
+    lastname: 'Legros',
+    nickname: 'Dariana.Schumm',
+    password: '123asd',
+    image: 'https://avatars.githubusercontent.com/u/87508216'
+  },
+  {
+    name: 'Wava',
+    Email: 'Buford_Wisoky@hotmail.com',
+    lastname: 'Morissette',
+    nickname: 'Jalon5',
+    password: '123asd',
+    image: 'https://avatars.githubusercontent.com/u/12785854'
+  },
+  {
+    name: 'Hillary',
+    Email: 'Alaina_Kozey@gmail.com',
+    lastname: 'Sipes',
+    nickname: 'Deven.Watsica4',
+    password: '123asd',
+    image: 'https://avatars.githubusercontent.com/u/69708932'
+  },
+  {
+    name: 'Shyann',
+    Email: 'Omer.Hessel@gmail.com',
+    lastname: 'Kovacek',
+    nickname: 'Ari_Gulgowski',
+    password: '123asd',
+    image: 'https://avatars.githubusercontent.com/u/14144515'
+  },
+  {
+    name: 'Loma',
+    Email: 'Ian_Hamill10@gmail.com',
+    lastname: 'Goldner',
+    nickname: 'Angus.Dickens45',
+    password: '123asd',
+    image: 'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/326.jpg'
+  },
+  {
+    name: 'Chloe',
+    Email: 'Allie_Grimes@gmail.com',
+    lastname: 'Erdman',
+    nickname: 'Raymundo_Heathcote9',
+    password: '123asd',
+    image: 'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/976.jpg'
+  },
+  {
+    name: 'Ignacio',
+    Email: 'Rex75@yahoo.com',
+    lastname: 'Hermiston',
+    nickname: 'Tony.Will95',
+    password: '123asd',
+    image: 'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/876.jpg'
+  },
+  {
+    name: 'Alden',
+    Email: 'Tamia.Heathcote94@gmail.com',
+    lastname: 'Gibson',
+    nickname: 'Eusebio.Schneider44',
+    password: '123asd',
+    image: 'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/1003.jpg'
+  },
+  {
+    name: 'Ola',
+    Email: 'Patrick.Goldner34@hotmail.com',
+    lastname: 'Kuvalis',
+    nickname: 'Gaston.Hudson87',
+    password: '123asd',
+    image: 'https://avatars.githubusercontent.com/u/10651753'
+  },
+  {
+    name: 'Benjamin',
+    Email: 'Mayra78@gmail.com',
+    lastname: 'Hartmann',
+    nickname: 'Archibald.Mueller',
+    password: '123asd',
+    image: 'https://avatars.githubusercontent.com/u/73279895'
+  },
+  {
+    name: 'Trey',
+    Email: 'Ludwig_Rohan@hotmail.com',
+    lastname: 'Romaguera',
+    nickname: 'Mona_Bechtelar67',
+    password: '123asd',
+    image: 'https://avatars.githubusercontent.com/u/4737176'
+  },
+  {
+    name: 'Kathleen',
+    Email: 'Hailee_Sauer22@yahoo.com',
+    lastname: 'Pfeffer',
+    nickname: 'Destany72',
+    password: '123asd',
+    image: 'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/723.jpg'
+  },
+  {
+    name: 'Curt',
+    Email: 'Jermey.Nitzsche38@gmail.com',
+    lastname: 'Morar',
+    nickname: 'Tyrell_Pfeffer',
+    password: '123asd',
+    image: 'https://avatars.githubusercontent.com/u/32966645'
+  },
+  {
+    name: 'Rafael',
+    Email: 'Carmella.Lemke25@yahoo.com',
+    lastname: 'Predovic',
+    nickname: 'Monserrate_Toy34',
+    password: '123asd',
+    image: 'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/589.jpg'
+  },
+  {
+    name: 'Karley',
+    Email: 'Verla25@yahoo.com',
+    lastname: 'Hodkiewicz',
+    nickname: 'Rosendo9',
+    password: '123asd',
+    image: 'https://avatars.githubusercontent.com/u/49966797'
+  },
+  {
+    name: 'Linnea',
+    Email: 'Alberta.Kertzmann35@gmail.com',
+    lastname: 'Herman',
+    nickname: 'Ryann73',
+    password: '123asd',
+    image: 'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/808.jpg'
+  },
+  {
+    name: 'Kelvin',
+    Email: 'Henri.Miller@gmail.com',
+    lastname: 'Metz',
+    nickname: 'Elton.Russel',
+    password: '123asd',
+    image: 'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/282.jpg'
+  },
+  {
+    name: 'Edmond',
+    Email: 'Caroline.Waelchi27@hotmail.com',
+    lastname: 'Mraz',
+    nickname: 'Clinton5',
+    password: '123asd',
+    image: 'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/57.jpg'
+  },
+  {
+    name: 'Krystel',
+    Email: 'Susan.Leffler@hotmail.com',
+    lastname: 'Bednar',
+    nickname: 'Lenna.Hamill',
+    password: '123asd',
+    image: 'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/1087.jpg'
+  },
+  {
+    name: 'Kenyon',
+    Email: 'Melyssa.McKenzie78@hotmail.com',
+    lastname: 'Littel',
+    nickname: 'Edyth65',
+    password: '123asd',
+    image: 'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/1126.jpg'
+  },
+  {
+    name: 'Waldo',
+    Email: 'Alaina.Shanahan@hotmail.com',
+    lastname: 'Cummerata',
+    nickname: 'Emelia27',
+    password: '123asd',
+    image: 'https://avatars.githubusercontent.com/u/66897371'
+  },
+  {
+    name: 'Alfonso',
+    Email: 'Assunta.Hagenes60@yahoo.com',
+    lastname: 'Beatty',
+    nickname: 'Micah_Doyle',
+    password: '123asd',
+    image: 'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/480.jpg'
+  },
+  {
+    name: 'Modesta',
+    Email: 'Benedict30@yahoo.com',
+    lastname: 'Mohr',
+    nickname: 'Skye_Gorczany',
+    password: '123asd',
+    image: 'https://avatars.githubusercontent.com/u/51350028'
+  },
+  {
+    name: 'Coralie',
+    Email: 'Herbert.Smitham@yahoo.com',
+    lastname: 'Corwin-Hagenes',
+    nickname: 'Ubaldo28',
+    password: '123asd',
+    image: 'https://avatars.githubusercontent.com/u/74447592'
+  },
+  {
+    name: 'London',
+    Email: 'Paige31@gmail.com',
+    lastname: 'Connelly',
+    nickname: 'Destinee_Legros',
+    password: '123asd',
+    image: 'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/1151.jpg'
+  },
+  {
+    name: 'Morgan',
+    Email: 'Deron30@gmail.com',
+    lastname: 'Dickens',
+    nickname: 'Rudy.Marvin',
+    password: '123asd',
+    image: 'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/240.jpg'
+  },
+  {
+    name: 'Cleta',
+    Email: 'Myrtis_Koch3@hotmail.com',
+    lastname: 'Marks',
+    nickname: 'Forest84',
+    password: '123asd',
+    image: 'https://avatars.githubusercontent.com/u/70586815'
+  },
+  {
+    name: 'Abraham',
+    Email: 'Mikel_Rempel@yahoo.com',
+    lastname: 'Towne',
+    nickname: 'Spencer_Jenkins',
+    password: '123asd',
+    image: 'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/470.jpg'
+  },
+  {
+    name: 'Una',
+    Email: 'Jeanie_Abernathy24@hotmail.com',
+    lastname: 'Hilpert',
+    nickname: 'Kailee_Hauck',
+    password: '123asd',
+    image: 'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/283.jpg'
+  },
+  {
+    name: 'Lester',
+    Email: 'Naomi75@hotmail.com',
+    lastname: 'Von',
+    nickname: 'Earlene.Quitzon-Lehner',
+    password: '123asd',
+    image: 'https://avatars.githubusercontent.com/u/33473515'
+  },
+  {
+    name: 'Arno',
+    Email: 'Raquel_Tremblay@gmail.com',
+    lastname: 'Durgan',
+    nickname: 'Ulises_Walsh',
+    password: '123asd',
+    image: 'https://avatars.githubusercontent.com/u/44098434'
+  },
+  {
+    name: 'Estrella',
+    Email: 'Tianna.Collins@yahoo.com',
+    lastname: 'Bashirian',
+    nickname: 'Calista2',
+    password: '123asd',
+    image: 'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/13.jpg'
+  },
+  {
+    name: 'Darryl',
+    Email: 'Arlo.Heidenreich8@hotmail.com',
+    lastname: 'Schultz',
+    nickname: 'Mazie47',
+    password: '123asd',
+    image: 'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/319.jpg'
+  },
+  {
+    name: 'Tanya',
+    Email: 'Kaycee_Kovacek72@hotmail.com',
+    lastname: 'Lubowitz',
+    nickname: 'Noemi_Batz',
+    password: '123asd',
+    image: 'https://avatars.githubusercontent.com/u/45670444'
+  },
+  {
+    name: 'Ethelyn',
+    Email: 'Ron88@hotmail.com',
+    lastname: 'Berge',
+    nickname: 'Fleta_Reinger17',
+    password: '123asd',
+    image: 'https://avatars.githubusercontent.com/u/32281750'
+  },
+  {
+    name: 'Manuel',
+    Email: 'Madge90@hotmail.com',
+    lastname: 'Johnston',
+    nickname: 'Vena_Green',
+    password: '123asd',
+    image: 'https://avatars.githubusercontent.com/u/53568880'
+  },
+  {
+    name: 'Adan',
+    Email: 'Duane_Orn79@gmail.com',
+    lastname: 'Hand-Keebler',
+    nickname: 'Travis.Gorczany',
+    password: '123asd',
+    image: 'https://avatars.githubusercontent.com/u/26163228'
+  },
+  {
+    name: 'Isaias',
+    Email: 'Claudia.Daniel67@hotmail.com',
+    lastname: 'Mraz',
+    nickname: 'Turner70',
+    password: '123asd',
+    image: 'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/544.jpg'
+  },
+  {
+    name: 'Jonathan',
+    Email: 'Alyce.Quigley@gmail.com',
+    lastname: 'Trantow',
+    nickname: 'Katelynn.Hudson63',
+    password: '123asd',
+    image: 'https://avatars.githubusercontent.com/u/54413730'
+  },
+  {
+    name: 'Riley',
+    Email: 'Demarco.Ruecker@gmail.com',
+    lastname: 'Kiehn',
+    nickname: 'Taryn78',
+    password: '123asd',
+    image: 'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/1148.jpg'
+  },
+  {
+    name: 'Kolby',
+    Email: 'Elenor.Runolfsson9@yahoo.com',
+    lastname: 'Toy',
+    nickname: 'Aron.Orn',
+    password: '123asd',
+    image: 'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/854.jpg'
+  },
+  {
+    name: 'Clifton',
+    Email: 'Stephon.Rippin16@gmail.com',
+    lastname: 'Green',
+    nickname: 'Camron_Ruecker',
+    password: '123asd',
+    image: 'https://avatars.githubusercontent.com/u/19572314'
+  },
+  {
+    name: 'Jett',
+    Email: 'Parker22@gmail.com',
+    lastname: 'Ritchie',
+    nickname: 'Trace_Legros',
+    password: '123asd',
+    image: 'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/294.jpg'
+  },
+  {
+    name: 'Jeremie',
+    Email: 'Viva.Johnson78@gmail.com',
+    lastname: 'Gerlach',
+    nickname: 'Nyasia12',
+    password: '123asd',
+    image: 'https://avatars.githubusercontent.com/u/68008888'
+  },
+  {
+    name: 'Layne',
+    Email: 'Issac79@gmail.com',
+    lastname: 'Gottlieb',
+    nickname: 'Zita.Ziemann',
+    password: '123asd',
+    image: 'https://avatars.githubusercontent.com/u/40364872'
+  },
+  {
+    name: 'Justyn',
+    Email: 'Sam.Stoltenberg74@hotmail.com',
+    lastname: 'Schneider',
+    nickname: 'Araceli.Larson47',
+    password: '123asd',
+    image: 'https://avatars.githubusercontent.com/u/11563278'
+  },
+  {
+    name: 'Vicente',
+    Email: 'Gwendolyn43@hotmail.com',
+    lastname: 'Koch',
+    nickname: 'Antwon_Tremblay66',
+    password: '123asd',
+    image: 'https://avatars.githubusercontent.com/u/43429077'
+  },
+  {
+    name: 'Tara',
+    Email: 'Linda_OHara@gmail.com',
+    lastname: 'Huels',
+    nickname: 'Name.Torp',
+    password: '123asd',
+    image: 'https://avatars.githubusercontent.com/u/64786803'
+  }
+]
+
+const reviews = [
+  "This game was a disappointment. Boring story and poor graphics.",
+  "Absolutely loved it! The gameplay is addictive, and the graphics are stunning.",
+  "I regret buying this game. It's full of bugs and crashes constantly.",
+  "An absolute masterpiece! The attention to detail is extraordinary, and the story is captivating.",
+  "Waste of money. The controls are clunky, and the game is unplayable.",
+  "Incredible! This game exceeded all my expectations. A must-play for any gamer.",
+  "I couldn't even finish it. The dialogue is cringeworthy, and the gameplay is monotonous.",
+  "I'm addicted to this game! The open world is vast, and the quests are engaging.",
+  "Terrible. The AI is laughably bad, and the graphics are outdated.",
+  "A true gem. The music is enchanting, and the world-building is superb.",
+  "I uninstalled the game after an hour. It's riddled with microtransactions and pay-to-win mechanics.",
+  "One of the best gaming experiences I've had. The character development is outstanding.",
+  "Avoid this game at all costs. It's riddled with game-breaking bugs and poor optimization.",
+  "This game is a hidden treasure. The level design is intricate, and the puzzles are challenging.",
+  "I found it underwhelming. The story is cliché, and the graphics are mediocre.",
+  "I can't stop playing it! The combat system is fantastic, and the world is immersive.",
+  "I had high hopes, but it's a total letdown. The graphics are subpar, and the gameplay is repetitive.",
+  "A work of art. The attention to detail is astonishing, and the soundtrack is hauntingly beautiful.",
+  "It's a cash grab. The game is pay-to-win, and the developers are greedy.",
+  "Simply outstanding! The storytelling is masterful, and the game world is rich and diverse.",
+  "I wouldn't recommend it to anyone. The graphics are outdated, and the story is forgettable.",
+  "This game is a true masterpiece. The character development is impeccable, and the world is breathtaking.",
+  "A buggy mess. I encountered game-breaking glitches within minutes of playing.",
+  "Brilliant! The game's atmosphere is immersive, and the gameplay is a joy to experience.",
+  "It's a waste of time and money. The game is filled with repetitive quests and shallow gameplay.",
+  "I'm hooked! The graphics are top-notch, and the gameplay is addictive.",
+  "Don't bother with this one. The graphics are horrendous, and the story is uninspired.",
+  "A must-play for any gamer. The world is beautifully crafted, and the quests are engaging.",
+];
+
+
+
 gamesToLoad = games.map((vg) => {
   return {
     name: vg.name,
@@ -1634,9 +2070,12 @@ const {
   Videogame,
   videogame_Genre,
   videogame_Plataform,
+  User,
+  VG_user
 } = require("./src/db.js");
 
-const { conn } = require('./src/db.js')
+const { conn } = require('./src/db.js');
+const { hash } = require('./src/utils/hash.js')
 
 const LoadGenre = async () => {
   try {
@@ -1677,6 +2116,18 @@ const LoadGame = async () => {
   }
 };
 
+const LoadUsers = async () => {
+  try {
+    for(const user of users){
+      let {name, lastname, nickname, password, Email, image} = user
+      password = await hash(password)
+      await User.create({name, lastname, nickname, password, Email, image})
+    }
+  } catch (error) {
+    console.log(error.message);
+  }
+}
+
 const LoadDB = async () => {
   try {
     await conn.sync({ force: true })
@@ -1716,6 +2167,79 @@ const LoadDB = async () => {
       }
     }
     console.log("relaciones de Videogames con platforms completada");
+
+    await LoadUsers()
+    console.log("100 usuarios subidos\nusuarios interectuando en la pagina")
+    const allUsers = await User.findAll()
+    const usersIds = allUsers.map( u => u.id)
+
+    for(const userId of usersIds){
+      const gamearr = []
+      for(let i = 0; i<15; i++){
+        gamearr.push(gamesIds[Math.floor(Math.random()*100)])
+      }
+      const gamearrPurRev = gamearr.slice(0, 10)
+      const gamearrFav = gamearr.slice(-10)
+  
+      for(const gameId of gamearrPurRev){
+        const revIndex = Math.floor(Math.random()*50)
+
+        const relations = await VG_user.findOne({
+          where: {
+            VideogameId: gameId,
+            UserId: userId,
+          }
+        })
+
+        if(relations){
+          await VG_user.update({
+            purchased: new Date(),
+            review: reviews[revIndex] || reviews[Math.floor(Math.random()*50)],
+            graphics: Math.floor(Math.random()*3) + (revIndex%2? 3 : 1),
+            gameplay: Math.floor(Math.random()*3) + (revIndex%2? 3 : 1),
+            quality_price: Math.floor(Math.random()*3) + (revIndex%2? 3 : 1)
+          }, { where: {
+            VideogameId: gameId,
+            UserId: userId,
+          }})
+        }else{
+          await VG_user.create({
+            VideogameId: gameId,
+            UserId: userId,
+            purchased: new Date(),
+            review: reviews[revIndex] || reviews[Math.floor(Math.random()*50)],
+            graphics: Math.floor(Math.random()*3) + (revIndex%2? 3 : 1),
+            gameplay: Math.floor(Math.random()*3) + (revIndex%2? 3 : 1),
+            quality_price: Math.floor(Math.random()*3) + (revIndex%2? 3 : 1)
+          })
+        }
+      }
+
+      for(const gameId of gamearrFav){
+        const relation = await VG_user.findOne({ where: {
+            VideogameId: gameId,
+            UserId: userId,
+          }
+        })
+
+        if(relation){
+          await VG_user.update({ favorites: true }, {
+              where: {
+                  UserId: userId,
+                  VideogameId: gameId
+              }
+            })
+
+        }else{
+          await VG_user.create({
+            UserId: userId,
+            VideogameId: gameId,
+            favorites: true,
+          });
+        }
+      }
+    }
+    console.log('usuarios terminaron de interactuar');
     await conn.sync({ alert: true })
     console.log("BASE DE DATOS LISTA PARA USAR");
   } catch (error) {
