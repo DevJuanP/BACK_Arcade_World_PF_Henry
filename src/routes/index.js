@@ -1,19 +1,17 @@
 const { Router } = require('express') 
 const VGrouter = require('./Grouter Videogames/VGrouter') 
 const UserRouter = require('./Routers users/UserRouter')
+const CartRouter = require('./CartRouter')
+
 const getplatformshandler = require('../handlers/getplatformshandler.js')
 const getGeresHandler = require('../handlers/getGeresHandler.js')
-const purchasedhandler = require('../handlers/purchasedhandler')
-
 
 const router = Router()
 
-
 router.use('/videogame', VGrouter)
 router.use('/user', UserRouter)
+router.use('/cart', CartRouter)
 
-
-router.use('/cart/purchase', purchasedhandler)
 router.use('/platform', getplatformshandler)
 router.use('/genre',getGeresHandler)
 
