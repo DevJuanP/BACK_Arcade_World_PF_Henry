@@ -18,26 +18,28 @@ const getGameById = async (id) => {
     });
 
     // Filtra y procesa las revisiones, calificaciones de gráficos, jugabilidad y relación calidad-precio
-    const reviews = gamebyId.Users.filter(user => user.VG_user.review !== '').map(user => {
+    const reviews = gamebyId.Users.filter(user => user.VG_user.review !== null ).map(user => {
         return {
-            id: user.id,
+            userId: user.id,
             nickName: user.nickname,
-            created: user.VG_user.createdAt.toISOString().slice(0, 10),
-            lastUpdate: user.VG_user.updatedAt.toISOString().slice(0, 10),
-            review: user.VG_user.review
+            lastUpdate: user.VG_user.review.editedAt.toISOString().slice(0, 10),
+            review: user.VG_user.review.value
         };
     });
+
     const graphics = gamebyId.Users.filter(user => isNumeric(user.VG_user.graphics)).map(user => user.VG_user.graphics);
     const gameplay = gamebyId.Users.filter(user => isNumeric(user.VG_user.gameplay)).map(user => user.VG_user.gameplay);
     const quality_price = gamebyId.Users.filter(user => isNumeric(user.VG_user.quality_price)).map(user => user.VG_user.quality_price);
 
-    const gamesParsed = {
+    return {
         id: gamebyId.id,
         name: gamebyId.name,
         description: gamebyId.description,
         image: gamebyId.image,
         price: gamebyId.price,
         released: gamebyId.released,
+        createdAt: gamebyId.createdAt.toISOString().slice(0, 10),
+        updatedAt: gamebyId.updatedAt.toISOString().slice(0, 10),
         genres: gamebyId.genres.map(g => g.name),
         platforms: gamebyId.platforms.map(p => p.name),
         reviews,
@@ -45,8 +47,6 @@ const getGameById = async (id) => {
         gameplay,
         quality_price
     };
-
-    return gamesParsed
 }
 
 module.exports = getGameById
