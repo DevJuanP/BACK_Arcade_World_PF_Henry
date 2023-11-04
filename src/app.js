@@ -1,9 +1,14 @@
 const express = require('express') 
 const morgan = require('morgan') 
 const cors = require('cors') 
+const Stripe = require('stripe')
 const routes = require('./routes/index.js') 
+require('dotenv').config()
+const { STRIPE_KEY } = process.env
+const stripe = Stripe(STRIPE_KEY)
 
 const server = express()
+//server.use(express.static('public'));
 
 server.use(express.json())
 server.use(morgan('dev'))
