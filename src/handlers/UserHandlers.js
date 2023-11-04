@@ -9,7 +9,7 @@ const loadPurchased = require('../Controlers/UserControllers/loadPurchased')
 const loadStars = require('../Controlers/UserControllers/loadStars')
 const wipeUnsedRelations = require('../Controlers/UserControllers/wipeUnsedRelations')
 const { hash, compare } = require('../utils/hash')
-
+const {correoDeBienvenida} = require('../utils/nodemailer')
 const getUsersHandler = async (req, res) => {
   const name = null;
   try {
@@ -44,6 +44,7 @@ const userRegisterHandler = async (req, res) => {
     password = await hash(password)
 
     await User.create({name, lastname, nickname, password, Email, image})
+    correoDeBienvenida();
     res.status(200).json({
       success: 'The user was successfully uploaded to the database'
     });
