@@ -8,6 +8,7 @@ const genres = require('./models/genres.js')
 const platforms = require('./models/platforms.js')
 const VG_users = require('./models/VG_User.js')
 const Purchases = require('./models/Purchases.js')
+const Carts = require('./models/Carts.js')
 
 const { DB_USER, DB_PASSWORD, DB_HOST } = process.env
 
@@ -21,9 +22,10 @@ genres(sequelize)
 platforms(sequelize)
 VG_users(sequelize)
 Purchases(sequelize)
+Carts(sequelize)
 
 
-const { Videogame, User, genre, platform, VG_user, Purchase } = sequelize.models
+const { Videogame, User, genre, platform, VG_user, Purchase, Cart } = sequelize.models
 
 ///Las relaciones:
 
@@ -44,6 +46,13 @@ Purchase.belongsTo(User)
 const Videogame_Purchase = sequelize.define('Videogame_Purchase', {}, { timestamps: false });
 Videogame.belongsToMany(Purchase, {through: Videogame_Purchase})
 Purchase.belongsToMany(Videogame, {through: Videogame_Purchase})
+
+User.hasOne(Cart)
+Cart.belongsTo(User)
+
+const User_Cart = sequelize.define('User_Cart', {}, { timestamps: false });
+User.belongsToMany(Cart, {through: User_Cart})
+Cart.belongsToMany(User, {through: User_Cart})
 
 console.log(sequelize.models);
 module.exports = {

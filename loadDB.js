@@ -2071,11 +2071,14 @@ const {
   videogame_Genre,
   videogame_Plataform,
   User,
-  VG_user
+  VG_user,
+  Purchase,
+  Videogame_Purchase
 } = require("./src/db.js");
 
 const { conn } = require('./src/db.js');
 const { hash } = require('./src/utils/hash.js')
+const { Op } = require('sequelize')
 
 const LoadGenre = async () => {
   try {
@@ -2170,18 +2173,39 @@ const LoadDB = async () => {
 
     await LoadUsers()
     console.log("100 usuarios subidos\nusuarios interectuando en la pagina")
+
+    
     const allUsers = await User.findAll()
     const usersIds = allUsers.map( u => u.id)
 
     for(const userId of usersIds){
       const gamearr = []
-      for(let i = 0; i<15; i++){
+      const numComprados = Math.floor(Math.random()*20)//1 a 20 juegos comprados
+      for(let i = 0; i<numComprados; i++){
         gamearr.push(gamesIds[Math.floor(Math.random()*100)])
       }
-      const gamearrPurRev = gamearr.slice(0, 10)
-      const gamearrFav = gamearr.slice(-10)
+      const gamearrPurRev = [...new Set(gamearr)]//[gid1, gid2, ....]  14 → [3, 3, 3..., 2]
+
+      const triadas = Math.floor(gamearrPurRev.length/3)+ (gamearrPurRev.length%3? 1:0)
+      for(let i = 0; i<triadas; i++){
+        const compra = gamearrPurRev.slice(i*3, (i+1)*3)//3 ids de videojuegos
+        const gamesTobuy = await Videogame.findAll({
+          where:{
+            [Op.or]: compra.map( vgId => { return {
+              id: vgId
+            }})
+          }
+        })
+        const amount = gamesTobuy.reduce((acum, vg) => acum + vg.price, 0)
+        const userCompra = await Purchase.create({
+          amount,
+          UserId: userId
+        })
+
+        await userCompra.addVideogame(gamesTobuy.map( vg => vg.id))
+      }
   
-      for(const gameId of gamearrPurRev){
+      for(const gameId of gamearrPurRev){//agrega review, y estrellas
         const revIndex = Math.floor(Math.random()*50)
 
         const relations = await VG_user.findOne({
@@ -2193,7 +2217,6 @@ const LoadDB = async () => {
 
         if(relations){
           await VG_user.update({
-            purchased: new Date(),
             review: reviews[revIndex] || reviews[Math.floor(Math.random()*50)],
             graphics: Math.floor(Math.random()*3) + (revIndex%2? 3 : 1),
             gameplay: Math.floor(Math.random()*3) + (revIndex%2? 3 : 1),
@@ -2206,13 +2229,18 @@ const LoadDB = async () => {
           await VG_user.create({
             VideogameId: gameId,
             UserId: userId,
-            purchased: new Date(),
             review: reviews[revIndex] || reviews[Math.floor(Math.random()*50)],
             graphics: Math.floor(Math.random()*3) + (revIndex%2? 3 : 1),
             gameplay: Math.floor(Math.random()*3) + (revIndex%2? 3 : 1),
             quality_price: Math.floor(Math.random()*3) + (revIndex%2? 3 : 1)
           })
         }
+      }
+
+      const gamearrFav = []
+      const numOfFav = Math.floor(Math.random()*11)
+      for(let i = 0; i<numOfFav; i++){
+        gamearrFav.push(gamesIds[Math.floor(Math.random()*100)])
       }
 
       for(const gameId of gamearrFav){
