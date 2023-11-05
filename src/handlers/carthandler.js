@@ -30,7 +30,7 @@ const purchasedhandler = async (req, res) => {
                     price_data:{
                         product_data:{
                             name: vg.name,
-                            description: `I have no doubt that ${vg.name} will be a source of excitement for you.`
+                            description: `Thanks, ${vg.name} is amazing, enjoy it.`
                         },
                         currency: 'usd',
                         unit_amount: vg.price*100
