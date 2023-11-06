@@ -1,4 +1,4 @@
-const { User, VG_user, Videogame } = require('../db')
+const { User, VG_user, Videogame, Purchase, Cart } = require('../db')
 const { Op } = require('sequelize')
 const Stripe = require('stripe')
 require('dotenv').config()
@@ -50,16 +50,52 @@ const purchasedhandler = async (req, res) => {
 }
 
 const cartSuccessHandler = async (req, res) => {
+    const {UserId, GamesIds, amount} = req.body
     try {
-        
+        const newPurchase = await Purchase.create({
+            amount,
+            paymentMethod: 'stripe',
+            UserId,
+        })
+
+        await newPurchase.addVideogame(GamesIds)
+        res.status(200).json({success: 'new purchase added'})
     } catch (error) {
+        res.status(400).json({error: error.message})
+    }
+}
+
+const updateCartHandler = async (req, res) => {
+    const {UserId, GamesIds} = req.body
+    console.log(UserId);
+    try {
+        const userCart = await Cart.findOne({
+            where: {UserId},
+            include: {model: Videogame}
+        })
         
+        if(userCart){
+            //return res.json({cart: userCart})
+            const prevGamesIds = userCart.Videogames.map( vg => vg.id)
+            const IdsToDelete = prevGamesIds.filter( vgId => !GamesIds.includes(vgId) )
+            const IdsToAdd = GamesIds.filter( vgId => !prevGamesIds.includes(vgId) )
+            await userCart.removeVideogames(IdsToDelete)
+            await userCart.addVideogames(IdsToAdd)
+        }else{
+            const newCart = await Cart.create({UserId})
+            await newCart.addVideogames(GamesIds)
+        }
+
+        res.status(200).json({success: 'Cart updated'})
+    } catch (error) {
+        res.status(400).json({error: error.message})
     }
 }
 
 module.exports = {
     purchasedhandler,
-    cartSuccessHandler
+    cartSuccessHandler,
+    updateCartHandler
 }
 
 

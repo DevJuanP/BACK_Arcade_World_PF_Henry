@@ -2207,7 +2207,7 @@ const LoadDB = async () => {
           UserId: userId
         })
 
-        await userCompra.addVideogame(gamesTobuy.map( vg => vg.id))
+        await userCompra.addVideogames(gamesTobuy.map( vg => vg.id))
       }
   
       for(const gameId of gamearrPurRev){//agrega review, y estrellas
