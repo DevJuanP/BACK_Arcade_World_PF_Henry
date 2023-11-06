@@ -6,11 +6,11 @@ const starsParse = (arr) => {
     const two = arr.filter( s => s === 2).length
     const one = arr.filter( s => s === 1).length
 
-    parse[0] = (five/arr.length).toFixed(2)
-    parse[1] = (four/arr.length).toFixed(2)
-    parse[2] = (three/arr.length).toFixed(2)
-    parse[3] = (two/arr.length).toFixed(2)
-    parse[4] = (one/arr.length).toFixed(2)
+    parse[0] = Number((five/arr.length).toFixed(2))
+    parse[1] = Number((four/arr.length).toFixed(2))
+    parse[2] = Number((three/arr.length).toFixed(2))
+    parse[3] = Number((two/arr.length).toFixed(2))
+    parse[4] = Number((one/arr.length).toFixed(2))
 
     return parse
 }
