@@ -2052,6 +2052,11 @@ const reviews = [
   "A must-play for any gamer. The world is beautifully crafted, and the quests are engaging.",
 ];
 
+const gamePrices = [
+  59.99, 49.99, 39.99, 29.99, 44.99, 54.99, 19.99, 64.99, 69.99, 59.99,
+  49.99, 34.99, 24.99, 59.99, 39.99, 49.99, 79.99, 54.99, 29.99, 39.99,
+  69.99, 59.99, 44.99, 34.99, 79.99, 69.99, 29.99, 39.99, 59.99, 49.99
+];
 
 
 gamesToLoad = games.map((vg) => {
@@ -2060,7 +2065,7 @@ gamesToLoad = games.map((vg) => {
     description: JSON.parse(`"${vg.description}"`),
     image: vg.image,
     released: vg.released,
-    price: (Math.random() * 10 + 40).toFixed(2),
+    price: gamePrices[Math.floor(Math.random()*30)]
   };
 });
 

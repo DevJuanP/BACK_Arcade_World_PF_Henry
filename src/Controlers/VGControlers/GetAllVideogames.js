@@ -1,5 +1,6 @@
 const { Videogame, genre, platform, User } = require('../../db');
 const { Op } = require('sequelize');
+const starsParse = require('../../utils/starsParse')
 
 const isNumeric = (value) => {
     return typeof value === "number" && !isNaN(value);
@@ -24,9 +25,15 @@ const GetAllVideogames = async () => {
             };
         });
 
-        const graphics = vg.Users.filter(user => isNumeric(user.VG_user.graphics)).map(user => user.VG_user.graphics);
-        const gameplay = vg.Users.filter(user => isNumeric(user.VG_user.gameplay)).map(user => user.VG_user.gameplay);
-        const quality_price = vg.Users.filter(user => isNumeric(user.VG_user.quality_price)).map(user => user.VG_user.quality_price);
+        let graphics = vg.Users.filter(user => isNumeric(user.VG_user.graphics)).map(user => user.VG_user.graphics);
+        graphics = starsParse(graphics)
+
+        let gameplay = vg.Users.filter(user => isNumeric(user.VG_user.gameplay)).map(user => user.VG_user.gameplay);
+        gameplay = starsParse(gameplay)
+
+        let quality_price = vg.Users.filter(user => isNumeric(user.VG_user.quality_price)).map(user => user.VG_user.quality_price);
+        quality_price = starsParse(quality_price)
+
 
         return {
             id: vg.id,

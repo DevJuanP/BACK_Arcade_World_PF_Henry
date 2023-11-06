@@ -1,6 +1,6 @@
 const getAllUsers = require('../Controlers/UserControllers/getAllUsers')
 const getUsersByName = require('../Controlers/UserControllers/getUsersByName')
-const { User } = require('../db')
+const { User, Videogame, Purchase, Cart } = require('../db')
 const findUser = require('../Controlers/UserControllers/findUser')
 const loginformaterUser = require('../Controlers/UserControllers/loginformaterUser')
 const loadFavorites = require('../Controlers/UserControllers/loadFavorites')
@@ -10,6 +10,8 @@ const loadStars = require('../Controlers/UserControllers/loadStars')
 const wipeUnsedRelations = require('../Controlers/UserControllers/wipeUnsedRelations')
 const { hash, compare } = require('../utils/hash')
 const {correoDeBienvenida} = require('../utils/nodemailer')
+const { Op } = require('sequelize')
+
 const getUsersHandler = async (req, res) => {
   const name = null;
   try {
@@ -83,7 +85,33 @@ const loginUserHandler = async (req, res) => {
       error: { message: 'nickname or Email is missing.' }
     });
 
-    const user = await findUser(nick_email)
+    const user = await User.findOne({
+      where: {
+        [Op.or]: [
+          {Email: nick_email},
+          {nickname: nick_email}
+        ]
+      },
+      include: [
+          {
+              model: Videogame,
+          },
+          {
+              model: Purchase,
+              include: {
+                  model: Videogame,
+                  attributes: ['id','name', 'image']
+              }
+          },
+          {
+              model: Cart,
+              include: {
+                  model: Videogame,
+                  attributes: ['id','name', 'image', 'price', ]
+              }
+          }
+      ]
+    })
     
     if(!user) return res.status(200).json({
         login: false,

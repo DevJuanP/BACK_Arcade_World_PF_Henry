@@ -50,9 +50,9 @@ Purchase.belongsToMany(Videogame, {through: Videogame_Purchase})
 User.hasOne(Cart)
 Cart.belongsTo(User)
 
-const User_Cart = sequelize.define('User_Cart', {}, { timestamps: false });
-User.belongsToMany(Cart, {through: User_Cart})
-Cart.belongsToMany(User, {through: User_Cart})
+const Videogame_Cart = sequelize.define('Videogame_Cart', {}, { timestamps: false });
+Videogame.belongsToMany(Cart, {through: Videogame_Cart})
+Cart.belongsToMany(Videogame, {through: Videogame_Cart})
 
 console.log(sequelize.models);
 module.exports = {
