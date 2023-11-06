@@ -75,7 +75,6 @@ const updateCartHandler = async (req, res) => {
         })
         
         if(userCart){
-            //return res.json({cart: userCart})
             const prevGamesIds = userCart.Videogames.map( vg => vg.id)
             const IdsToDelete = prevGamesIds.filter( vgId => !GamesIds.includes(vgId) )
             const IdsToAdd = GamesIds.filter( vgId => !prevGamesIds.includes(vgId) )

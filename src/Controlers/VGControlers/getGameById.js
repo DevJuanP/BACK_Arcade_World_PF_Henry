@@ -1,5 +1,6 @@
 const {Videogame, genre, platform, User } = require('../../db')
 const isNumeric = require('../../utils/isNumeric')
+const startParse = require('../../utils/starsParse')
 
 
 const getGameById = async (id) => {
@@ -27,9 +28,15 @@ const getGameById = async (id) => {
         };
     });
 
-    const graphics = gamebyId.Users.filter(user => isNumeric(user.VG_user.graphics)).map(user => user.VG_user.graphics);
-    const gameplay = gamebyId.Users.filter(user => isNumeric(user.VG_user.gameplay)).map(user => user.VG_user.gameplay);
-    const quality_price = gamebyId.Users.filter(user => isNumeric(user.VG_user.quality_price)).map(user => user.VG_user.quality_price);
+    let graphics = gamebyId.Users.filter(user => isNumeric(user.VG_user.graphics)).map(user => user.VG_user.graphics);
+    graphics = startParse(graphics)
+
+    let gameplay = gamebyId.Users.filter(user => isNumeric(user.VG_user.gameplay)).map(user => user.VG_user.gameplay);
+    gameplay = startParse(gameplay)
+
+    let quality_price = gamebyId.Users.filter(user => isNumeric(user.VG_user.quality_price)).map(user => user.VG_user.quality_price);
+    quality_price = startParse(quality_price)
+
 
     return {
         id: gamebyId.id,
