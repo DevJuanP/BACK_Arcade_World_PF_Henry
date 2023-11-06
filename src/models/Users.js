@@ -53,10 +53,10 @@ module.exports = (sequelize) => {
         allowNull: false,
         defaultValue:false
       },
-      active: {
+      banstatus: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
-        defaultValue: true
+        defaultValue: false
       }
     }, {
       timestamps: true 

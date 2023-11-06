@@ -7,10 +7,6 @@ module.exports = (sequelize) => {
         type: DataTypes.BOOLEAN,
         defaultValue: false,
     },
-    purchased: {
-        type: DataTypes.DATE,
-        defaultValue: null
-    },
     review: {
         type: DataTypes.JSONB,//{value: "review", editedAt: Date }
         defaultValue: null,
