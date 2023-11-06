@@ -38,7 +38,7 @@ const getGameById = async (id) => {
     quality_price = startParse(quality_price)
 
 
-    return {
+    const parce = {
         id: gamebyId.id,
         name: gamebyId.name,
         description: gamebyId.description,
@@ -54,6 +54,8 @@ const getGameById = async (id) => {
         gameplay,
         quality_price
     };
+
+    return parce
 }
 
 module.exports = getGameById

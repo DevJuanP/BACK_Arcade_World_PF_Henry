@@ -28,7 +28,11 @@ const getUsersHandler = async (req, res) => {
 
 const userRegisterHandler = async (req, res) => {
   try {
-    let { name, lastname, nickname, password, Email, image } = req.body;
+    let { name, lastname, nickname, password, Email, image, uid } = req.body;
+    if (uid) {
+      //registro sin contraseña
+      
+    }
     if (!name || !lastname || !nickname || !password || !Email) return res.status(200).json({ error: "missing data to be filled in" });
 
     const userNick = await User.findOne({
@@ -46,9 +50,9 @@ const userRegisterHandler = async (req, res) => {
     password = await hash(password)
 
     await User.create({name, lastname, nickname, password, Email, image})
-    correoDeBienvenida();
+    const wasSend = await correoDeBienvenida(Email);
     res.status(200).json({
-      success: 'The user was successfully uploaded to the database'
+      success: `The user was successfully uploaded to the database, correo ${wasSend? 'enviado': 'no enviado'}`
     });
   } catch (error) {
     res.status(400).json({ error: error.message });
