@@ -32,15 +32,14 @@ const getGamebyIdHandler = async (req, res) => {
     }
 }
 
-
 const postGameHandler = async (req, res) => {
+    const {} = req.body
     try {
         
     } catch (error) {
         
     }
 }
-
 
 module.exports = {
     getGamesHandler,
