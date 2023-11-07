@@ -29,13 +29,22 @@ const getGameById = async (id) => {
     });
 
     let graphics = gamebyId.Users.filter(user => isNumeric(user.VG_user.graphics)).map(user => user.VG_user.graphics);
-    graphics = startParse(graphics)
+    graphics = {
+        stars: startParse(graphics),
+        score: graphics.reduce((total, star) => total + star, 0)/(graphics.length)
+    }
 
     let gameplay = gamebyId.Users.filter(user => isNumeric(user.VG_user.gameplay)).map(user => user.VG_user.gameplay);
-    gameplay = startParse(gameplay)
+    gameplay = {
+        stars: startParse(gameplay),
+        score: gameplay.reduce((total, star) => total + star, 0)/(gameplay.length)
+    }
 
     let quality_price = gamebyId.Users.filter(user => isNumeric(user.VG_user.quality_price)).map(user => user.VG_user.quality_price);
-    quality_price = startParse(quality_price)
+    quality_price = {
+        stars: startParse(quality_price),
+        score: quality_price.reduce((total, star) => total + star, 0)/(quality_price.length)
+    }
 
 
     const parce = {
