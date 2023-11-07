@@ -10,9 +10,13 @@ const VG_users = require('./models/VG_User.js')
 const Purchases = require('./models/Purchases.js')
 const Carts = require('./models/Carts.js')
 
-const { DB_USER, DB_PASSWORD, DB_HOST } = process.env
+const { DB_USER, DB_PASSWORD, DB_HOST, IS_LOCAL, DATABASE_URL } = process.env
 
-const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/arcade`,{
+const DB_URL_LOCAL = `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/arcade`
+const BD_URL_DEPLOY = DATABASE_URL
+const BD_URL =  IS_LOCAL === 'true' ? DB_URL_LOCAL: BD_URL_DEPLOY
+
+const sequelize = new Sequelize(BD_URL,{
     logging: false
 })
 
