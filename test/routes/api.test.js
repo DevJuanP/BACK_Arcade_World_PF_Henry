@@ -12,8 +12,6 @@ afterAll(async() => {
     console.log('Todas las pruebas han finalizado.');
   });
 
-  describe('Pruebas de la rutas del carrito de compras', () => {
-   
     describe('Prueba de la ruta de card/punchased', () => {
       it('Debería responder con el objeto esperado si las credenciales son correctas', async () => {
         const games = await Videogame.findAll();
@@ -71,7 +69,7 @@ afterAll(async() => {
     });
 
 
-  });
+ 
   
   describe("probando las rutas de videojuegos",()=>{
     it('La respuesta de la API debe contener elementos en el array con 100 juegos', async () => {
@@ -160,7 +158,7 @@ afterAll(async() => {
         Email: 'usuario2@example.com',
       };
       
-    await axios.post(`${serverUrl}/user/register`, requestBody);
+    await axios.post(`${serverUrl}/user/register`, register);
       const user = await User.findOne({where:{nickname:"NickUsuario2"}}) 
       const requestBody = {
         id: user.id,
