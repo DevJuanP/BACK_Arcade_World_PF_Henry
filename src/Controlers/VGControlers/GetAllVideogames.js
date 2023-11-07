@@ -26,13 +26,22 @@ const GetAllVideogames = async () => {
         });
 
         let graphics = vg.Users.filter(user => isNumeric(user.VG_user.graphics)).map(user => user.VG_user.graphics);
-        graphics = starsParse(graphics)
+        graphics = {
+            stars: starsParse(graphics),
+            score: graphics.reduce((total, star) => total + star, 0)/(graphics.length)
+        }
 
         let gameplay = vg.Users.filter(user => isNumeric(user.VG_user.gameplay)).map(user => user.VG_user.gameplay);
-        gameplay = starsParse(gameplay)
+        gameplay = {
+            stars: starsParse(gameplay),
+            score: gameplay.reduce((total, star) => total + star, 0)/(gameplay.length)
+        }
 
         let quality_price = vg.Users.filter(user => isNumeric(user.VG_user.quality_price)).map(user => user.VG_user.quality_price);
-        quality_price = starsParse(quality_price)
+        quality_price = {
+            stars: starsParse(quality_price),
+            score: quality_price.reduce((total, star) => total + star, 0)/(quality_price.length)
+        }
 
 
         return {

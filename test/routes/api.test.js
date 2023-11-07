@@ -22,7 +22,7 @@ describe('Pruebas de la API del servidor', () => {
     expect(data.length).toBe(100);
   });
 
-  xit('La respuesta de la API debe contener elementos en el array', async () => {
+  it('La respuesta de la API debe contener elementos en el array', async () => {
     const response = await axios.get(`${serverUrl}/user`)
     const data = response.data;
     
