@@ -60,20 +60,11 @@ const userRegisterHandler = async (req, res) => {
 };
 
 const updateUserHandler = async (req, res) => {
+  const { id, uid, name, lastname, nickname, password, Email, image, country }  = req.body;
   try {
-    
-
-
-/*
-
-    const user = await  User.findOne({
-      where: UserId
-    })
-    Sendmail.userUpdate(user.Email, )
-*/
-
+    res.json({error: 'en construcción'})
   } catch (error) {
-    
+    res.status(400).json({ error: error.message });
   }
 }
 
@@ -163,4 +154,5 @@ module.exports = {
   userRegisterHandler,
   loginUserHandler,
   VG_userHandler,
+  updateUserHandler
 };

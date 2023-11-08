@@ -38,6 +38,11 @@ module.exports = (sequelize) => {
           isEmail: true 
         }
       },
+      country: {
+        type: DataTypes.STRING, 
+        allowNull: true,
+        defaultValue: null
+      },
       image: {
         type: DataTypes.STRING, 
         allowNull: false, 
