@@ -11,6 +11,15 @@ const wipeUnsedRelations = require('../Controlers/UserControllers/wipeUnsedRelat
 const { hash, compare } = require('../utils/hash')
 const {correoDeBienvenida} = require('../utils/nodemailer')
 const { Op } = require('sequelize')
+const profileGenerator = require('../utils/profileGenerator')
+//firebase:
+const admin = require('firebase-admin')
+const { initializeApp, cert } = require('firebase-admin/app');
+const serviceAccount = require('../../firebase/arcadeworld-507c9-firebase-adminsdk-llem5-661bf18c05.json');
+initializeApp({
+  credential: cert(serviceAccount)
+});
+//fin de firebase
 
 const getUsersHandler = async (req, res) => {
   const name = null;
@@ -149,10 +158,90 @@ const VG_userHandler = async (req, res) => {
   }
 };
 
+const firebaseHandler = async (req, res) => {
+  try {
+    const token = req.headers.authorization
+    console.log('token:', token);
+    if(!token || token === ''){
+      return res.json({login: false, error: 'token is missing'})
+    }
+    const decodeValue = await admin.auth().verifyIdToken(token)
+    const { uid } = decodeValue
+
+    const user = await User.findOne({
+      where: { uid },
+      include: [
+          {
+              model: Videogame,
+          },
+          {
+              model: Purchase,
+              include: {
+                  model: Videogame,
+                  attributes: ['id','name', 'image']
+              }
+          },
+          {
+              model: Cart,
+              include: {
+                  model: Videogame,
+                  attributes: ['id','name', 'image', 'price', ]
+              }
+          }
+      ]
+    })
+
+    if(!user) {
+      //regitra al usuario y lo devuelve
+      const {name, lastname, nickname, Email, image, uid} = await profileGenerator(decodeValue)
+      await User.create({name, lastname, nickname, Email, image, uid})
+      const newuser = await User.findOne({
+        where: { uid },
+        include: [
+            {
+                model: Videogame,
+            },
+            {
+                model: Purchase,
+                include: {
+                    model: Videogame,
+                    attributes: ['id','name', 'image']
+                }
+            },
+            {
+                model: Cart,
+                include: {
+                    model: Videogame,
+                    attributes: ['id','name', 'image', 'price', ]
+                }
+            }
+        ]
+      })
+      const newUserParsed = loginformaterUser(newuser)
+      return res.status(200).json({
+        login: true,
+        user: newUserParsed
+      })
+    }
+    const userParsed = loginformaterUser(user)
+    res.status(200).json({
+      login: true,
+      user: userParsed
+    })
+
+  } catch (error) {
+    res.json({
+      login: false,
+      error: error.message || { message: 'Invalid token.' }
+    });
+  }
+}
+
 module.exports = {
   getUsersHandler,
   userRegisterHandler,
   loginUserHandler,
   VG_userHandler,
-  updateUserHandler
+  updateUserHandler,
+  firebaseHandler
 };
