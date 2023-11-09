@@ -33,7 +33,7 @@ const purchasedhandler = async (req, res) => {
                             description: `Thanks, ${vg.name} is amazing, enjoy it.`
                         },
                         currency: 'usd',
-                        unit_amount: vg.price*100
+                        unit_amount: Math.floor(vg.price*100)
                     },
                     quantity: 1
                 }
