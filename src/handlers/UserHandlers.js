@@ -10,7 +10,7 @@ const loadStars = require('../Controlers/UserControllers/loadStars')
 const wipeUnsedRelations = require('../Controlers/UserControllers/wipeUnsedRelations')
 const { hash, compare } = require('../utils/hash')
 const {correoDeBienvenida} = require('../utils/nodemailer')
-const { Op } = require('sequelize')
+const { Op, where } = require('sequelize')
 const profileGenerator = require('../utils/profileGenerator')
 //firebase:
 const admin = require('firebase-admin')
@@ -125,6 +125,10 @@ const loginUserHandler = async (req, res) => {
     const isAutenticated = await compare(password, user.password)
 
     if(isAutenticated){
+      const newLoginCount = user.logincount + 1
+      await User.update({logincount: newLoginCount},{
+        where: {id: user.id}
+      })
       const userParsed = loginformaterUser(user)
       res.status(200).json({
         login: true,
@@ -161,7 +165,6 @@ const VG_userHandler = async (req, res) => {
 const firebaseHandler = async (req, res) => {
   try {
     const token = req.headers.authorization
-    console.log('token:', token);
     if(!token || token === ''){
       return res.json({login: false, error: 'token is missing'})
     }

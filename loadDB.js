@@ -2272,9 +2272,26 @@ const LoadDB = async () => {
         }
       }
     }
-    console.log('usuarios terminaron de interactuar');
+    console.log('usuarios terminaron de interactuar\n\n\n');
+    console.log('----------------------------------');
+    console.log('|     CREANDO USUARIO ADMIN      |');
+    console.log('----------------------------------');
+    const adminPassword = await hash("Gamer2023")
+    await User.create({
+      name: "Admin",
+      lastname: "Primero",
+      nickname: "Admin",
+      Email: "arcadeworld2023@gmail.com",
+      password: adminPassword,
+      admin: true,
+      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSp39JjBhwY7RW8jjE3fVdYRmcfzAajPVV4vQ"
+    })
+    console.log('\n\n\n----------------------------------');
+    console.log('|     USUARIO ADMIN CREADO       |');
+    console.log('----------------------------------');
     await conn.sync({ alert: true })
-    console.log("BASE DE DATOS LISTA PARA USAR");
+    console.log("\n\n\nBASE DE DATOS LISTA PARA USAR");
+    
   } catch (error) {
     console.log(error.message);
   }
