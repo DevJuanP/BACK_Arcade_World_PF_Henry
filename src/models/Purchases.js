@@ -18,6 +18,7 @@ module.exports = (sequelize) => {
         defaultValue: 'stripe'
     },
   }, {
-    timestamps: true // Desactivamos las marcas de tiempo (createdAt y updatedAt) en este modelo
+    timestamps: true,
+    updatedAt: false
   });
 };

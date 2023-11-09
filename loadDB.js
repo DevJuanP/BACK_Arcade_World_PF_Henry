@@ -2084,6 +2084,7 @@ const {
 const { conn } = require('./src/db.js');
 const { hash } = require('./src/utils/hash.js')
 const { Op } = require('sequelize')
+const randomDate = require('./src/utils/randomDate.js')
 
 const LoadGenre = async () => {
   try {
@@ -2125,11 +2126,19 @@ const LoadGame = async () => {
 };
 
 const LoadUsers = async () => {
+  const today = new Date()
+  const twoMontsAgo = new Date()
+  twoMontsAgo.setMonth(today.getMonth()-2)
   try {
     for(const user of users){
       let {name, lastname, nickname, password, Email, image} = user
       password = await hash(password)
       await User.create({name, lastname, nickname, password, Email, image})
+      
+      await User.update({
+        createdAt: twoMontsAgo,
+        updatedAt: twoMontsAgo
+      }, {where: {nickname}})
     }
   } catch (error) {
     console.log(error.message);
@@ -2278,6 +2287,15 @@ const LoadDB = async () => {
     const allPurchases = await Purchase.findAll()
     const allPurIds = allPurchases.map(p => p.id)
 
+
+
+    for(const purId of allPurIds){
+      const randDate = randomDate()
+      await Purchase.update({
+        createdAt: randDate,
+        updatedAt: randDate
+      }, { where: {id : purId}})
+    }
 
     console.log('usuarios terminaron de interactuar\n\n\n');
     console.log('----------------------------------');
