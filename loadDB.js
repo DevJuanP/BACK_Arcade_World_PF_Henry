@@ -2176,6 +2176,7 @@ const LoadDB = async () => {
     }
     console.log("relaciones de Videogames con platforms completada");
 
+    //carga los usuarios
     await LoadUsers()
     console.log("100 usuarios subidos\nusuarios interectuando en la pagina")
 
@@ -2202,6 +2203,7 @@ const LoadDB = async () => {
           }
         })
         const amount = gamesTobuy.reduce((acum, vg) => acum + vg.price, 0)
+        ///Aquí está la compra:
         const userCompra = await Purchase.create({
           amount,
           UserId: userId
@@ -2272,6 +2274,11 @@ const LoadDB = async () => {
         }
       }
     }
+
+    const allPurchases = await Purchase.findAll()
+    const allPurIds = allPurchases.map(p => p.id)
+
+
     console.log('usuarios terminaron de interactuar\n\n\n');
     console.log('----------------------------------');
     console.log('|     CREANDO USUARIO ADMIN      |');
