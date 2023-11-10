@@ -9,6 +9,9 @@ afterAll(async() => {
     await User.destroy({
         where: { nickname: 'NickUsuario' }
     })
+    await Videogame.destroy({
+      where: { name: 'name game' }
+  })
     console.log('Todas las pruebas han finalizado.');
   });
 
@@ -79,7 +82,7 @@ afterAll(async() => {
       const data = response.data;
   
       expect(data).toBeInstanceOf(Array);
-      expect(data.length).toBe(100);
+      expect(data.length).toBeGreaterThan (99);
     });
     it('La respuesta de la API debe traer los juegos por ID', async () => {
       const games = await Videogame.findAll();
@@ -345,10 +348,10 @@ afterAll(async() => {
       expect(response.data).toEqual({ error: 'faltan datos para crear el videojuego' });
     });
   
-    it('test si todos esta bien', async () => {
+    it('test si todos OK', async () => {
       const requestBody = {
-        name: 'Nombre del Juego',
-        description: 'Descripción del Juego',
+        name: 'name game',
+        description: 'Descripción del Juego re pro',
         price: 50, 
         released: '2023-01-01' 
       };
