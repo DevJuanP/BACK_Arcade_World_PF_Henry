@@ -2133,7 +2133,7 @@ const LoadUsers = async () => {
     for(const user of users){
       let {name, lastname, nickname, password, Email, image} = user
       password = await hash(password)
-      await User.create({name, lastname, nickname, password, Email, image})
+      await User.create({name, lastname, nickname, password, Email, image, logincount: Math.round(Math.random()*8+2)})
       
       await User.update({
         createdAt: twoMontsAgo,

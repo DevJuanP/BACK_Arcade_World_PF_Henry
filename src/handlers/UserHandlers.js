@@ -12,6 +12,7 @@ const { hash, compare } = require('../utils/hash')
 const {correoDeBienvenida} = require('../utils/nodemailer')
 const { Op, where } = require('sequelize')
 const profileGenerator = require('../utils/profileGenerator')
+const objectFilter = require('../utils/objectFilter')
 //firebase:
 const admin = require('firebase-admin')
 const { initializeApp, cert } = require('firebase-admin/app');
@@ -37,11 +38,8 @@ const getUsersHandler = async (req, res) => {
 
 const userRegisterHandler = async (req, res) => {
   try {
-    let { name, lastname, nickname, password, Email, image, uid } = req.body;
-    if (uid) {
-      //registro sin contraseña
-      
-    }
+    let { name, lastname, nickname, password, Email, image } = req.body;
+
     if (!name || !lastname || !nickname || !password || !Email) return res.status(200).json({ error: "missing data to be filled in" });
 
     const userNick = await User.findOne({
@@ -69,9 +67,27 @@ const userRegisterHandler = async (req, res) => {
 };
 
 const updateUserHandler = async (req, res) => {
-  const { id, uid, name, lastname, nickname, password, Email, image, country }  = req.body;
   try {
-    res.json({error: 'en construcción'})
+    const dataToUpdate = await objectFilter(req.body)//se queda con lo necesario y hashea el password
+    const {id, uid} = dataToUpdate
+    if(id && uid) return res.json({error: 'conflicto entre id y uid'})
+    if(id){
+      const user = await User.findByPk(id)
+      if(!user) return res.json({error: 'usuario no encontrado'})
+      const response = await User.update(dataToUpdate, {
+        where: {id}
+      })
+      return res.json({response, success: 'success'})
+    }
+    if(uid){
+      const G_user = await User.findOne({where: {uid}})
+      if(!G_user) return res.json({error: 'usuario no encontrado'})
+      const response = await User.update(dataToUpdate, {
+        where: {uid}
+      })
+      return res.json({response, success: 'success'})
+    }
+    res.json({error: {message: 'id or uid is missing'}})
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
