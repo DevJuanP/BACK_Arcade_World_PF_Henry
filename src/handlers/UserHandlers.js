@@ -10,7 +10,7 @@ const loadStars = require('../Controlers/UserControllers/loadStars')
 const wipeUnsedRelations = require('../Controlers/UserControllers/wipeUnsedRelations')
 const { hash, compare } = require('../utils/hash')
 const {correoDeBienvenida} = require('../utils/nodemailer')
-const { Op, where } = require('sequelize')
+const { Op } = require('sequelize')
 const profileGenerator = require('../utils/profileGenerator')
 const objectFilter = require('../utils/objectFilter')
 const { validate } = require('uuid')
@@ -217,7 +217,7 @@ const VG_userHandler = async (req, res) => {
 
 const firebaseHandler = async (req, res) => {
   try {
-    const token = req.headers.authorization
+    const { token } = req.body
     if(!token || token === ''){
       return res.json({login: false, error: 'token is missing'})
     }
