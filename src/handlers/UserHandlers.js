@@ -14,6 +14,7 @@ const { Op } = require('sequelize')
 const profileGenerator = require('../utils/profileGenerator')
 const objectFilter = require('../utils/objectFilter')
 const { validate } = require('uuid')
+const { generarJWT } = require('../utils/jwt')
 //firebase:
 const admin = require('firebase-admin')
 const { initializeApp, cert } = require('firebase-admin/app');
@@ -182,10 +183,13 @@ const loginUserHandler = async (req, res) => {
       await User.update({logincount: newLoginCount},{
         where: {id: user.id}
       })
+
+      const token = generarJWT(user.id, user.banstatus);
       const userParsed = loginformaterUser(user)
       res.status(200).json({
         login: true,
-        user: userParsed
+        user: userParsed,
+        token: token
       })
     }else{
       res.status(200).json({
