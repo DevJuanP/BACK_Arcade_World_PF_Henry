@@ -13,6 +13,7 @@ const {correoDeBienvenida} = require('../utils/nodemailer')
 const { Op, where } = require('sequelize')
 const profileGenerator = require('../utils/profileGenerator')
 const objectFilter = require('../utils/objectFilter')
+const { validate } = require('uuid')
 //firebase:
 const admin = require('firebase-admin')
 const { initializeApp, cert } = require('firebase-admin/app');
@@ -35,6 +36,42 @@ const getUsersHandler = async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 };
+
+const getuserById = async (req, res) => {
+  const {id} = req.params
+  try {
+    if(!id) return res.json({error: "no seas, tienes que manar in id w(ﾟДﾟ)w"})
+    if(!validate(id)) return res.json({error: "ya pero esto no es uuid (ﾉ*･ω･)ﾉ"})
+
+    const user = await User.findByPk(id, {
+      include: [
+        {
+            model: Videogame,
+        },
+        {
+            model: Purchase,
+            include: {
+                model: Videogame,
+                attributes: ['id','name', 'image']
+            }
+        },
+        {
+            model: Cart,
+            include: {
+                model: Videogame,
+                attributes: ['id','name', 'image', 'price', ]
+            }
+        }
+      ]
+    })
+    const parseUser = loginformaterUser(user)
+    if(!user) return res.json({error: "si es uuid, pero no hay usuario con ese id (¬‿¬)"})
+
+    res.status(200).json(parseUser)
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+}
 
 const userRegisterHandler = async (req, res) => {
   try {
@@ -77,7 +114,7 @@ const updateUserHandler = async (req, res) => {
       const response = await User.update(dataToUpdate, {
         where: {id}
       })
-      return res.json({response, success: 'success'})
+      return res.status(200).json({ success: 'success'})
     }
     if(uid){
       const G_user = await User.findOne({where: {uid}})
@@ -85,7 +122,7 @@ const updateUserHandler = async (req, res) => {
       const response = await User.update(dataToUpdate, {
         where: {uid}
       })
-      return res.json({response, success: 'success'})
+      return res.status(200).json({ success: 'success'})
     }
     res.json({error: {message: 'id or uid is missing'}})
   } catch (error) {
@@ -262,5 +299,6 @@ module.exports = {
   loginUserHandler,
   VG_userHandler,
   updateUserHandler,
-  firebaseHandler
+  firebaseHandler,
+  getuserById
 };
