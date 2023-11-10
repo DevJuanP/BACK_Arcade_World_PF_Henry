@@ -2187,7 +2187,7 @@ const LoadDB = async () => {
 
     //carga los usuarios
     await LoadUsers()
-    console.log("100 usuarios subidos\nusuarios interectuando en la pagina")
+    console.log("50 usuarios subidos\nusuarios interectuando en la pagina")
 
     
     const allUsers = await User.findAll()

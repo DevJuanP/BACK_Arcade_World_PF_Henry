@@ -250,17 +250,88 @@ afterAll(async() => {
     // Obtener la lista de usuarios
     const users = await User.findAll();
     
-    // Generar un ID de usuario aleatorio
     const userIds = users.map(user => user.id);
     const randomUserId = userIds[Math.floor(Math.random() * userIds.length)];
     
-    // Realizar la solicitud GET para buscar al usuario por ID
+    
     const response = await axios.get(`${serverUrl}/user/${randomUserId}`);
     const userData = response.data;
   
-    // Verificar que la respuesta contiene las propiedades 'id' y 'name' (ajusta según tus necesidades)
+    
     expect(userData).toHaveProperty('id');
     expect(userData).toHaveProperty('name');
-    // Agrega más expectativas según las propiedades que esperes en la respuesta del usuario
+    
    });
+
+   describe('Update Game Handler Function', () => {
+     
+     it('test update correctamente', async () => {
+       const games = await Videogame.findAll();
+       const gamesID = games.map(game => game.id);
+       const randomid = gamesID[Math.floor(Math.random() * gamesID.length)];
+       
+       const requestBody = {
+        id: randomid,
+        name: "",
+        description: "Esta es una descripción de ejemplo para el producto.",
+        image: null,
+        price: 19.99,
+        released: "2023-11-09",
+      }; 
+  
+      const response = await axios.put(`${serverUrl}/videogame/update`, requestBody);
+  
+      expect(response.status).toBe(200);
+      expect(response.data).toHaveProperty("success");
+      expect(typeof response.data.success).toBe("string");
+    });
+   
+    it('test si no se proporciona el ID', async () => {
+      
+    
+      const requestBody = {
+        name: "",
+        description: "Esta es una descripción de ejemplo para el producto.",
+        image: null,
+        price: 19.99,
+        released: "2023-11-09",
+      };
+      
+      
+    
+  
+      const response = await axios.put(`${serverUrl}/videogame/update`, requestBody);
+  
+      expect(response.status).toBe(200);
+      expect(response.data).toEqual({ error: 'manda la id, sino como le hago?? ( ´･･)ﾉ(._.`)' });
+    });
+  
+    it('test si el ID no es un UUID válido', async () => {
+      const requestBody = { id: 'ID_NO_VALIDO' }; 
+  
+      const response = await axios.put(`${serverUrl}/videogame/update`, requestBody);
+  
+      expect(response.status).toBe(200);
+      expect(response.data).toEqual({ error: 'ya pero esto no es uuid (ﾉ*･ω･)ﾉ' });
+    });
+  
+    it('test si el juego no es encontrado', async () => {
+      const requestBody = {
+        id: "09839fbc-5e5f-404b-8bb2-176d2ccaecc9",
+        name: "",
+        description: "Esta es una descripción de ejemplo para el producto.",
+        image: null,
+        price: 19.99,
+        released: "2023-11-09",
+      };
+  
+      const response = await axios.put(`${serverUrl}/videogame/update`, requestBody);
+  
+      expect(response.status).toBe(200);
+      expect(response.data).toEqual({ error: 'juego no encontrado' });
+    });
+  });
+
+   
+
   });
