@@ -32,6 +32,11 @@ module.exports = (sequelize) => {
     released: {
       type: DataTypes.DATEONLY, // (yyyy-mm-dd)
       allowNull: false 
+    },
+    isActive: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true,
+      allowNull: false
     }
   }, {
     timestamps: true 

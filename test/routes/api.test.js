@@ -137,7 +137,7 @@ afterAll(async() => {
       success: 'The user was successfully uploaded to the database, correo enviado',
       });
     });
-    it('Test de login usuario', async () => {
+    /*it('Test de login usuario', async () => {
       const requestBody = {
         nick_email: 'Destany72',
         password: '123asd',
@@ -149,6 +149,74 @@ afterAll(async() => {
       expect(response.data.login).toBe(true);
       expect(response.data.user).toHaveProperty('id');
       expect(response.data.user).toHaveProperty('name'); 
+    });*/
+
+    it('Test de login usuario correcto', async () => {
+      const requestBody = {
+        nick_email: 'Destany72',
+        password: '123asd',
+      };
+  
+      const response = await axios.post(`${serverUrl}/user/login`, requestBody);
+  
+      expect(response.status).toBe(200);
+      expect(response.data.login).toBe(true);
+      expect(response.data.user).toHaveProperty('id');
+      expect(response.data.user).toHaveProperty('name');
+    });
+  
+     it('Test de login usuario que no existe', async () => {
+      const requestBody = {
+        nick_email: 'Destany72sadasdasdas',
+        password: '123adsdsadsadasdsadad',
+      };
+  
+      const response = await axios.post(`${serverUrl}/user/login`, requestBody);
+  
+      expect(response.status).toBe(200);
+      expect(response.data.login).toBe(false);
+      expect(response.data.error.message).toBe('User not found. Password, Nickname or Email incorrect.');
+  
+    });
+    it('Test de login usuario sin nick o email', async () => {
+      const requestBody = {
+        
+        password: '123asd',
+      };
+  
+      const response = await axios.post(`${serverUrl}/user/login`, requestBody);
+  
+      expect(response.status).toBe(200);
+      expect(response.data.login).toBe(false);
+      expect(response.data.error.message).toBe('nickname or Email is missing.');
+     
+    });
+  
+    it('Test de login usuario sin password', async () => {
+      const requestBody = {
+        nick_email: 'Destany72',
+        
+      };
+  
+      const response = await axios.post(`${serverUrl}/user/login`, requestBody);
+  
+      expect(response.status).toBe(200);
+      expect(response.data.login).toBe(false);
+      expect(response.data.error.message).toBe('password is missing.');
+    });
+  
+    it('Test de login usuario con clave erronea', async () => {
+      const requestBody = {
+        nick_email: 'Destany72',
+        password: '123adsasdasdasas',
+      };
+  
+      const response = await axios.post(`${serverUrl}/user/login`, requestBody);
+  
+      expect(response.status).toBe(200);
+      expect(response.data.login).toBe(false);
+      expect(response.data.error.message).toBe('Incorrect password.');
+     
     });
 
     it('Test de update de usuario', async () => {
@@ -194,9 +262,5 @@ afterAll(async() => {
     expect(userData).toHaveProperty('id');
     expect(userData).toHaveProperty('name');
     // Agrega más expectativas según las propiedades que esperes en la respuesta del usuario
-  });
-  
-
-
-
+   });
   });
