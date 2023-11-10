@@ -48,13 +48,16 @@ const updateGameHandler = async (req, res) => {
     try {
         const dataToUpdate = await objectFilter(req.body)//se queda con lo necesario y hashea el password
         const {id} = dataToUpdate
-        if(!id) return res.json({error: 'manda la id, sino como le hago?? ( ´･･)ﾉ(._.`)'})
+        if(!id) return res.json({error: 'manda la id, sino como le hago?? ( ´･･)ﾉ(._.`)'});
+        
         if(!validate(id)) return res.json({error: "ya pero esto no es uuid (ﾉ*･ω･)ﾉ"})
-        const game = await Videogame.findByPk(id)
+        const game = await Videogame.findByPk(id);
+
         if(!game) return res.json({error: 'juego no encontrado'})
         await Videogame.update(dataToUpdate, {
           where: {id}
-        })
+        });
+
         res.status(200).json({ success: 'success'})
       } catch (error) {
         res.status(400).json({ error: error.message });
