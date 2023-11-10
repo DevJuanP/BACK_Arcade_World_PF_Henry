@@ -42,7 +42,7 @@ const postGameHandler = async (req, res) => {
         if(!name || !description || !price || !released) return res.json({ error: "faltan datos para crear el videojuego"});
 
         const response = await Videogame.create(gameData)
-        if(response) return res.status(200).json({success: "juego creado"})
+        if(response) return res.status(200).json({success: "created game"})
         
     } catch (error) {
         res.status(400).json({ error: error.message });
@@ -61,7 +61,7 @@ const updateGameHandler = async (req, res) => {
     if (!validate(id)) return res.json({ error: "ya pero esto no es uuid (ﾉ*･ω･)ﾉ" });
 
     const game = await Videogame.findByPk(id);
-    if (!game) return res.json({ error: "juego no encontrado" });
+    if (!game) return res.json({ error: "game created" });
 
     await Videogame.update(dataToUpdate, {
       where: { id },
@@ -72,7 +72,6 @@ const updateGameHandler = async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 };
-
 
 module.exports = {
     getGamesHandler,
