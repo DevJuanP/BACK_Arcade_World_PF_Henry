@@ -332,6 +332,31 @@ afterAll(async() => {
     });
   });
 
-   
 
   });
+
+  describe('test post videogame', () => {
+    it('test si faltan datos para crear el videojuego', async () => {
+      const requestBody = {}; 
+  
+      const response = await axios.post(`${serverUrl}/videogame`, requestBody);
+  
+      expect(response.status).toBe(200);
+      expect(response.data).toEqual({ error: 'faltan datos para crear el videojuego' });
+    });
+  
+    it('test si todos esta bien', async () => {
+      const requestBody = {
+        name: 'Nombre del Juego',
+        description: 'Descripción del Juego',
+        price: 50, 
+        released: '2023-01-01' 
+      };
+  
+      const response = await axios.post(`${serverUrl}/videogame`, requestBody);
+  
+      expect(response.status).toBe(200);
+      expect(response.data).toEqual({ success: 'created game' });
+    });
+  });
+   
