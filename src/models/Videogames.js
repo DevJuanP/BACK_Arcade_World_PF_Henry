@@ -23,7 +23,7 @@ module.exports = (sequelize) => {
     image: {
       type: DataTypes.TEXT, 
       allowNull: false,
-      defaultValue: 'https://i.pinimg.com/originals/5b/06/45/5b06456e236379422e569a9449c38d89.jpg'
+      defaultValue: 'https://t.ly/Qpkyu'
     },
     price: {
       type: DataTypes.FLOAT, //
