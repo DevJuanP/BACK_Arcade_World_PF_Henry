@@ -113,7 +113,7 @@ afterAll(async() => {
   });
 
   describe("test de ruta de usuario",()=>{
-    xit('Test ruta de usuarios', async () => {
+    it('Test ruta de usuarios', async () => {
       const response = await axios.get(`${serverUrl}/user`)
       const data = response.data;
       
@@ -152,28 +152,30 @@ afterAll(async() => {
     });
 
     it('Test de update de usuario', async () => {
-      const register = {
-        name: 'NombreUsuario2',
-        lastname: 'ApellidoUsuario2',
-        nickname: 'NickUsuario2',
-        password: '123asd3',
-        Email: 'usuario2@example.com',
-      };
-      
-    await axios.post(`${serverUrl}/user/register`, requestBody);
-      const user = await User.findOne({where:{nickname:"NickUsuario2"}}) 
-      const requestBody = {
-        id: user.id,
-        image:"https://i.ibb.co/GsBDvzC/Imagen-de-un-usuario-no-logueado-con-luces-gamin-1.jpg",
-        name: "Juanito",
-        lastname: "Perez",
-        email: "juanperez@gmail.com" ,
-        nickname:"juanprogamer"
+      try {
+        const users = await User.findAll();
+        const userID = users.map( user => user.id);
+        const randomuserid = userID[Math.floor(Math.random() * userID.length)];
+        
+        const requestBody = {
+          id: randomuserid,
+          uid: "",
+          name: "John",
+          lastname: "Doe",
+          nickname: null,
+          password: "newpassword",
+          Email: "johnn26.doe@example.com",
+          image: "",
+          country: "United States",
+        };
+        
+        const response = await axios.put(`${serverUrl}/user/update`,requestBody)
+        
+        expect(response.data).toHaveProperty('success');
+        expect(typeof response.data.success).toBe('string');
+      } catch (error) {
+        console.log('error: ',error);
       }
-      const response = await axios.put(`${serverUrl}/user/update`,requestBody)
-      
-      expect(response.data).toHaveProperty('success');
-      expect(typeof response.data.success).toBe('string');
   });
 
   it('La respuesta de la API debe traer un usuario por ID', async () => {

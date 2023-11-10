@@ -114,7 +114,7 @@ const updateUserHandler = async (req, res) => {
       const response = await User.update(dataToUpdate, {
         where: {id}
       })
-      return res.json({response, success: 'success'})
+      return res.status(200).json({ success: 'success'})
     }
     if(uid){
       const G_user = await User.findOne({where: {uid}})
@@ -122,7 +122,7 @@ const updateUserHandler = async (req, res) => {
       const response = await User.update(dataToUpdate, {
         where: {uid}
       })
-      return res.json({response, success: 'success'})
+      return res.status(200).json({ success: 'success'})
     }
     res.json({error: {message: 'id or uid is missing'}})
   } catch (error) {
