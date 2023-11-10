@@ -61,7 +61,7 @@ const updateGameHandler = async (req, res) => {
     if (!validate(id)) return res.json({ error: "ya pero esto no es uuid (ﾉ*･ω･)ﾉ" });
 
     const game = await Videogame.findByPk(id);
-    if (!game) return res.json({ error: "game created" });
+    if (!game) return res.json({ error: "juego no encontrado" });
 
     await Videogame.update(dataToUpdate, {
       where: { id },
