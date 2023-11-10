@@ -16,7 +16,7 @@ UserRouter.post('/register', userRegisterHandler)
 UserRouter.post('/login', loginUserHandler)
 UserRouter.put('/logout', VG_userHandler)
 UserRouter.put('/update', updateUserHandler)
-UserRouter.get('/firebase', firebaseHandler)
+UserRouter.post('/firebase', firebaseHandler)
 UserRouter.get('/:id', getuserById)
 
 module.exports =  UserRouter
