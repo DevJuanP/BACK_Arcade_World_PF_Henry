@@ -3,6 +3,7 @@ const getVGbyName = require('../Controlers/VGControlers/getVGbyName')
 const getGameById = require('../Controlers/VGControlers/getGameById')
 const objectFilter = require('../utils/objectFilter')
 const { Videogame } = require('../db')
+const { validate } = require('uuid')
 
 // Controlador para obtener todos los videojuegos con información detallada
 
@@ -25,7 +26,7 @@ const getGamebyIdHandler = async (req, res) => {
     const { id } = req.params;
     try {
         //validaciones:
-
+        if(!validate(id)) return res.json({error: "ya pero esto no es uuid (ﾉ*･ω･)ﾉ"})
         ///
         const gameById = await getGameById(id)
         res.status(200).json(gameById)
@@ -48,7 +49,7 @@ const updateGameHandler = async (req, res) => {
         const dataToUpdate = await objectFilter(req.body)//se queda con lo necesario y hashea el password
         const {id} = dataToUpdate
         if(!id) return res.json({error: 'manda la id, sino como le hago?? ( ´･･)ﾉ(._.`)'})
-
+        if(!validate(id)) return res.json({error: "ya pero esto no es uuid (ﾉ*･ω･)ﾉ"})
         const game = await Videogame.findByPk(id)
         if(!game) return res.json({error: 'juego no encontrado'})
         await Videogame.update(dataToUpdate, {
