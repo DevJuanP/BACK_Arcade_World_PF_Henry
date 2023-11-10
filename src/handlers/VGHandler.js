@@ -73,6 +73,7 @@ const updateGameHandler = async (req, res) => {
   }
 };
 
+
 module.exports = {
     getGamesHandler,
     getGamebyIdHandler,
