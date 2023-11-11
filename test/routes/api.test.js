@@ -1,5 +1,5 @@
 const axios = require('axios');
-const { User,Videogame } = require('../../src/db')
+const { User,Videogame,Purchase } = require('../../src/db')
 
 
 // Supongamos que tu servidor está en http://localhost:3000
@@ -9,6 +9,9 @@ afterAll(async() => {
     await User.destroy({
         where: { nickname: 'NickUsuario' }
     })
+    await Videogame.destroy({
+      where: { name: 'name game' }
+  })
     console.log('Todas las pruebas han finalizado.');
   });
 
@@ -79,7 +82,7 @@ afterAll(async() => {
       const data = response.data;
   
       expect(data).toBeInstanceOf(Array);
-      expect(data.length).toBe(100);
+      expect(data.length).toBeGreaterThan (99);
     });
     it('La respuesta de la API debe traer los juegos por ID', async () => {
       const games = await Videogame.findAll();
@@ -152,8 +155,11 @@ afterAll(async() => {
     });*/
 
     it('Test de login usuario correcto', async () => {
+      const users = await User.findAll()
+      const usersNick = users.map( u => u.nickname)
+      const randomNick = usersNick[Math.floor(Math.random() * users.length)]
       const requestBody = {
-        nick_email: 'Destany72',
+        nick_email: randomNick,
         password: '123asd',
       };
   
@@ -206,8 +212,11 @@ afterAll(async() => {
     });
   
     it('Test de login usuario con clave erronea', async () => {
+      const users = await User.findAll()
+      const usersNick = users.map( u => u.nickname)
+      const randomNick = usersNick[Math.floor(Math.random() * users.length)]
       const requestBody = {
-        nick_email: 'Destany72',
+        nick_email: randomNick,
         password: '123adsasdasdasas',
       };
   
@@ -332,6 +341,76 @@ afterAll(async() => {
     });
   });
 
-   
 
+  });
+
+  describe('test post videogame', () => {
+    it('test si faltan datos para crear el videojuego', async () => {
+      const requestBody = {}; 
+  
+      const response = await axios.post(`${serverUrl}/videogame`, requestBody);
+  
+      expect(response.status).toBe(200);
+      expect(response.data).toEqual({ error: 'faltan datos para crear el videojuego' });
+    });
+  
+    it('test si todos OK', async () => {
+      const requestBody = {
+        name: 'name game',
+        description: 'Descripción del Juego re pro',
+        price: 50, 
+        released: '2023-01-01' 
+      };
+  
+      const response = await axios.post(`${serverUrl}/videogame`, requestBody);
+  
+      expect(response.status).toBe(200);
+      expect(response.data).toEqual({ success: 'created game' });
+    });
+  });
+  describe('test detailPurchaseHandler ', () => {
+  
+
+    it('test id invalido', async () => {
+      try {
+        const response = await axios.get(`${serverUrl}/purchase/invalid_id`);
+        expect(response.status).toBe(200);
+        expect(response.data).toEqual({ error: 'id is not a uuid' });
+      } catch (error) {
+        throw new Error(error);
+      }
+    });
+  
+    it('test compra no encontrada', async () => {
+      try {
+        const fakeId = '001043b5-5ce0-4275-a01f-676bd308e8aa';
+        const response = await axios.get(`${serverUrl}/purchase/${fakeId}`);
+        expect(response.status).toBe(200);
+        expect(response.data).toEqual({ error: 'purchase not found' });
+      } catch (error) {
+        throw new Error(error);
+      }
+    });
+  
+    it('Test compra encontrada', async () => {
+      try {
+
+      const punchased = await Purchase.findAll();
+      const purchasedID = punchased.map(purchased => purchased.id);
+      const randomid = purchasedID[Math.floor(Math.random() * purchasedID.length)];
+        const response = await axios.get(`${serverUrl}/purchase/${randomid}`);
+        expect(response.status).toBe(200);
+      } catch (error) {
+        throw new Error(error);
+      }
+    });
+  
+    it('should handle exceptions appropriately', async () => {
+      try {
+        const response = await axios.get(`${serverUrl}/purchase/invalid_endpoint`);
+        expect(response.data).toHaveProperty('error');
+      } catch (error) {
+        throw new Error(error);
+      }
+    });
   });

@@ -1,4 +1,5 @@
 const isNumeric = require('../../utils/isNumeric')
+const parseDate = require('../../utils/parseDate')
 
 const loginformaterUser = (user) => {
     const purchased = user.Purchases.map( pur => { return {
@@ -24,7 +25,11 @@ const loginformaterUser = (user) => {
 
     const reviews = user.Videogames.filter( vg => vg.VG_user.review !== null).map( vg => { return {
         id: vg.id,
-        review: vg.VG_user.review//.toISOString().slice(0, 10)
+        name: vg.name,//vg.VG_user.review//.toISOString().slice(0, 10)
+        review: {
+            value: vg.VG_user.review.value,
+            lastEdit: parseDate(vg.VG_user.review.editedAt).date
+        }
     }})
 
     const graphics = user.Videogames.filter( vg => isNumeric(vg.VG_user.graphics)).map( vg => { return{
@@ -51,10 +56,11 @@ const loginformaterUser = (user) => {
         nickname: user.nickname,
         Email: user.Email,
         photo: user.image,
+        cover: user.coverImage,
         logincount: user.logincount,
         admin: user.admin,
         banstatus: user.banstatus,
-        createdAt: user.createdAt,
+        createdAt: parseDate(user.createdAt).date,
         purchased,
         favorites,//array de ideas
         reviews,//a mi gu

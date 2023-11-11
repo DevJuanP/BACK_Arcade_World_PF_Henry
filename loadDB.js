@@ -1620,404 +1620,354 @@ const games = [
 
 const users = [
   {
-    name: 'Newell',
-    Email: 'Dayton_Marquardt97@hotmail.com',
+    name: 'Jed',
+    Email: 'Justen.Heathcote1@yahoo.com',
+    lastname: 'Zboncak',
+    nickname: 'Aiden_Marvin62',
+    image: 'https://avatars.githubusercontent.com/u/32303075'
+  },
+  {
+    name: 'Bulah',
+    Email: 'Dixie18@gmail.com',
+    lastname: 'Gottlieb',
+    nickname: 'Annalise56',
+    image: 'https://avatars.githubusercontent.com/u/53612309'
+  },
+  {
+    name: 'Lina',
+    Email: 'Kiley.Gorczany@gmail.com',
+    lastname: 'Medhurst',
+    nickname: 'Emmanuel.Schultz',
+    image: 'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/633.jpg'
+  },
+  {
+    name: 'Madge',
+    Email: 'Junius_Gutkowski@hotmail.com',
+    lastname: 'Hane',
+    nickname: 'Kenna51',
+    image: 'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/944.jpg'
+  },
+  {
+    name: 'Helga',
+    Email: 'Gussie.Nienow48@hotmail.com',
+    lastname: 'Runolfsson',
+    nickname: 'Davin_Wuckert95',
+    image: 'https://avatars.githubusercontent.com/u/3386748'
+  },
+  {
+    name: 'Zita',
+    Email: 'Oren.Stamm@hotmail.com',
+    lastname: 'Romaguera-Schiller',
+    nickname: 'Mac66',
+    image: 'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/618.jpg'
+  },
+  {
+    name: 'Gracie',
+    Email: 'Ramon13@yahoo.com',
     lastname: 'Oberbrunner',
-    nickname: 'Zora.Yost28',
-    password: '123asd',
-    image: 'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/148.jpg'
-  },
-  {
-    name: 'Mac',
-    Email: 'Nathanael.Haag47@yahoo.com',
-    lastname: 'Bergstrom',
-    nickname: 'Tyrique65',
-    password: '123asd',
-    image: 'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/65.jpg'
-  },
-  {
-    name: 'Lavina',
-    Email: 'Orie_Keebler13@yahoo.com',
-    lastname: 'Legros',
-    nickname: 'Dariana.Schumm',
-    password: '123asd',
-    image: 'https://avatars.githubusercontent.com/u/87508216'
-  },
-  {
-    name: 'Wava',
-    Email: 'Buford_Wisoky@hotmail.com',
-    lastname: 'Morissette',
-    nickname: 'Jalon5',
-    password: '123asd',
-    image: 'https://avatars.githubusercontent.com/u/12785854'
-  },
-  {
-    name: 'Hillary',
-    Email: 'Alaina_Kozey@gmail.com',
-    lastname: 'Sipes',
-    nickname: 'Deven.Watsica4',
-    password: '123asd',
-    image: 'https://avatars.githubusercontent.com/u/69708932'
-  },
-  {
-    name: 'Shyann',
-    Email: 'Omer.Hessel@gmail.com',
-    lastname: 'Kovacek',
-    nickname: 'Ari_Gulgowski',
-    password: '123asd',
-    image: 'https://avatars.githubusercontent.com/u/14144515'
-  },
-  {
-    name: 'Loma',
-    Email: 'Ian_Hamill10@gmail.com',
-    lastname: 'Goldner',
-    nickname: 'Angus.Dickens45',
-    password: '123asd',
-    image: 'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/326.jpg'
-  },
-  {
-    name: 'Chloe',
-    Email: 'Allie_Grimes@gmail.com',
-    lastname: 'Erdman',
-    nickname: 'Raymundo_Heathcote9',
-    password: '123asd',
-    image: 'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/976.jpg'
-  },
-  {
-    name: 'Ignacio',
-    Email: 'Rex75@yahoo.com',
-    lastname: 'Hermiston',
-    nickname: 'Tony.Will95',
-    password: '123asd',
-    image: 'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/876.jpg'
-  },
-  {
-    name: 'Alden',
-    Email: 'Tamia.Heathcote94@gmail.com',
-    lastname: 'Gibson',
-    nickname: 'Eusebio.Schneider44',
-    password: '123asd',
-    image: 'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/1003.jpg'
-  },
-  {
-    name: 'Ola',
-    Email: 'Patrick.Goldner34@hotmail.com',
-    lastname: 'Kuvalis',
-    nickname: 'Gaston.Hudson87',
-    password: '123asd',
-    image: 'https://avatars.githubusercontent.com/u/10651753'
-  },
-  {
-    name: 'Benjamin',
-    Email: 'Mayra78@gmail.com',
-    lastname: 'Hartmann',
-    nickname: 'Archibald.Mueller',
-    password: '123asd',
-    image: 'https://avatars.githubusercontent.com/u/73279895'
-  },
-  {
-    name: 'Trey',
-    Email: 'Ludwig_Rohan@hotmail.com',
-    lastname: 'Romaguera',
-    nickname: 'Mona_Bechtelar67',
-    password: '123asd',
-    image: 'https://avatars.githubusercontent.com/u/4737176'
-  },
-  {
-    name: 'Kathleen',
-    Email: 'Hailee_Sauer22@yahoo.com',
-    lastname: 'Pfeffer',
-    nickname: 'Destany72',
-    password: '123asd',
-    image: 'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/723.jpg'
-  },
-  {
-    name: 'Curt',
-    Email: 'Jermey.Nitzsche38@gmail.com',
-    lastname: 'Morar',
-    nickname: 'Tyrell_Pfeffer',
-    password: '123asd',
-    image: 'https://avatars.githubusercontent.com/u/32966645'
-  },
-  {
-    name: 'Rafael',
-    Email: 'Carmella.Lemke25@yahoo.com',
-    lastname: 'Predovic',
-    nickname: 'Monserrate_Toy34',
-    password: '123asd',
-    image: 'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/589.jpg'
-  },
-  {
-    name: 'Karley',
-    Email: 'Verla25@yahoo.com',
-    lastname: 'Hodkiewicz',
-    nickname: 'Rosendo9',
-    password: '123asd',
-    image: 'https://avatars.githubusercontent.com/u/49966797'
-  },
-  {
-    name: 'Linnea',
-    Email: 'Alberta.Kertzmann35@gmail.com',
-    lastname: 'Herman',
-    nickname: 'Ryann73',
-    password: '123asd',
-    image: 'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/808.jpg'
-  },
-  {
-    name: 'Kelvin',
-    Email: 'Henri.Miller@gmail.com',
-    lastname: 'Metz',
-    nickname: 'Elton.Russel',
-    password: '123asd',
-    image: 'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/282.jpg'
-  },
-  {
-    name: 'Edmond',
-    Email: 'Caroline.Waelchi27@hotmail.com',
-    lastname: 'Mraz',
-    nickname: 'Clinton5',
-    password: '123asd',
-    image: 'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/57.jpg'
-  },
-  {
-    name: 'Krystel',
-    Email: 'Susan.Leffler@hotmail.com',
-    lastname: 'Bednar',
-    nickname: 'Lenna.Hamill',
-    password: '123asd',
-    image: 'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/1087.jpg'
-  },
-  {
-    name: 'Kenyon',
-    Email: 'Melyssa.McKenzie78@hotmail.com',
-    lastname: 'Littel',
-    nickname: 'Edyth65',
-    password: '123asd',
-    image: 'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/1126.jpg'
-  },
-  {
-    name: 'Waldo',
-    Email: 'Alaina.Shanahan@hotmail.com',
-    lastname: 'Cummerata',
-    nickname: 'Emelia27',
-    password: '123asd',
-    image: 'https://avatars.githubusercontent.com/u/66897371'
-  },
-  {
-    name: 'Alfonso',
-    Email: 'Assunta.Hagenes60@yahoo.com',
-    lastname: 'Beatty',
-    nickname: 'Micah_Doyle',
-    password: '123asd',
-    image: 'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/480.jpg'
-  },
-  {
-    name: 'Modesta',
-    Email: 'Benedict30@yahoo.com',
-    lastname: 'Mohr',
-    nickname: 'Skye_Gorczany',
-    password: '123asd',
-    image: 'https://avatars.githubusercontent.com/u/51350028'
-  },
-  {
-    name: 'Coralie',
-    Email: 'Herbert.Smitham@yahoo.com',
-    lastname: 'Corwin-Hagenes',
-    nickname: 'Ubaldo28',
-    password: '123asd',
-    image: 'https://avatars.githubusercontent.com/u/74447592'
-  },
-  {
-    name: 'London',
-    Email: 'Paige31@gmail.com',
-    lastname: 'Connelly',
-    nickname: 'Destinee_Legros',
-    password: '123asd',
-    image: 'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/1151.jpg'
-  },
-  {
-    name: 'Morgan',
-    Email: 'Deron30@gmail.com',
-    lastname: 'Dickens',
-    nickname: 'Rudy.Marvin',
-    password: '123asd',
-    image: 'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/240.jpg'
-  },
-  {
-    name: 'Cleta',
-    Email: 'Myrtis_Koch3@hotmail.com',
-    lastname: 'Marks',
-    nickname: 'Forest84',
-    password: '123asd',
-    image: 'https://avatars.githubusercontent.com/u/70586815'
-  },
-  {
-    name: 'Abraham',
-    Email: 'Mikel_Rempel@yahoo.com',
-    lastname: 'Towne',
-    nickname: 'Spencer_Jenkins',
-    password: '123asd',
-    image: 'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/470.jpg'
-  },
-  {
-    name: 'Una',
-    Email: 'Jeanie_Abernathy24@hotmail.com',
-    lastname: 'Hilpert',
-    nickname: 'Kailee_Hauck',
-    password: '123asd',
-    image: 'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/283.jpg'
-  },
-  {
-    name: 'Lester',
-    Email: 'Naomi75@hotmail.com',
-    lastname: 'Von',
-    nickname: 'Earlene.Quitzon-Lehner',
-    password: '123asd',
-    image: 'https://avatars.githubusercontent.com/u/33473515'
-  },
-  {
-    name: 'Arno',
-    Email: 'Raquel_Tremblay@gmail.com',
-    lastname: 'Durgan',
-    nickname: 'Ulises_Walsh',
-    password: '123asd',
-    image: 'https://avatars.githubusercontent.com/u/44098434'
-  },
-  {
-    name: 'Estrella',
-    Email: 'Tianna.Collins@yahoo.com',
-    lastname: 'Bashirian',
-    nickname: 'Calista2',
-    password: '123asd',
-    image: 'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/13.jpg'
-  },
-  {
-    name: 'Darryl',
-    Email: 'Arlo.Heidenreich8@hotmail.com',
-    lastname: 'Schultz',
-    nickname: 'Mazie47',
-    password: '123asd',
-    image: 'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/319.jpg'
-  },
-  {
-    name: 'Tanya',
-    Email: 'Kaycee_Kovacek72@hotmail.com',
-    lastname: 'Lubowitz',
-    nickname: 'Noemi_Batz',
-    password: '123asd',
-    image: 'https://avatars.githubusercontent.com/u/45670444'
-  },
-  {
-    name: 'Ethelyn',
-    Email: 'Ron88@hotmail.com',
-    lastname: 'Berge',
-    nickname: 'Fleta_Reinger17',
-    password: '123asd',
-    image: 'https://avatars.githubusercontent.com/u/32281750'
-  },
-  {
-    name: 'Manuel',
-    Email: 'Madge90@hotmail.com',
-    lastname: 'Johnston',
-    nickname: 'Vena_Green',
-    password: '123asd',
-    image: 'https://avatars.githubusercontent.com/u/53568880'
-  },
-  {
-    name: 'Adan',
-    Email: 'Duane_Orn79@gmail.com',
-    lastname: 'Hand-Keebler',
-    nickname: 'Travis.Gorczany',
-    password: '123asd',
-    image: 'https://avatars.githubusercontent.com/u/26163228'
-  },
-  {
-    name: 'Isaias',
-    Email: 'Claudia.Daniel67@hotmail.com',
-    lastname: 'Mraz',
-    nickname: 'Turner70',
-    password: '123asd',
+    nickname: 'Alessandra89',
     image: 'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/544.jpg'
   },
   {
-    name: 'Jonathan',
-    Email: 'Alyce.Quigley@gmail.com',
-    lastname: 'Trantow',
-    nickname: 'Katelynn.Hudson63',
-    password: '123asd',
-    image: 'https://avatars.githubusercontent.com/u/54413730'
+    name: 'Magnolia',
+    Email: 'Jorge.Brakus95@gmail.com',
+    lastname: 'Zemlak',
+    nickname: 'Bennett88',
+    image: 'https://avatars.githubusercontent.com/u/62423146'
   },
   {
-    name: 'Riley',
-    Email: 'Demarco.Ruecker@gmail.com',
-    lastname: 'Kiehn',
-    nickname: 'Taryn78',
-    password: '123asd',
-    image: 'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/1148.jpg'
+    name: 'Roman',
+    Email: 'Louvenia.Kertzmann3@hotmail.com',
+    lastname: 'Maggio-Stokes',
+    nickname: 'Gordon.Roberts73',
+    image: 'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/458.jpg'
   },
   {
-    name: 'Kolby',
-    Email: 'Elenor.Runolfsson9@yahoo.com',
+    name: 'Francis',
+    Email: 'Kendra56@gmail.com',
+    lastname: 'Ledner',
+    nickname: 'Karli22',
+    image: 'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/422.jpg'
+  },
+  {
+    name: 'Dallin',
+    Email: 'Marietta_Runolfsson@yahoo.com',
+    lastname: 'Wilkinson',
+    nickname: 'Herman42',
+    image: 'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/285.jpg'
+  },
+  {
+    name: 'Theresia',
+    Email: 'Joel_Rice@hotmail.com',
+    lastname: 'Price',
+    nickname: 'Estel31',
+    image: 'https://avatars.githubusercontent.com/u/9665188'
+  },
+  {
+    name: 'Chanelle',
+    Email: 'Elvera49@gmail.com',
+    lastname: 'Fahey',
+    nickname: 'Raul.Ankunding',
+    image: 'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/1012.jpg'
+  },
+  {
+    name: 'Tyreek',
+    Email: 'Maynard_Gutmann@gmail.com',
+    lastname: 'Metz',
+    nickname: 'Lillie_Koelpin',
+    image: 'https://avatars.githubusercontent.com/u/72757256'
+  },
+  {
+    name: 'Porter',
+    Email: 'Lowell.Collins@hotmail.com',
+    lastname: 'Rohan',
+    nickname: 'Colten.Williamson-Reynolds',
+    image: 'https://avatars.githubusercontent.com/u/32459959'
+  },
+  {
+    name: 'Kacey',
+    Email: 'Braxton.Hudson41@gmail.com',
+    lastname: 'Graham',
+    nickname: 'Della.Predovic',
+    image: 'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/300.jpg'
+  },
+  {
+    name: 'Theron',
+    Email: 'Deborah.Conroy1@gmail.com',
+    lastname: 'Greenholt',
+    nickname: 'Erin.OReilly42',
+    image: 'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/1042.jpg'
+  },
+  {
+    name: 'Amiya',
+    Email: 'Jennings_Bernhard90@gmail.com',
+    lastname: 'Ruecker',
+    nickname: 'Britney_Haley97',
+    image: 'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/349.jpg'
+  },
+  {
+    name: 'Britney',
+    Email: 'Nakia.Emmerich@gmail.com',
+    lastname: 'Tromp',
+    nickname: 'Flo34',
+    image: 'https://avatars.githubusercontent.com/u/81249206'
+  },
+  {
+    name: 'Estella',
+    Email: 'Darius.Reichel@gmail.com',
+    lastname: 'Ortiz',
+    nickname: 'Jake.Mohr',
+    image: 'https://avatars.githubusercontent.com/u/66838503'
+  },
+  {
+    name: 'Lucienne',
+    Email: 'Mitchel_Wintheiser91@yahoo.com',
+    lastname: 'Bailey',
+    nickname: 'Donna_Morar23',
+    image: 'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/522.jpg'
+  },
+  {
+    name: 'Christina',
+    Email: 'Dallas_Boehm@hotmail.com',
+    lastname: 'Cole',
+    nickname: 'Deron75',
+    image: 'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/1179.jpg'
+  },
+  {
+    name: 'Kristina',
+    Email: 'Ressie75@gmail.com',
+    lastname: 'Gorczany',
+    nickname: 'Damian_Jast',
+    image: 'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/482.jpg'
+  },
+  {
+    name: 'Name',
+    Email: 'Jeffrey.Feest78@yahoo.com',
+    lastname: 'Bartell',
+    nickname: 'Jaime_Nienow',
+    image: 'https://avatars.githubusercontent.com/u/2669691'
+  },
+  {
+    name: 'Francisco',
+    Email: 'Forrest_Vandervort@hotmail.com',
+    lastname: 'Schoen',
+    nickname: 'Lenore_Murphy7',
+    image: 'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/689.jpg'
+  },
+  {
+    name: 'Nina',
+    Email: 'Sharon7@yahoo.com',
+    lastname: 'Wiegand',
+    nickname: 'Bertrand_Hauck52',
+    image: 'https://avatars.githubusercontent.com/u/97493280'
+  },
+  {
+    name: 'Hardy',
+    Email: 'Austyn_Koch@gmail.com',
+    lastname: 'Stracke',
+    nickname: 'Shaylee14',
+    image: 'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/1026.jpg'
+  },
+  {
+    name: 'Jerald',
+    Email: 'Arjun.Gorczany33@gmail.com',
+    lastname: 'Rice',
+    nickname: 'Margarette.Feil',
+    image: 'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/27.jpg'
+  },
+  {
+    name: 'Emmanuelle',
+    Email: 'Wellington.Dicki@gmail.com',
+    lastname: 'Goldner',
+    nickname: 'Tre.MacGyver',
+    image: 'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/370.jpg'
+  },
+  {
+    name: 'Crystal',
+    Email: 'Hunter_Fay@hotmail.com',
+    lastname: 'Kutch',
+    nickname: 'Hildegard29',
+    image: 'https://avatars.githubusercontent.com/u/97906160'
+  },
+  {
+    name: 'Deondre',
+    Email: 'Ella_Casper@hotmail.com',
+    lastname: 'Gleason',
+    nickname: 'Anjali37',
+    image: 'https://avatars.githubusercontent.com/u/16941598'
+  },
+  {
+    name: 'Wanda',
+    Email: 'Emory56@yahoo.com',
+    lastname: 'Douglas',
+    nickname: 'Damian.Schoen',
+    image: 'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/967.jpg'
+  },
+  {
+    name: 'Teagan',
+    Email: 'Noble.Berge40@yahoo.com',
+    lastname: 'Renner',
+    nickname: 'Matilda_Kuhlman',
+    image: 'https://avatars.githubusercontent.com/u/71301179'
+  },
+  {
+    name: 'Leonor',
+    Email: 'Evert_Lesch70@hotmail.com',
+    lastname: 'Gleichner',
+    nickname: 'Hassan68',
+    image: 'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/69.jpg'
+  },
+  {
+    name: 'Linnea',
+    Email: 'Lorna83@yahoo.com',
+    lastname: 'McCullough',
+    nickname: 'Lavon.Buckridge26',
+    image: 'https://avatars.githubusercontent.com/u/41674686'
+  },
+  {
+    name: 'Amalia',
+    Email: 'Loyal_Lind94@gmail.com',
+    lastname: 'Torphy',
+    nickname: 'Morgan.OReilly',
+    image: 'https://avatars.githubusercontent.com/u/46134510'
+  },
+  {
+    name: 'Zita',
+    Email: 'Jonatan_Rowe78@yahoo.com',
+    lastname: 'Oberbrunner',
+    nickname: 'Jaden_Heathcote',
+    image: 'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/361.jpg'
+  },
+  {
+    name: 'Reyes',
+    Email: 'Grayce_Stracke86@hotmail.com',
+    lastname: 'Armstrong-Towne',
+    nickname: 'Amelie.Parisian12',
+    image: 'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/915.jpg'
+  },
+  {
+    name: 'Hettie',
+    Email: 'Isaac.Russel@yahoo.com',
     lastname: 'Toy',
-    nickname: 'Aron.Orn',
-    password: '123asd',
-    image: 'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/854.jpg'
+    nickname: 'Mac_Yost',
+    image: 'https://avatars.githubusercontent.com/u/59478451'
   },
   {
-    name: 'Clifton',
-    Email: 'Stephon.Rippin16@gmail.com',
-    lastname: 'Green',
-    nickname: 'Camron_Ruecker',
-    password: '123asd',
-    image: 'https://avatars.githubusercontent.com/u/19572314'
+    name: 'Sadie',
+    Email: 'Nasir_Jast@hotmail.com',
+    lastname: 'Lind',
+    nickname: 'Marcella79',
+    image: 'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/1187.jpg'
   },
   {
-    name: 'Jett',
-    Email: 'Parker22@gmail.com',
-    lastname: 'Ritchie',
-    nickname: 'Trace_Legros',
-    password: '123asd',
-    image: 'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/294.jpg'
+    name: 'Ofelia',
+    Email: 'Vincent.Upton@hotmail.com',
+    lastname: 'Schulist',
+    nickname: 'Nathen.Fahey70',
+    image: 'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/907.jpg'
   },
   {
-    name: 'Jeremie',
-    Email: 'Viva.Johnson78@gmail.com',
-    lastname: 'Gerlach',
-    nickname: 'Nyasia12',
-    password: '123asd',
-    image: 'https://avatars.githubusercontent.com/u/68008888'
+    name: 'Lawson',
+    Email: 'Vita.Hauck@hotmail.com',
+    lastname: 'Sipes',
+    nickname: 'Dereck_Hilll',
+    image: 'https://avatars.githubusercontent.com/u/59099591'
   },
   {
-    name: 'Layne',
-    Email: 'Issac79@gmail.com',
-    lastname: 'Gottlieb',
-    nickname: 'Zita.Ziemann',
-    password: '123asd',
-    image: 'https://avatars.githubusercontent.com/u/40364872'
+    name: 'Octavia',
+    Email: 'Alva_Bogisich@yahoo.com',
+    lastname: 'Dickens',
+    nickname: 'Fanny_Runte51',
+    image: 'https://avatars.githubusercontent.com/u/83037108'
   },
   {
-    name: 'Justyn',
-    Email: 'Sam.Stoltenberg74@hotmail.com',
-    lastname: 'Schneider',
-    nickname: 'Araceli.Larson47',
-    password: '123asd',
-    image: 'https://avatars.githubusercontent.com/u/11563278'
+    name: 'Rosemarie',
+    Email: 'Meghan.Reichel@gmail.com',
+    lastname: 'Koelpin',
+    nickname: 'Garrison16',
+    image: 'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/30.jpg'
   },
   {
-    name: 'Vicente',
-    Email: 'Gwendolyn43@hotmail.com',
-    lastname: 'Koch',
-    nickname: 'Antwon_Tremblay66',
-    password: '123asd',
-    image: 'https://avatars.githubusercontent.com/u/43429077'
+    name: 'Krystel',
+    Email: 'Alessia57@gmail.com',
+    lastname: 'Runolfsson',
+    nickname: 'Nicolas_Jast22',
+    image: 'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/68.jpg'
   },
   {
-    name: 'Tara',
-    Email: 'Linda_OHara@gmail.com',
-    lastname: 'Huels',
-    nickname: 'Name.Torp',
-    password: '123asd',
-    image: 'https://avatars.githubusercontent.com/u/64786803'
+    name: 'Shea',
+    Email: 'Ulises.Blanda@gmail.com',
+    lastname: 'Schumm',
+    nickname: 'Kraig.MacGyver',
+    image: 'https://avatars.githubusercontent.com/u/13073536'
+  },
+  {
+    name: 'Ashleigh',
+    Email: 'Noemy79@yahoo.com',
+    lastname: 'Tromp',
+    nickname: 'Kevon23',
+    image: 'https://avatars.githubusercontent.com/u/31097978'
+  },
+  {
+    name: 'Irwin',
+    Email: 'Irwin.Streich66@gmail.com',
+    lastname: 'Bins',
+    nickname: 'Felicita_Bednar',
+    image: 'https://avatars.githubusercontent.com/u/1407846'
+  },
+  {
+    name: 'Sim',
+    Email: 'Roselyn.Legros@yahoo.com',
+    lastname: 'Schiller',
+    nickname: 'Gina8',
+    image: 'https://avatars.githubusercontent.com/u/43566721'
+  },
+  {
+    name: 'Tyra',
+    Email: 'Sophia_Weber98@gmail.com',
+    lastname: 'Kozey',
+    nickname: 'Norma89',
+    image: 'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/1149.jpg'
   }
 ]
 
@@ -2131,14 +2081,18 @@ const LoadUsers = async () => {
   twoMontsAgo.setMonth(today.getMonth()-2)
   try {
     for(const user of users){
-      let {name, lastname, nickname, password, Email, image} = user
-      password = await hash(password)
-      await User.create({name, lastname, nickname, password, Email, image, logincount: Math.round(Math.random()*8+2)})
+      const password = await hash("123asd")
+      await User.create({
+        ...user,
+        password,
+        coverImage: 'https://loremflickr.com/720/320/videogame',
+        logincount: Math.round(Math.random()*8+2)
+      })
       
       await User.update({
         createdAt: twoMontsAgo,
         updatedAt: twoMontsAgo
-      }, {where: {nickname}})
+      }, {where: {nickname: user.nickname}})
     }
   } catch (error) {
     console.log(error.message);
@@ -2157,7 +2111,7 @@ const LoadDB = async () => {
 
     //carga las relaciones games  -  generos
     const VG_G = games.map((vg) => {
-      return vg.genres.map((g) => genres.indexOf(g) + 1);
+      return vg.genres.map((g) => genres.indexOf(g) + 1);//[1, 3, 5]
     });
 
     for (let i in gamesIds) {

@@ -91,26 +91,9 @@ const updateCartHandler = async (req, res) => {
     }
 }
 
+
 module.exports = {
     purchasedhandler,
     cartSuccessHandler,
-    updateCartHandler
+    updateCartHandler,
 }
-
-
-/*
-body:{
-    UserId: hole-siaug54-hgd,
-    GamesIds: [
-        jlekevñ,
-        jhllñk321,
-        kdcjwlñ
-    ]
-}
-
-
-//ruta cart/summary
-//ruta cart/failed
-
-
-*/
