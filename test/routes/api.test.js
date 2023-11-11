@@ -155,8 +155,11 @@ afterAll(async() => {
     });*/
 
     it('Test de login usuario correcto', async () => {
+      const users = await User.findAll()
+      const usersNick = users.map( u => u.nickname)
+      const randomNick = usersNick[Math.floor(Math.random() * users.length)]
       const requestBody = {
-        nick_email: 'Destany72',
+        nick_email: randomNick,
         password: '123asd',
       };
   
@@ -209,8 +212,11 @@ afterAll(async() => {
     });
   
     it('Test de login usuario con clave erronea', async () => {
+      const users = await User.findAll()
+      const usersNick = users.map( u => u.nickname)
+      const randomNick = usersNick[Math.floor(Math.random() * users.length)]
       const requestBody = {
-        nick_email: 'Destany72',
+        nick_email: randomNick,
         password: '123adsasdasdasas',
       };
   
