@@ -2092,7 +2092,7 @@ const LoadUsers = async () => {
       await User.update({
         createdAt: twoMontsAgo,
         updatedAt: twoMontsAgo
-      }, {where: {nickname}})
+      }, {where: {nickname: user.nickname}})
     }
   } catch (error) {
     console.log(error.message);

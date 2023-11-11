@@ -56,6 +56,7 @@ const loginformaterUser = (user) => {
         nickname: user.nickname,
         Email: user.Email,
         photo: user.image,
+        cover: user.coverImage,
         logincount: user.logincount,
         admin: user.admin,
         banstatus: user.banstatus,
