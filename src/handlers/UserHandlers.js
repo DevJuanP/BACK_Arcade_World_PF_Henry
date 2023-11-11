@@ -185,11 +185,13 @@ const loginUserHandler = async (req, res) => {
       })
 
       const token = generarJWT(user.id, user.banstatus);
+     
       const userParsed = loginformaterUser(user)
       res.status(200).json({
         login: true,
         user: userParsed,
         token: token
+        
       })
     }else{
       res.status(200).json({

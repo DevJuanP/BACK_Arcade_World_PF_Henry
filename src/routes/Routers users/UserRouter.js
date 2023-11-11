@@ -1,4 +1,5 @@
 const { Router } = require("express") ;
+const { verifyToken } = require("../../middleware/verifyToken");
 const {
     getUsersHandler,
     userRegisterHandler,
@@ -11,7 +12,7 @@ const {
 
 const UserRouter = Router()
 
-UserRouter.get('/', getUsersHandler)
+UserRouter.get('/', verifyToken, getUsersHandler)
 UserRouter.post('/register', userRegisterHandler)
 UserRouter.post('/login', loginUserHandler)
 UserRouter.put('/logout', VG_userHandler)
