@@ -1,5 +1,5 @@
 const axios = require('axios');
-const { User,Videogame } = require('../../src/db')
+const { User,Videogame,Purchase } = require('../../src/db')
 
 
 // Supongamos que tu servidor está en http://localhost:3000
@@ -362,4 +362,49 @@ afterAll(async() => {
       expect(response.data).toEqual({ success: 'created game' });
     });
   });
-   
+  describe('test detailPurchaseHandler ', () => {
+  
+
+    it('test id invalido', async () => {
+      try {
+        const response = await axios.get(`${serverUrl}/purchase/invalid_id`);
+        expect(response.status).toBe(200);
+        expect(response.data).toEqual({ error: 'id is not a uuid' });
+      } catch (error) {
+        throw new Error(error);
+      }
+    });
+  
+    it('test compra no encontrada', async () => {
+      try {
+        const fakeId = '001043b5-5ce0-4275-a01f-676bd308e8aa';
+        const response = await axios.get(`${serverUrl}/purchase/${fakeId}`);
+        expect(response.status).toBe(200);
+        expect(response.data).toEqual({ error: 'purchase not found' });
+      } catch (error) {
+        throw new Error(error);
+      }
+    });
+  
+    it('Test compra encontrada', async () => {
+      try {
+
+      const punchased = await Purchase.findAll();
+      const purchasedID = punchased.map(purchased => purchased.id);
+      const randomid = purchasedID[Math.floor(Math.random() * purchasedID.length)];
+        const response = await axios.get(`${serverUrl}/purchase/${randomid}`);
+        expect(response.status).toBe(200);
+      } catch (error) {
+        throw new Error(error);
+      }
+    });
+  
+    it('should handle exceptions appropriately', async () => {
+      try {
+        const response = await axios.get(`${serverUrl}/purchase/invalid_endpoint`);
+        expect(response.data).toHaveProperty('error');
+      } catch (error) {
+        throw new Error(error);
+      }
+    });
+  });
