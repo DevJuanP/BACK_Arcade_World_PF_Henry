@@ -29,7 +29,6 @@ const getAllPurchases = async (req, res) => {
 const detailPurchaseHandler = async (req, res) => {
     const { id } = req.params
     try {
-        if(!id) return res.json({error: 'purchase id is missing'})
         if(!validate(id)) return res.json({error: 'id is not a uuid'})
         const purchase = await Purchase.findByPk(id, {
             include: [

@@ -48,6 +48,11 @@ module.exports = (sequelize) => {
         allowNull: false, 
         defaultValue: 'https://i.ibb.co/ypHpjDN/Whats-App-Image-2023-11-03-at-7-56-13-PM.jpg' 
       },
+      coverImage: {
+        type: DataTypes.STRING, 
+        allowNull: false, 
+        defaultValue: 'https://i.ibb.co/ypHpjDN/Whats-App-Image-2023-11-03-at-7-56-13-PM.jpg' 
+      },
       logincount: {
         type: DataTypes.INTEGER,
         allowNull: false,
