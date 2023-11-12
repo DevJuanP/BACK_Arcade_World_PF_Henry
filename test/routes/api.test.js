@@ -254,8 +254,9 @@ afterAll(async () => {
         
         const response = await axios.put(`${serverUrl}/user/update`,requestBody)
         
-        expect(response.data).toHaveProperty('success');
-        expect(typeof response.data.success).toBe('string');
+        expect(response.data).toHaveProperty('id');
+        expect(response.data).toHaveProperty('uid');
+        expect(response.data).toHaveProperty('name');
       } catch (error) {
         console.log('error: ',error.response.data.error);
       }
