@@ -51,6 +51,7 @@ const loginformaterUser = (user) => {
 
     const userParsed = {
         id: user.id,
+        uid: user.uid,
         name: user.name,
         lastname: user.lastname,
         nickname: user.nickname,
