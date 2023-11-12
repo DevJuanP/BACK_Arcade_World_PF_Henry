@@ -5,15 +5,21 @@ const { User,Videogame,Purchase } = require('../../src/db')
 // Supongamos que tu servidor está en http://localhost:3000
 const serverUrl = 'http://localhost:3001';
 
-afterAll(async() => {
+afterAll(async () => {
+  try {
     await User.destroy({
-        where: { nickname: 'NickUsuario' }
-    })
+      where: { nickname: "NickUsuario" },
+    });
     await Videogame.destroy({
-      where: { name: 'name game' }
-  })
-    console.log('Todas las pruebas han finalizado.');
-  });
+      where: { name: "name game" },
+    });
+    await User.update({Email: `yanis${Math.floor(Math.random()*1000)}.doe@example.com`},
+    {where:  { Email: 'johnn26.doe@example.com'}})
+    console.log("Todas las pruebas han finalizado.");
+  } catch (error) {
+    console.log('error: ',error);
+  }
+});
 
   describe('Pruebas de la rutas del carrito de compras', () => {
    
@@ -243,7 +249,7 @@ afterAll(async() => {
           password: "newpassword",
           Email: "johnn26.doe@example.com",
           image: "",
-          country: "United States",
+          country: "Canada",
         };
         
         const response = await axios.put(`${serverUrl}/user/update`,requestBody)
@@ -251,7 +257,7 @@ afterAll(async() => {
         expect(response.data).toHaveProperty('success');
         expect(typeof response.data.success).toBe('string');
       } catch (error) {
-        console.log('error: ',error);
+        console.log('error: ',error.response.data.error);
       }
   });
 

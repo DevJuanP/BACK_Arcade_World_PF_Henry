@@ -114,7 +114,29 @@ const updateUserHandler = async (req, res) => {
       const response = await User.update(dataToUpdate, {
         where: {id}
       })
-      return res.status(200).json({ success: 'success'})
+      const updateUser = await User.findByPk(id, {
+        include: [
+          {
+              model: Videogame,
+          },
+          {
+              model: Purchase,
+              include: {
+                  model: Videogame,
+                  attributes: ['id','name', 'image']
+              }
+          },
+          {
+              model: Cart,
+              include: {
+                  model: Videogame,
+                  attributes: ['id','name', 'image', 'price', ]
+              }
+          }
+        ]
+      })
+      const parseUser = loginformaterUser(updateUser)
+      return res.status(200).json(parseUser)
     }
     if(uid){
       const G_user = await User.findOne({where: {uid}})
@@ -122,7 +144,29 @@ const updateUserHandler = async (req, res) => {
       const response = await User.update(dataToUpdate, {
         where: {uid}
       })
-      return res.status(200).json({ success: 'success'})
+      const updateUser = await User.findOne({where:{uid}}, {
+        include: [
+          {
+              model: Videogame,
+          },
+          {
+              model: Purchase,
+              include: {
+                  model: Videogame,
+                  attributes: ['id','name', 'image']
+              }
+          },
+          {
+              model: Cart,
+              include: {
+                  model: Videogame,
+                  attributes: ['id','name', 'image', 'price', ]
+              }
+          }
+        ]
+      })
+      const parseUser = loginformaterUser(updateUser)
+      return res.status(200).json(parseUser)
     }
     res.json({error: {message: 'id or uid is missing'}})
   } catch (error) {
