@@ -40,7 +40,34 @@ const getUsersHandler = async (req, res) => {
 const getuserById = async (req, res) => {
   const {id} = req.params
   try {
-    if(!validate(id)) return res.json({error: "id no valido"})
+    if(!validate(id)) {
+      const user = await User.findOne({
+        where: { uid: id },
+        include: [
+            {
+                model: Videogame,
+            },
+            {
+                model: Purchase,
+                include: {
+                    model: Videogame,
+                    attributes: ['id','name', 'image']
+                }
+            },
+            {
+                model: Cart,
+                include: {
+                    model: Videogame,
+                    attributes: ['id','name', 'image', 'price', ]
+                }
+            }
+        ]
+      })
+      
+      if(!user) return res.json({error: "ni buscando por uid existe el usuario (¬‿¬)"})
+      const parseUser = loginformaterUser(user)
+      return res.status(200).json(parseUser)
+    }
 
     const user = await User.findByPk(id, {
       include: [
