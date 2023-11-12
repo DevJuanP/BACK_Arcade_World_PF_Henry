@@ -31,19 +31,19 @@ const getGameById = async (id) => {
     let graphics = gamebyId.Users.filter(user => isNumeric(user.VG_user.graphics)).map(user => user.VG_user.graphics);
     graphics = {
         stars: startParse(graphics),
-        score: (graphics.reduce((total, star) => total + star, 0)/(graphics.length)).toFixed(1)
+        score: graphics.length? (graphics.reduce((total, star) => total + star, 0)/(graphics.length)).toFixed(1): '0.0'
     }
 
     let gameplay = gamebyId.Users.filter(user => isNumeric(user.VG_user.gameplay)).map(user => user.VG_user.gameplay);
     gameplay = {
         stars: startParse(gameplay),
-        score: (gameplay.reduce((total, star) => total + star, 0)/(gameplay.length)).toFixed(1)
+        score: gameplay.length? (gameplay.reduce((total, star) => total + star, 0)/(gameplay.length)).toFixed(1): '0.0'
     }
 
     let quality_price = gamebyId.Users.filter(user => isNumeric(user.VG_user.quality_price)).map(user => user.VG_user.quality_price);
     quality_price = {
         stars: startParse(quality_price),
-        score: (quality_price.reduce((total, star) => total + star, 0)/(quality_price.length)).toFixed(1)
+        score: quality_price.length? (quality_price.reduce((total, star) => total + star, 0)/(quality_price.length)).toFixed(1): '0.0'
     }
 
 

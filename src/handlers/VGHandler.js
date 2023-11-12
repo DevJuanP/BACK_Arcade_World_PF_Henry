@@ -2,7 +2,7 @@ const GetAllVideogames = require("../Controlers/VGControlers/GetAllVideogames");
 const getVGbyName = require('../Controlers/VGControlers/getVGbyName')
 const getGameById = require('../Controlers/VGControlers/getGameById')
 const objectFilter = require('../utils/objectFilter')
-const { Videogame } = require('../db')
+const { Videogame, platform, genre } = require('../db')
 const { validate } = require('uuid')
 
 // Controlador para obtener todos los videojuegos con información detallada
@@ -37,13 +37,16 @@ const getGamebyIdHandler = async (req, res) => {
 
 const postGameHandler = async (req, res) => {
     const gameData = await objectFilter(req.body);
-    const { name, description, price, released } = gameData
+    const { name, description, price, released, genreIds, platformIds } = gameData
     try {
         if(!name || !description || !price || !released) return res.json({ error: "faltan datos para crear el videojuego"});
 
-        const response = await Videogame.create(gameData)
-        if(response) return res.status(200).json({success: "created game"})
-        
+        const newgame = await Videogame.create(gameData)
+        await newgame.addGenre(genreIds)
+        await newgame.addPlatform(platformIds)
+
+        const gameById = await getGameById(newgame.id)
+        res.status(200).json(gameById)
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
@@ -52,22 +55,34 @@ const postGameHandler = async (req, res) => {
 const updateGameHandler = async (req, res) => {
   try {
     const dataToUpdate = await objectFilter(req.body);
-    const { id } = dataToUpdate;
-
+    const { id, genreIds, platformIds } = dataToUpdate;
     if (!id) return res.json({
-        error: "manda la id, sino como le hago?? ( ´･･)ﾉ(._.`)",
+        error: "id del juego no recibida",
       });
 
-    if (!validate(id)) return res.json({ error: "ya pero esto no es uuid (ﾉ*･ω･)ﾉ" });
+    if (!validate(id)) return res.json({ error: "id recibida no es formato uuid" });
 
-    const game = await Videogame.findByPk(id);
+    const game = await Videogame.findByPk(id, {include: [
+        { model: platform},
+        { model: genre }
+    ]});
+
     if (!game) return res.json({ error: "juego no encontrado" });
+
+    const prevGenresIds = game.genres.map( g => g.id)
+    const prevPlatIds = game.platforms.map( p => p.id)
+
+    await game.removeGenre(prevGenresIds)
+    await game.removePlatform(prevPlatIds)
+    await game.addGenre(genreIds)
+    await game.addPlatform(platformIds)
 
     await Videogame.update(dataToUpdate, {
       where: { id },
-    });
+    })
 
-    res.status(200).json({ success: "success" });
+    const gameById = await getGameById(id)
+    res.status(200).json(gameById)
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
