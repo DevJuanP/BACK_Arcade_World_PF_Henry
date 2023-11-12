@@ -40,8 +40,34 @@ const getUsersHandler = async (req, res) => {
 const getuserById = async (req, res) => {
   const {id} = req.params
   try {
-    if(!id) return res.json({error: "no seas, tienes que manar in id w(ﾟДﾟ)w"})
-    if(!validate(id)) return res.json({error: "ya pero esto no es uuid (ﾉ*･ω･)ﾉ"})
+    if(!validate(id)) {
+      const user = await User.findOne({
+        where: { uid: id },
+        include: [
+            {
+                model: Videogame,
+            },
+            {
+                model: Purchase,
+                include: {
+                    model: Videogame,
+                    attributes: ['id','name', 'image']
+                }
+            },
+            {
+                model: Cart,
+                include: {
+                    model: Videogame,
+                    attributes: ['id','name', 'image', 'price', ]
+                }
+            }
+        ]
+      })
+      
+      if(!user) return res.json({error: "ni buscando por uid existe el usuario (¬‿¬)"})
+      const parseUser = loginformaterUser(user)
+      return res.status(200).json(parseUser)
+    }
 
     const user = await User.findByPk(id, {
       include: [
@@ -64,9 +90,9 @@ const getuserById = async (req, res) => {
         }
       ]
     })
-    const parseUser = loginformaterUser(user)
+    
     if(!user) return res.json({error: "si es uuid, pero no hay usuario con ese id (¬‿¬)"})
-
+    const parseUser = loginformaterUser(user)
     res.status(200).json(parseUser)
   } catch (error) {
     res.status(400).json({ error: error.message });
