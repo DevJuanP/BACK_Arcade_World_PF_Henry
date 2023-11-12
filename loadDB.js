@@ -2078,6 +2078,7 @@ const LoadGame = async () => {
 const LoadUsers = async () => {
   const today = new Date()
   const twoMontsAgo = new Date()
+  const eneroDate = new Date("2023-01-01");
   twoMontsAgo.setMonth(today.getMonth()-2)
   try {
     for(const user of users){
@@ -2090,8 +2091,8 @@ const LoadUsers = async () => {
       })
       
       await User.update({
-        createdAt: twoMontsAgo,
-        updatedAt: twoMontsAgo
+        createdAt: eneroDate,
+        updatedAt: eneroDate
       }, {where: {nickname: user.nickname}})
     }
   } catch (error) {
@@ -2168,7 +2169,7 @@ const LoadDB = async () => {
         const amount = gamesTobuy.reduce((acum, vg) => acum + vg.price, 0)
         ///Aquí está la compra:
         const userCompra = await Purchase.create({
-          amount,
+          amount: Number(amount.toFixed(2)),
           UserId: userId
         })
 
