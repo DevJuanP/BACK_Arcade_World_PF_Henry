@@ -13,7 +13,7 @@ const {
 
 const UserRouter = Router()
 
-UserRouter.get('/', verifyToken, getUsersHandler)
+UserRouter.get('/', /*verifyToken,*/ getUsersHandler)
 UserRouter.post('/register', userRegisterHandler)
 UserRouter.post('/login', loginUserHandler)
 UserRouter.put('/logout', VG_userHandler)
