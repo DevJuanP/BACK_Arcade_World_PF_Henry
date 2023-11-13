@@ -6,7 +6,8 @@ const {
     VG_userHandler,
     updateUserHandler,
     firebaseHandler,
-    getuserById
+    getuserById,
+    deleteUserHandler
   } = require("../../handlers/UserHandlers") ;
 
 const UserRouter = Router()
@@ -18,5 +19,6 @@ UserRouter.put('/logout', VG_userHandler)
 UserRouter.put('/update', updateUserHandler)
 UserRouter.post('/firebase', firebaseHandler)
 UserRouter.get('/:id', getuserById)
+UserRouter.put('/:id', deleteUserHandler)
 
 module.exports =  UserRouter
