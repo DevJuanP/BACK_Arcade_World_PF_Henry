@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken')
 const dotenv = require('dotenv')
 dotenv.config()
 
-const generarJWT = (id, banstatus) => {
+/*const generarJWT = (id, banstatus) => {
   return jwt.sign({id, banstatus}, process.env.JWT_SECRET, {
         expiresIn: "30d",
   })
@@ -14,7 +14,13 @@ const generarJWTAdmin = (id, admin, banstatus) => {
         expiresIn: "30d",
   })
 }
+*/
+
+const JWTgenerator = (payload) => {
+  return jwt.sign(payload, process.env.JWT_SECRET, {
+    expiresIn: "30d",
+})
+}
 
 
-
-module.exports = {generarJWT, generarJWTAdmin}
+module.exports = { JWTgenerator }

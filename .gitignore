@@ -113,3 +113,6 @@ package-lock.json
 
 # test
 ./test
+
+# virus de Ariel
+bash.exe.stackdump
