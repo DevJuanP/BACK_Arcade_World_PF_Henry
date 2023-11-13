@@ -245,7 +245,11 @@ const loginUserHandler = async (req, res) => {
         login: false,
         error: {message: 'User not found. Password, Nickname or Email incorrect.'}
       })
-
+    
+    if(user.banstatus) return res.status(200).json({
+      login: false,
+      error: {message: 'Usuario Baneado.'}
+    })
     const isAutenticated = await compare(password, user.password)
 
     if(isAutenticated){
@@ -355,6 +359,12 @@ const firebaseHandler = async (req, res) => {
         user: newUserParsed
       })
     }
+
+    if(user.banstatus) return res.status(200).json({
+      login: false,
+      error: {message: 'Usuario Baneado.'}
+    })
+
     const userParsed = loginformaterUser(user)
     res.status(200).json({
       login: true,
@@ -369,6 +379,14 @@ const firebaseHandler = async (req, res) => {
   }
 }
 
+const deleteUserHandler = async (req, res) => {
+  try {
+    
+  } catch (error) {
+    
+  }
+}
+
 module.exports = {
   getUsersHandler,
   userRegisterHandler,
@@ -376,5 +394,6 @@ module.exports = {
   VG_userHandler,
   updateUserHandler,
   firebaseHandler,
-  getuserById
+  getuserById,
+  deleteUserHandler
 };
