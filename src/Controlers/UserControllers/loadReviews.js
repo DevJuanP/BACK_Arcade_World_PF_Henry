@@ -8,13 +8,13 @@ const loadReviews = async (UserId, reviews) => {
             where: {
               UserId: UserId,
               review: {
-                [Op.ne]: ''
+                [Op.ne]: null
                 }
             }
           });
         // → elimina los reviews previos:
         for(const relation of userRevRelation_prev){
-            await VG_user.update({ review: ''}, {
+            await VG_user.update({ review: null}, {
                 where: {
                     UserId: UserId,
                     VideogameId: relation.dataValues.VideogameId
