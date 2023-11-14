@@ -4,8 +4,7 @@ const { VG_user } = require('../../db')
 const wipeUnsedRelations = async () => {
     const unusedRelations = await VG_user.findAll({where: {
         favorites: false,
-        purchased: false,
-        review: '',
+        review: null,
         graphics: null,
         gameplay: null,
         quality_price: null

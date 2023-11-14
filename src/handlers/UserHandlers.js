@@ -283,12 +283,12 @@ const loginUserHandler = async (req, res) => {
 };
 
 const VG_userHandler = async (req, res) => {
-  const { UserId, favorites, reviews, purchased, graphics, gameplay, quality_price } = req.body;
+  const dataToUpdate = await objectFilter(req.body)
+  const { UserId, favorites, reviews, graphics, gameplay, quality_price } = dataToUpdate;
   try {
 
-    await loadFavorites(UserId, favorites);
-    await loadReviews(UserId, reviews);
-    await loadPurchased(UserId, purchased);
+    if(favorites) await loadFavorites(UserId, favorites);
+    if(reviews) await loadReviews(UserId, reviews);
     await loadStars(UserId, graphics, gameplay, quality_price);
 
     await wipeUnsedRelations();
