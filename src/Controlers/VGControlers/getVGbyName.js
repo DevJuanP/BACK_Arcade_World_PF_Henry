@@ -60,6 +60,7 @@ const getVGbyName =  async (name) => {
                 image: vg.image,
                 price: vg.price,
                 released: vg.released,
+                isActive: vg.isActive,
                 createdAt: vg.createdAt.toISOString().slice(0, 10),
                 updatedAt: vg.updatedAt.toISOString().slice(0, 10),
                 genres: vg.genres.map(g => g.name),

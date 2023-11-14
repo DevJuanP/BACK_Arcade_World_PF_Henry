@@ -54,7 +54,7 @@ const postGameHandler = async (req, res) => {
 
 const updateGameHandler = async (req, res) => {
   try {
-    const dataToUpdate = await objectFilter(req.body);
+    const dataToUpdate = await objectFilter(req.body);//
     const { id, genreIds, platformIds } = dataToUpdate;
     if (!id) return res.json({
         error: "id del juego no recibida",
