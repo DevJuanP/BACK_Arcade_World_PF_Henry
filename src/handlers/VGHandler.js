@@ -69,13 +69,17 @@ const updateGameHandler = async (req, res) => {
 
     if (!game) return res.json({ error: "juego no encontrado" });
 
-    const prevGenresIds = game.genres.map( g => g.id)
-    const prevPlatIds = game.platforms.map( p => p.id)
+    if(genreIds){
+        const prevGenresIds = game.genres.map( g => g.id)
+        await game.removeGenre(prevGenresIds)
+        await game.addGenre(genreIds)
+    }
 
-    await game.removeGenre(prevGenresIds)
-    await game.removePlatform(prevPlatIds)
-    await game.addGenre(genreIds)
-    await game.addPlatform(platformIds)
+    if(platformIds){
+        const prevPlatIds = game.platforms.map( p => p.id)
+        await game.removePlatform(prevPlatIds)
+        await game.addPlatform(platformIds)
+    }
 
     await Videogame.update(dataToUpdate, {
       where: { id },
