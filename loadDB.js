@@ -2028,13 +2028,13 @@ const {
   User,
   VG_user,
   Purchase,
-  Videogame_Purchase
 } = require("./src/db.js");
 
 const { conn } = require('./src/db.js');
 const { hash } = require('./src/utils/hash.js')
 const { Op } = require('sequelize')
 const randomDate = require('./src/utils/randomDate.js')
+const parseDate = require('./src/utils/parseDate.js')
 
 const LoadGenre = async () => {
   try {
@@ -2076,10 +2076,6 @@ const LoadGame = async () => {
 };
 
 const LoadUsers = async () => {
-  const today = new Date()
-  const twoMontsAgo = new Date()
-  const eneroDate = new Date("2023-01-01");
-  twoMontsAgo.setMonth(today.getMonth()-2)
   try {
     for(const user of users){
       const password = await hash("123asd")
@@ -2091,8 +2087,8 @@ const LoadUsers = async () => {
       })
       
       await User.update({
-        createdAt: eneroDate,
-        updatedAt: eneroDate
+        createdAt: randomDate(),//5 de enero
+        updatedAt: randomDate()
       }, {where: {nickname: user.nickname}})
     }
   } catch (error) {
@@ -2239,17 +2235,25 @@ const LoadDB = async () => {
       }
     }
 
-    const allPurchases = await Purchase.findAll()
-    const allPurIds = allPurchases.map(p => p.id)
+    const users = await User.findAll({
+      include: { model: Purchase },
+    });
+  
+    const userDatePur = users.map((u) => {
+      return{
+          date: parseDate(u.dataValues.createdAt).date,
+          purIds: u.Purchases.map(p => p.id)
+      }
+    })
 
-
-
-    for(const purId of allPurIds){
-      const randDate = randomDate()
-      await Purchase.update({
-        createdAt: randDate,
-        updatedAt: randDate
-      }, { where: {id : purId}})
+    for(const obj of userDatePur){
+      for(const purId of obj.purIds){
+        await Purchase.update({
+          createdAt: randomDate(obj.date)
+        }, {
+          where: {id: purId}
+        })
+      }
     }
 
     console.log('usuarios terminaron de interactuar\n\n\n');

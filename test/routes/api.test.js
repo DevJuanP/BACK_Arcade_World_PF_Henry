@@ -64,10 +64,7 @@ afterAll(async () => {
         UserId: randomuserid,
         GamesIds: [randomid],
       };
-      const response = await axios.post(
-        `${serverUrl}/cart/purchased`,
-        requestBody
-      );
+      const response = await axios.post(`${serverUrl}/cart/purchased`, requestBody);
       // Verifica que la respuesta sea un objeto.
       expect(typeof response.data).toBe("object");
 
