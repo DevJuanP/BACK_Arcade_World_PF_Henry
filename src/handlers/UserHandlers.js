@@ -9,7 +9,10 @@ const loadPurchased = require('../Controlers/UserControllers/loadPurchased')
 const loadStars = require('../Controlers/UserControllers/loadStars')
 const wipeUnsedRelations = require('../Controlers/UserControllers/wipeUnsedRelations')
 const { hash, compare } = require('../utils/hash')
-const {correoDeBienvenida} = require('../utils/nodemailer')
+const {correoDeBienvenida, 
+  correoDeBaneo,
+  correoDeDesbaneo,
+  correoDeCambioDeContraseña } = require('../utils/nodemailer')
 const { Op } = require('sequelize')
 const profileGenerator = require('../utils/profileGenerator')
 const objectFilter = require('../utils/objectFilter')
@@ -133,7 +136,7 @@ const userRegisterHandler = async (req, res) => {
 const updateUserHandler = async (req, res) => {
   try {
     const dataToUpdate = await objectFilter(req.body)//se queda con lo necesario y hashea el password
-    const {id, uid} = dataToUpdate
+    const {id, uid, Email} = dataToUpdate
     if(id && uid) return res.json({error: 'conflicto entre id y uid'})
     if(id){
       const user = await User.findByPk(id)
@@ -163,6 +166,7 @@ const updateUserHandler = async (req, res) => {
         ]
       })
       const parseUser = loginformaterUser(updateUser)
+      const wasSend = await correoDeBienvenida(Email || parseUser.Email);
       return res.status(200).json(parseUser)
     }
     if(uid){
@@ -193,6 +197,7 @@ const updateUserHandler = async (req, res) => {
         ]
       })
       const parseUser = loginformaterUser(updateUser)
+      const wasSend = await correoDeBienvenida(Email || parseUser.Email);
       return res.status(200).json(parseUser)
     }
     res.json({error: {message: 'id or uid is missing'}})

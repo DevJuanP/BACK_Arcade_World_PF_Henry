@@ -2,8 +2,9 @@ const GetAllVideogames = require("../Controlers/VGControlers/GetAllVideogames");
 const getVGbyName = require('../Controlers/VGControlers/getVGbyName')
 const getGameById = require('../Controlers/VGControlers/getGameById')
 const objectFilter = require('../utils/objectFilter')
-const { Videogame, platform, genre } = require('../db')
+const { Videogame, platform, genre, User } = require('../db')
 const { validate } = require('uuid')
+const formaterGame = require('../Controlers/VGControlers/formaterGame')
 
 // Controlador para obtener todos los videojuegos con información detallada
 
@@ -27,8 +28,10 @@ const getGamebyIdHandler = async (req, res) => {
     try {
         //validaciones:
         if(!validate(id)) return res.json({error: "ya pero esto no es uuid (ﾉ*･ω･)ﾉ"})
+
         ///
         const gameById = await getGameById(id)
+        if (!gameById) return res.json({error: "juego no encontrado"})
         res.status(200).json(gameById)
     } catch (error) {
         res.status(400).json({ error: error.message });
@@ -92,9 +95,27 @@ const updateGameHandler = async (req, res) => {
   }
 };
 
+const getALLgamesHandler = async (req, res) => {
+    try {
+        const games = await Videogame.findAll({
+            include: [
+                { model: genre },
+                { model: platform },
+                { model: User }
+            ]
+        });
+    
+        const gamesParsed = games.map(vg => formaterGame(vg));
+        res.status(200).json(gamesParsed)
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+}
+
 module.exports = {
     getGamesHandler,
     getGamebyIdHandler,
     postGameHandler,
-    updateGameHandler
+    updateGameHandler,
+    getALLgamesHandler
 };

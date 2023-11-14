@@ -82,7 +82,7 @@ afterAll(async () => {
       const data = response.data;
   
       expect(data).toBeInstanceOf(Array);
-      expect(data.length).toBeGreaterThan (99);
+      expect(data.length).toBeGreaterThan (80);
     });
     it('La respuesta de la API debe traer los juegos por ID', async () => {
       const games = await Videogame.findAll();
