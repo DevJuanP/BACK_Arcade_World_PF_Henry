@@ -292,7 +292,33 @@ const VG_userHandler = async (req, res) => {
     await loadStars(UserId, graphics, gameplay, quality_price);
 
     await wipeUnsedRelations();
-    res.status(200).json({ success: 'Successful update of the relationship between users and video games' });
+
+    const user = await User.findByPk(UserId, {
+      include: [
+        {
+            model: Videogame,
+        },
+        {
+            model: Purchase,
+            include: {
+                model: Videogame,
+                attributes: ['id','name', 'image']
+            }
+        },
+        {
+            model: Cart,
+            include: {
+                model: Videogame,
+                attributes: ['id','name', 'image', 'price', ]
+            }
+        }
+    ]
+    })
+    const parseUser = loginformaterUser(user)
+    res.status(200).json({
+      login: true,
+      user: parseUser
+    });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
