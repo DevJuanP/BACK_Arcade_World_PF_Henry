@@ -61,6 +61,7 @@ const loginformaterUser = (user) => {
         logincount: user.logincount,
         admin: user.admin,
         banstatus: user.banstatus,
+        country: user.country,
         createdAt: parseDate(user.createdAt).date,
         purchased,
         favorites,//array de ideas
