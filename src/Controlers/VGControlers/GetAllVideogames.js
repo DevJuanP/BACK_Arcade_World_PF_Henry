@@ -7,7 +7,8 @@ const GetAllVideogames = async () => {
             { model: genre },
             { model: platform },
             { model: User }
-        ]
+        ],
+        where: {isActive: true}
     });
 
     const gamesParsed = games.map(vg => formaterGame(vg));

@@ -6,6 +6,7 @@ const startParse = require('../../utils/starsParse')
         return {
             userId: user.id,
             nickName: user.nickname,
+            photo: user.image,
             lastUpdate: user.VG_user.review.editedAt.toISOString().slice(0, 10),
             review: user.VG_user.review.value
         };
