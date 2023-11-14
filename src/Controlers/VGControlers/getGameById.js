@@ -19,6 +19,7 @@ const getGameById = async (id) => {
             { model: User }
         ]
     });
+    if(!gamebyId) return null
 
     const parseGme = formaterGame(gamebyId)
 
