@@ -33,7 +33,7 @@ const purchasedhandler = async (req, res) => {
                             description: `Thanks, ${vg.name} is amazing, enjoy it.`
                         },
                         currency: 'usd',
-                        unit_amount: Math.floor(vg.price*100)
+                        unit_amount: Number((vg.price*100).toFixed(2))
                     },
                     quantity: 1
                 }
@@ -43,7 +43,10 @@ const purchasedhandler = async (req, res) => {
             cancel_url: `http://localhost:5173/cart/failed`,
           });
 
-        res.status(200).json({session_url: session.url})
+        res.status(200).json({
+            session_url: session.url,
+            amount: Number((games.reduce((total, vg)=> total + vg.price, 0)).toFixed(2))
+        })
     } catch (error) {
         res.status(400).json({error: error.message})
     }
@@ -55,9 +58,10 @@ const cartSuccessHandler = async (req, res) => {
         const newPurchase = await Purchase.create({
             amount,
             paymentMethod: 'stripe',
-            UserId,
+            UserId: UserId
         })
 
+        //
         await newPurchase.addVideogame(GamesIds)
         res.status(200).json({success: 'new purchase added'})
     } catch (error) {

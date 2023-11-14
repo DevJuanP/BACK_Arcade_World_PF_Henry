@@ -54,6 +54,7 @@ const getGameById = async (id) => {
         image: gamebyId.image,
         price: gamebyId.price,
         released: gamebyId.released,
+        isActive: gamebyId.isActive,
         createdAt: gamebyId.createdAt.toISOString().slice(0, 10),
         updatedAt: gamebyId.updatedAt.toISOString().slice(0, 10),
         genres: gamebyId.genres.map(g => g.name),

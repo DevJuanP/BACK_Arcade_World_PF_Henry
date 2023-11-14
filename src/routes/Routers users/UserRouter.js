@@ -10,16 +10,17 @@ const {
     getuserById,
     deleteUserHandler
   } = require("../../handlers/UserHandlers") ;
+const {userMidellweare, adminMidellweare} = require('../../middleware/verifyToken')
 
 const UserRouter = Router()
 
-UserRouter.get('/', /*verifyToken,*/ getUsersHandler)
+UserRouter.get('/', /*adminMidellweare,*/ getUsersHandler)
 UserRouter.post('/register', userRegisterHandler)
 UserRouter.post('/login', loginUserHandler)
 UserRouter.put('/logout', VG_userHandler)
 UserRouter.put('/update', updateUserHandler)
 UserRouter.post('/firebase', firebaseHandler)
-UserRouter.get('/:id', getuserById)
-UserRouter.put('/:id', deleteUserHandler)
+UserRouter.get('/:id', /*userMidellweare,*/ getuserById)
+UserRouter.put('/delete', deleteUserHandler)
 
 module.exports =  UserRouter

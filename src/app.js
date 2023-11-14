@@ -12,8 +12,8 @@ server.use(morgan('dev'))
 server.use(cors({
   origin: '*',
   credentials: true,
-  allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept'],
-  methods: ['GET', 'POST', 'OPTIONS', 'PUT', 'DELETE']
+  allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'Authorization'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE']
 }))
 
 server.use('/', routes)
