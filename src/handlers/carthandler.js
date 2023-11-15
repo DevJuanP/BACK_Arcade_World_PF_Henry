@@ -39,8 +39,8 @@ const purchasedhandler = async (req, res) => {
                 }
             }),
             mode: 'payment',
-            success_url: 'http://localhost:5173/cart/summary',
-            cancel_url: `http://localhost:5173/cart/failed`,
+            success_url: 'https://monumental-dragon-891db4.netlify.app/cart/summary',
+            cancel_url: `https://monumental-dragon-891db4.netlify.app/cart/failed`,
           });
 
         res.status(200).json({
