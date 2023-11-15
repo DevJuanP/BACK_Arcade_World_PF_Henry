@@ -4,7 +4,7 @@ const { VG_user } = require('../../db')
 const loadFavorites = async (UserId, favorites) => {
     ////→→ carga los favoritos ←←////
         // → busca favoritos previos:
-    const userFavRelation_prev = await VG_user.findAll({ where: {
+    /*const userFavRelation_prev = await VG_user.findAll({ where: {
         UserId: UserId,
         favorites: true
     }})
@@ -17,7 +17,7 @@ const loadFavorites = async (UserId, favorites) => {
             }
         })
     }
-    // → coloca los nuevos favoritos:
+    // → coloca los nuevos favoritos:*/
     for(const GameId of favorites){
         
         const userFavRelation = await VG_user.findOne({ where: { 

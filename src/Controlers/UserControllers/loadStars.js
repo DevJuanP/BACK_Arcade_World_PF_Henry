@@ -5,7 +5,7 @@ const loadStars = async (UserId, graphics, gameplay, quality_price) => {
   if (graphics) {
     ////→→ carga los Graficos ←←////
     // → busca Graficos previos:
-    const useGraphRelation_prev = await VG_user.findAll({
+    /*const useGraphRelation_prev = await VG_user.findAll({
       where: {
         UserId: UserId,
         graphics: {
@@ -24,7 +24,7 @@ const loadStars = async (UserId, graphics, gameplay, quality_price) => {
           },
         }
       );
-    }
+    }*/
     // → coloca los nuevos Graficos:
     for (const GraphFromUser of graphics) {
       const userGraphRelation = await VG_user.findOne({
@@ -57,7 +57,7 @@ const loadStars = async (UserId, graphics, gameplay, quality_price) => {
   if (gameplay) {
     ////→→ carga los Gameplay ←←////
     // → busca Gameplay previos:
-    const useGPrelation_prev = await VG_user.findAll({
+    /*const useGPrelation_prev = await VG_user.findAll({
       where: {
         UserId: UserId,
         gameplay: {
@@ -76,7 +76,7 @@ const loadStars = async (UserId, graphics, gameplay, quality_price) => {
           },
         }
       );
-    }
+    }*/
     // → coloca los nuevos Gameplay:
     for (const GPfromUser of gameplay) {
       const userGPRelation = await VG_user.findOne({
@@ -109,7 +109,7 @@ const loadStars = async (UserId, graphics, gameplay, quality_price) => {
   if (quality_price) {
     ////→→ carga los quality_price ratio ←←////
     // → busca quality_price ratio previos:
-    const userQaRelation_prev = await VG_user.findAll({
+    /*const userQaRelation_prev = await VG_user.findAll({
       where: {
         UserId: UserId,
         quality_price: {
@@ -128,7 +128,7 @@ const loadStars = async (UserId, graphics, gameplay, quality_price) => {
           },
         }
       );
-    }
+    }*/
     // → coloca los nuevos quality_price ratio:
     for (const QPfromUser of quality_price) {
       const userQPRelation = await VG_user.findOne({
