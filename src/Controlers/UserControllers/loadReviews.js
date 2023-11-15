@@ -4,7 +4,7 @@ const { Op } = require('sequelize')
 const loadReviews = async (UserId, reviews) => {
     ////→→ carga los Reviews ←←////
         // → busca reviews previos:
-        const userRevRelation_prev = await VG_user.findAll({
+       /* const userRevRelation_prev = await VG_user.findAll({
             where: {
               UserId: UserId,
               review: {
@@ -20,7 +20,7 @@ const loadReviews = async (UserId, reviews) => {
                     VideogameId: relation.dataValues.VideogameId
                 }
             })
-        }
+        }*/
         // → coloca los nuevos reviews:
         for(const reviewFromUser of reviews){
 
