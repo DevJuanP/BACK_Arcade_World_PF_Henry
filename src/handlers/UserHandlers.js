@@ -22,6 +22,7 @@ const { JWTgenerator } = require('../utils/jwt')
 const admin = require('firebase-admin')
 const { initializeApp, cert } = require('firebase-admin/app');
 const serviceAccount = require('../../firebase/arcadeworld-507c9-firebase-adminsdk-llem5-661bf18c05.json');
+const getGameById = require('../Controlers/VGControlers/getGameById')
 initializeApp({
   credential: cert(serviceAccount)
 });
@@ -290,6 +291,7 @@ const loginUserHandler = async (req, res) => {
 const VG_userHandler = async (req, res) => {
   const dataToUpdate = await objectFilter(req.body)
   const { UserId, favorites, reviews, graphics, gameplay, quality_price } = dataToUpdate;
+  let toSend = {}
   try {
 
     if(favorites) await loadFavorites(UserId, favorites);
@@ -298,32 +300,13 @@ const VG_userHandler = async (req, res) => {
 
     await wipeUnsedRelations();
 
-    const user = await User.findByPk(UserId, {
-      include: [
-        {
-            model: Videogame,
-        },
-        {
-            model: Purchase,
-            include: {
-                model: Videogame,
-                attributes: ['id','name', 'image']
-            }
-        },
-        {
-            model: Cart,
-            include: {
-                model: Videogame,
-                attributes: ['id','name', 'image', 'price', ]
-            }
-        }
-    ]
-    })
-    const parseUser = loginformaterUser(user)
-    res.status(200).json({
-      login: true,
-      user: parseUser
-    });
+    if(reviews && reviews[0].GameId){
+      toSend = await getGameById(reviews[0].GameId)
+    }else{
+      toSend = {success: "cambios del game realizados"}
+    }
+
+    res.status(200).json(toSend);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
