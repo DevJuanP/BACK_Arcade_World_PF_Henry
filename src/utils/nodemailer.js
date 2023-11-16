@@ -17,7 +17,7 @@ const correoDeBienvenida = async (Email) => {
         html: `<!DOCTYPE html>
         <html>
         <head>
-            <title>Bienvenido a Arcade World: Tu Destino para Comprar Juegos</title>
+            <title>Welcome to Arcade World: Your Destination to Buy Games</title>
         </head>
         <body>
             <table width="100%" bgcolor="#2a2a2a">
@@ -26,27 +26,27 @@ const correoDeBienvenida = async (Email) => {
                         <table align="center" width="600" style="background-color: #1c1c1c; padding: 30px; margin-top: 20px; margin-bottom: 20px; border-radius: 10px; text-align: center;">
                             <tr>
                                 <td>
-                                    <img src="https://tuurl.com/logo_VG.png" alt="Logo de Arcade World" width="200">
-                                    <h1 style="color: #ffffff; font-family: Arial, sans-serif; font-size: 28px; margin-top: 20px;">¡Bienvenido a Arcade World!</h1>
-                                    <p style="color: #ffffff; font-family: Arial, sans-serif; font-size: 20px;">Tu destino para comprar y explorar el emocionante mundo de los videojuegos.</p>
+                                    <img src="https://tuurl.com/logo_VG.png" alt="Arcade World Logo" width="200">
+                                    <h1 style="color: #ffffff; font-family: Arial, sans-serif; font-size: 28px; margin-top: 20px;">Welcome to Arcade World!</h1>
+                                    <p style="color: #ffffff; font-family: Arial, sans-serif; font-size: 20px;">Your destination to shop and explore the thrilling world of video games.</p>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <p style="color: #ffffff; font-family: Arial, sans-serif; font-size: 20px;">En Arcade World, estás a punto de embarcarte en un emocionante viaje a través de un vasto mundo de videojuegos.</p>
-                                    <p style="color: #ffffff; font-family: Arial, sans-serif; font-size: 20px;">Como miembro de nuestra comunidad, disfrutarás de las siguientes ventajas:</p>
+                                    <p style="color: #ffffff; font-family: Arial, sans-serif; font-size: 20px;">In Arcade World, you are about to embark on an exciting journey through a vast world of video games.</p>
+                                    <p style="color: #ffffff; font-family: Arial, sans-serif; font-size: 20px;">As a member of our community, you will enjoy the following benefits:</p>
                                     <ul style="color: #ffffff; font-family: Arial, sans-serif; font-size: 20px; margin-left: 20px;">
-                                        <li>Acceso a una amplia selección de juegos para todas las plataformas: PC, consolas y dispositivos móviles.</li>
-                                        <li>Ofertas especiales y descuentos exclusivos para nuestros miembros.</li>
-                                        <li>Actualizaciones periódicas sobre los últimos lanzamientos y reseñas de juegos.</li>
-                                        <li>La oportunidad de formar parte de una comunidad de jugadores apasionados.</li>
+                                        <li>Access to a wide selection of games for all platforms: PC, consoles, and mobile devices.</li>
+                                        <li>Special offers and exclusive discounts for our members.</li>
+                                        <li>Regular updates on the latest game releases and reviews.</li>
+                                        <li>The opportunity to be part of a community of passionate gamers.</li>
                                     </ul>
-                                    <p style="color: #ffffff; font-family: Arial, sans-serif; font-size: 20px;">¡Te damos la bienvenida a bordo de Arcade World! Esperamos que disfrutes de tu experiencia en nuestra plataforma y que encuentres los juegos que más te apasionen.</p>
+                                    <p style="color: #ffffff; font-family: Arial, sans-serif; font-size: 20px;">We welcome you aboard Arcade World! We hope you enjoy your experience on our platform and find the games that you are most passionate about.</p>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <p style="color: #ffffff; font-family: Arial, sans-serif; font-size: 20px;">Si necesitas asistencia o tienes alguna pregunta, nuestro equipo de soporte estará encantado de ayudarte en todo momento.</p>
+                                    <p style="color: #ffffff; font-family: Arial, sans-serif; font-size: 20px;">If you need assistance or have any questions, our support team will be happy to help you at all times.</p>
                                 </td>
                             </tr>
                         </table>
@@ -55,7 +55,8 @@ const correoDeBienvenida = async (Email) => {
             </table>
         </body>
         </html>
-        `,
+        
+                `,
         };
     
         const response = await transporter.sendMail(mailOptions);
